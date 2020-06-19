@@ -1,6 +1,6 @@
 package com.company;
 
-public class Avion {
+public abstract class Avion {
 
     private short capacidadCombustible;
     private double costoPorKm; // entre 150 y 300
