@@ -51,7 +51,7 @@ public class AvionGold extends Avion implements ServicioCatering {
                 "\n\t-Costo /km: $" + getCostoPorKm() + "." +
                 "\n\t-Capacidad maxima de pasajeros: " + getCapacidadMaximaPasajeros() + "." +
                 "\n\t-Velocidad maxima: " + getVelocidadMaxima() + "km/h." +
-                "\n\t-Tipo de propulsion: " + getPropulsion() + "." +
+                "\n\t-Tipo de propulsion: " + getPropulsion().getTipo() + "." +
                 "\n\t-Tarifa fija: $" + getTarifaFija() + "." +
                 "\n\t-Wifi: " + wifi + "." +
                 "\n\t-Servicio de catering: " + servicioCatering + ".";

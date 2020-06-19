@@ -40,7 +40,7 @@ public class AvionSilver extends Avion implements ServicioCatering{
                 "\n\t-Costo /km: $" + getCostoPorKm() + "." +
                 "\n\t-Capacidad maxima de pasajeros: " + getCapacidadMaximaPasajeros() + "." +
                 "\n\t-Velocidad maxima: " + getVelocidadMaxima() + "km/h." +
-                "\n\t-Tipo de propulsion: " + getPropulsion() + "." +
+                "\n\t-Tipo de propulsion: " + getPropulsion().getTipo() + "." +
                 "\n\t-Tarifa fija: $" + getTarifaFija() + "." +
                 "\n\t-Wifi: No."  +
                 "\n\t-Servicio de catering: " + servicioCatering + ".";
