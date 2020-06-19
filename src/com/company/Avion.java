@@ -99,7 +99,7 @@ public abstract class Avion {
                 ", costoPorKm=" + costoPorKm +
                 ", capacidadMaximaPasajeros=" + capacidadMaximaPasajeros +
                 ", velocidadMaxima=" + velocidadMaxima +
-                ", propulsion=" + propulsion +
+                ", propulsion=" + propulsion.getTipo() +
                 ", tarifaFija=" + tarifaFija +
                 '}';
     }
