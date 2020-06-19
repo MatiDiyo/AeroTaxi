@@ -12,7 +12,7 @@ public abstract class Avion {
 
     public Avion(){}
 
-    //constructor con tarifa por defecto
+    //constructor con tarifa por defecto para las herencias
     public Avion(short capacidadCombustible, double costoPorKm, short capacidadMaximaPasajeros, short velocidadMaxima, Propulsion propulsion) {
         this.capacidadCombustible = capacidadCombustible;
         this.costoPorKm = costoPorKm;
