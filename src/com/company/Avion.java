@@ -3,7 +3,7 @@ package com.company;
 public class Avion {
 
     private short capacidadCombustible;
-    private double costoPorKm;
+    private double costoPorKm; // entre 150 y 300
     private short capacidadMaximaPasajeros;
     private short velocidadMaxima;
     private Propulsion propulsion;
