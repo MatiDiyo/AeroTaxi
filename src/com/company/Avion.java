@@ -1,11 +1,14 @@
 package com.company;
 
+import java.util.UUID;
+
 public abstract class Avion {
 
-    private short capacidadCombustible;
+    private UUID uuid;
+    private int capacidadCombustible;
     private double costoPorKm; // entre 150 y 300
-    private short capacidadMaximaPasajeros;
-    private short velocidadMaxima;
+    private int capacidadMaximaPasajeros;
+    private int velocidadMaxima;
     private Propulsion propulsion;
     //private boolean servicioCatering; usaremos una interface para el catering
     private int tarifaFija;
@@ -13,7 +16,8 @@ public abstract class Avion {
     public Avion(){}
 
     //constructor con tarifa por defecto para las herencias
-    public Avion(short capacidadCombustible, double costoPorKm, short capacidadMaximaPasajeros, short velocidadMaxima, Propulsion propulsion) {
+    public Avion(int capacidadCombustible, double costoPorKm, int capacidadMaximaPasajeros, int velocidadMaxima, Propulsion propulsion) {
+        this.uuid = UUID.randomUUID();
         this.capacidadCombustible = capacidadCombustible;
         this.costoPorKm = costoPorKm;
         this.capacidadMaximaPasajeros = capacidadMaximaPasajeros;
@@ -22,7 +26,8 @@ public abstract class Avion {
     }
 
     //contructor con tarifa modificable
-    public Avion(short capacidadCombustible, double costoPorKm, short capacidadMaximaPasajeros, short velocidadMaxima, Propulsion propulsion, int tarifaFija) {
+    public Avion(int capacidadCombustible, double costoPorKm, int capacidadMaximaPasajeros, int velocidadMaxima, Propulsion propulsion, int tarifaFija) {
+        this.uuid = UUID.randomUUID();
         this.capacidadCombustible = capacidadCombustible;
         this.costoPorKm = costoPorKm;
         this.capacidadMaximaPasajeros = capacidadMaximaPasajeros;
@@ -31,11 +36,19 @@ public abstract class Avion {
         this.tarifaFija = tarifaFija;
     }
 
-    public short getCapacidadCombustible() {
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public int getCapacidadCombustible() {
         return capacidadCombustible;
     }
 
-    public void setCapacidadCombustible(short capacidadCombustible) {
+    public void setCapacidadCombustible(int capacidadCombustible) {
         this.capacidadCombustible = capacidadCombustible;
     }
 
@@ -47,19 +60,19 @@ public abstract class Avion {
         this.costoPorKm = costoPorKm;
     }
 
-    public short getCapacidadMaximaPasajeros() {
+    public int getCapacidadMaximaPasajeros() {
         return capacidadMaximaPasajeros;
     }
 
-    public void setCapacidadMaximaPasajeros(short capacidadMaximaPasajeros) {
+    public void setCapacidadMaximaPasajeros(int capacidadMaximaPasajeros) {
         this.capacidadMaximaPasajeros = capacidadMaximaPasajeros;
     }
 
-    public short getVelocidadMaxima() {
+    public int getVelocidadMaxima() {
         return velocidadMaxima;
     }
 
-    public void setVelocidadMaxima(short velocidadMaxima) {
+    public void setVelocidadMaxima(int velocidadMaxima) {
         this.velocidadMaxima = velocidadMaxima;
     }
 
@@ -77,5 +90,17 @@ public abstract class Avion {
 
     public void setTarifaFija(int tarifaFija) {
         this.tarifaFija = tarifaFija;
+    }
+
+    @Override
+    public String toString() {
+        return "Avion{" +
+                "capacidadCombustible=" + capacidadCombustible +
+                ", costoPorKm=" + costoPorKm +
+                ", capacidadMaximaPasajeros=" + capacidadMaximaPasajeros +
+                ", velocidadMaxima=" + velocidadMaxima +
+                ", propulsion=" + propulsion +
+                ", tarifaFija=" + tarifaFija +
+                '}';
     }
 }
