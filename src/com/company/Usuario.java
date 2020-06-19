@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Objects;
+
 public class Usuario {
 
     protected String nombre;
@@ -49,5 +51,22 @@ public class Usuario {
 
     public void setDni(String dni) {
         this.dni = dni;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Double.compare(usuario.dineroGastado, dineroGastado) == 0 &&
+                Objects.equals(nombre, usuario.nombre) &&
+                Objects.equals(apellido, usuario.apellido) &&
+                Objects.equals(dni, usuario.dni) &&
+                Objects.equals(edad, usuario.edad);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, apellido, dni, edad, dineroGastado);
     }
 }

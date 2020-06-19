@@ -29,74 +29,8 @@ public class Main {
         ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
         File fileUsuarios = new File("archivoUsuarios.json");
-
         listaUsuarios = archivoUsuarios.archivoToArrayUsuario(fileUsuarios);
-
         int sizeUsuariosList = listaUsuarios.size();
-
-        for (int i=0; i < sizeUsuariosList ; i++){
-            System.out.println(listaUsuarios.get(i).nombre);
-            System.out.println(listaUsuarios.get(i).dni);
-
-        }
-
-        /*
-        try
-        {
-            File file = new File("mi_archivo.json");
-
-
-            ObjectMapper mapper = new ObjectMapper();
-
-            //Object to JSON in file
-            Usuario p = new Usuario();
-            Usuario p2 = new Usuario();
-            Usuario p3 = new Usuario();
-            String jsonString ;
-
-
-            var arrayP = new ArrayList<Usuario>();
-
-
-            p.setNombre("test1");
-            p2.setNombre("test2");
-            p3.setNombre("test3");
-            p.setDni("12345");
-            p2.setDni("12345");
-            p3.setDni("12345");
-
-            arrayP.add(p);
-            arrayP.add(p2);
-            arrayP.add(p3);
-
-            mapper.writeValue(file , arrayP );
-
-
-            int size = arrayP.size();
-            /// LECTURA JACKSON
-
-            ArrayList<Usuario> arrayLectura;
-
-
-            arrayLectura = mapper.readValue( file , ArrayList.class );
-
-            Usuario pLectura = new Usuario();
-
-            jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pLectura);
-
-            for (int i = 0; i < size; i++) {
-                jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i));
-                pLectura = mapper.readValue( jsonString , Usuario.class );
-                System.out.println(pLectura.getNombre());
-                System.out.println(pLectura.getDni());
-            }
-
-        }catch (IOException e){
-            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
-            e.printStackTrace();
-
-        }
-        */
 
         while (!salir) {
 
@@ -204,12 +138,23 @@ public class Main {
                         System.out.println("Registro");
 
                         Usuario nuevoUsuario = new Usuario();
+                        boolean flagDni=false;
 
-                        System.out.println("Ingrese su dni");
-                        nuevoUsuario.dni = sn.nextLine();
-                        // comprobar con archivos si el dni esta registrado, si no lo esta seguir con el proceso
+                       do {
+                            sn.nextLine();
+                            System.out.println("Ingrese su dni");
+                            nuevoUsuario.dni = sn.nextLine();
+                            flagDni = false;
+                            // comprobar con archivos si el dni esta registrado, si no lo esta seguir con el proceso
+                            for (int i=0; i <sizeUsuariosList ; i++){
+                                if ( nuevoUsuario.dni.equals(listaUsuarios.get(i).dni)) {
+                                    flagDni = true;
+                                    System.out.println("Ya existe.");
+                                    break;
+                                }
+                            }
+                        }while (flagDni);
 
-                        sn.nextLine();
                         System.out.println("Ingrese su nombre");
                         nuevoUsuario.nombre = sn.nextLine();
 
@@ -221,8 +166,11 @@ public class Main {
 
                         nuevoUsuario.dineroGastado = 0;
 
-                        // guardar  nuevoUsuario en  el archivo con json
+                        listaUsuarios.add(nuevoUsuario);
 
+                        // guardar  nuevoUsuario en  el archivo con json
+                        archivoUsuarios.guardarListaEnArchivoUsuarios(listaUsuarios);
+                        System.out.println("usuario guardado...");
                         break;
 
                     case 3:

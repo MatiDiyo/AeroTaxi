@@ -15,7 +15,6 @@ public class Archivo {
 
         try
         {
-
             File file = new File("archivoUsuarios.json");
 
             ObjectMapper mapper = new ObjectMapper();
@@ -89,5 +88,21 @@ public class Archivo {
         }
 
         return listaUsuarios;
+    }
+
+    public void guardarListaEnArchivoUsuarios( ArrayList<Usuario> usuarios)
+    {
+        try
+        {
+            File file = new File("archivoUsuarios.json");
+
+            ObjectMapper mapper = new ObjectMapper();
+            //Object to JSON in file
+            mapper.writeValue(file , usuarios );
+
+        }catch (IOException e){
+            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
