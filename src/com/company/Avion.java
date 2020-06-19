@@ -11,4 +11,6 @@ public class Avion {
     protected int tarifaFija;
 
 
+
+
 }
