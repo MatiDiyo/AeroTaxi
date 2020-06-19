@@ -12,6 +12,16 @@ public abstract class Avion {
 
     public Avion(){}
 
+    //constructor con tarifa por defecto
+    public Avion(short capacidadCombustible, double costoPorKm, short capacidadMaximaPasajeros, short velocidadMaxima, Propulsion propulsion) {
+        this.capacidadCombustible = capacidadCombustible;
+        this.costoPorKm = costoPorKm;
+        this.capacidadMaximaPasajeros = capacidadMaximaPasajeros;
+        this.velocidadMaxima = velocidadMaxima;
+        this.propulsion = propulsion;
+    }
+
+    //contructor con tarifa modificable
     public Avion(short capacidadCombustible, double costoPorKm, short capacidadMaximaPasajeros, short velocidadMaxima, Propulsion propulsion, int tarifaFija) {
         this.capacidadCombustible = capacidadCombustible;
         this.costoPorKm = costoPorKm;
