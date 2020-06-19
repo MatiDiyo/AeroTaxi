@@ -1,6 +1,6 @@
 package com.company;
 
-public interface servicioCatering {
+public interface ServicioCatering {
 
     void catering(boolean cambiar);
 }
