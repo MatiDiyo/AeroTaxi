@@ -40,16 +40,17 @@ public class Main {
             System.out.println("4. Salir");
 
             try {
-                System.out.println("Escribe una de las opciones");
+                System.out.print("Escribe una de las opciones (1-4): ");
                 opcion = sn.nextInt();
 
                 switch (opcion) {
                     case 1:
-                        System.out.println("Has seleccionado la opcion 1");
+                        System.out.println("Has seleccionado la opción 1");
 
-                        System.out.println("Ingrese su dni");
+                        System.out.print("Ingrese su dni: ");
                         String dniLogin = sn.nextLine();
                         sn.nextLine();
+
                         // comprobar con archivos si el dni esta registrado
 
                         while (!salirUsuario){
@@ -99,9 +100,7 @@ public class Main {
 
                                         Vuelo vuelo = new Vuelo();
 
-                                        System.out.println("Ingrese fecha del viaje:");
-
-
+                                        System.out.println("Ingrese fecha del viaje: ");
 
                                         break;
 
@@ -143,7 +142,7 @@ public class Main {
 
                        do {
                             sn.nextLine();
-                            System.out.println("Ingrese su dni");
+                            System.out.print("Ingrese su dni: ");
                             nuevoUsuario.dni = sn.nextLine();
                             flagDni = false;
                             // comprobar con archivos si el dni esta registrado, si no lo esta seguir con el proceso
@@ -156,13 +155,13 @@ public class Main {
                             }
                         }while (flagDni);
 
-                        System.out.println("Ingrese su nombre");
+                        System.out.print("Ingrese su nombre: ");
                         nuevoUsuario.nombre = sn.nextLine();
 
-                        System.out.println("Ingrese su apellido");
+                        System.out.print("Ingrese su apellido: ");
                         nuevoUsuario.apellido = sn.nextLine();
 
-                        System.out.println("Ingrese su edad");
+                        System.out.print("Ingrese su edad: ");
                         nuevoUsuario.edad = sn.nextByte();
 
                         nuevoUsuario.dineroGastado = 0;
