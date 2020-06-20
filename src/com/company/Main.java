@@ -49,6 +49,7 @@ public class Main {
 
                         System.out.println("Ingrese su dni");
                         String dniLogin = sn.nextLine();
+                        sn.nextLine();
                         // comprobar con archivos si el dni esta registrado
 
                         while (!salirUsuario){
