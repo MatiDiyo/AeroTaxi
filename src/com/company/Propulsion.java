@@ -1,6 +1,6 @@
 package com.company;
 
-public enum Propulsion {
+public enum Propulsion { //propulsiones prolijas
     MOTOR_A_REACCION("Motor a reaccion"),
     MOTOR_A_HELICE("Motor a helice"),
     MOTOR_A_PISTONES("Motor a pistones");

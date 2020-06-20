@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class AvionSilver extends Avion implements ServicioCatering{
@@ -30,6 +31,20 @@ public class AvionSilver extends Avion implements ServicioCatering{
     @Override
     public void catering(boolean cambiar) {
         servicioCatering = cambiar;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AvionSilver)) return false;
+        if (!super.equals(o)) return false;
+        AvionSilver that = (AvionSilver) o;
+        return isServicioCatering() == that.isServicioCatering();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), isServicioCatering());
     }
 
     @Override

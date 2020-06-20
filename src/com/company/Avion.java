@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public abstract class Avion {
@@ -90,6 +91,25 @@ public abstract class Avion {
 
     public void setTarifaFija(int tarifaFija) {
         this.tarifaFija = tarifaFija;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Avion)) return false;
+        Avion avion = (Avion) o;
+        return getCapacidadCombustible() == avion.getCapacidadCombustible() &&
+                Double.compare(avion.getCostoPorKm(), getCostoPorKm()) == 0 &&
+                getCapacidadMaximaPasajeros() == avion.getCapacidadMaximaPasajeros() &&
+                getVelocidadMaxima() == avion.getVelocidadMaxima() &&
+                getTarifaFija() == avion.getTarifaFija() &&
+                getUuid().equals(avion.getUuid()) &&
+                getPropulsion() == avion.getPropulsion();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUuid(), getCapacidadCombustible(), getCostoPorKm(), getCapacidadMaximaPasajeros(), getVelocidadMaxima(), getPropulsion(), getTarifaFija());
     }
 
     @Override
