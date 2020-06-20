@@ -22,14 +22,15 @@ public class Main {
         int opcionAdmin;
         int opcionUsuario;
 
-        Archivo archivoUsuarios = new Archivo();
+        Archivo funcionesDeArchivos = new Archivo();
 
         //archivoUsuarios.createArchivoUsuarios();
 
         ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+        ArrayList listaAviones = new ArrayList();
 
         File fileUsuarios = new File("archivoUsuarios.json");
-        listaUsuarios = archivoUsuarios.archivoToArrayUsuario(fileUsuarios);
+        listaUsuarios = funcionesDeArchivos.archivoToArrayUsuario(fileUsuarios);
         int sizeUsuariosList = listaUsuarios.size();
 
         while (!salir) {
@@ -46,10 +47,23 @@ public class Main {
                 switch (opcion) {
                     case 1:
                         System.out.println("Has seleccionado la opcion 1");
-
-                        System.out.println("Ingrese su dni");
-                        String dniLogin = sn.nextLine();
-                        // comprobar con archivos si el dni esta registrado
+                        boolean comprobarDni = false;
+                        int indexUsuario=0;
+                        sn.nextLine();
+                        while (!comprobarDni)
+                        {
+                            System.out.println("Ingrese su dni:");
+                            String dniLogin = sn.nextLine();
+                            // comprobar con archivos si el dni esta registrado
+                            for (int i=0; i <sizeUsuariosList ; i++){
+                                if ( dniLogin.equals(listaUsuarios.get(i).dni)) {
+                                    comprobarDni=true;
+                                    indexUsuario=i;
+                                    System.out.println("Iniciando Sesion.");
+                                    break;
+                                }
+                            }
+                        }
 
                         while (!salirUsuario){
                             System.out.println("1. MOSTRAR DATOS");
@@ -64,30 +78,9 @@ public class Main {
                                     case 1:
 
                                         // mostrar todos los datos del usuario desde archivo o array de empresa
-
-                                        File archivo = new File ("files\\archivo.txt");
-
-
-                                        try {
-                                            // Apertura del fichero y creacion de BufferedReader para poder
-                                            // hacer una lectura comoda (disponer del metodo readLine()).
-
-
-                                            if(! archivo.exists()){
-                                                System.out.println("el archivo no existe creando 1.");
-                                                archivo.createNewFile();
-                                                System.out.println("Archivo " +archivo.getName() + " creado con exito \n" );
-                                            }
-
-                                            // Escritura del fichero
-
-                                            // Lectura del fichero
-
-                                        }
-                                        catch(IOException e){
-                                            e.printStackTrace();
-                                        }
-
+                                        String mostrarUsuario = listaUsuarios.get(indexUsuario).toString();
+                                        System.out.println(mostrarUsuario);
+                                        sn.nextLine();
                                         break;
 
                                     case 2:
@@ -169,7 +162,7 @@ public class Main {
                         listaUsuarios.add(nuevoUsuario);
 
                         // guardar  nuevoUsuario en  el archivo con json
-                        archivoUsuarios.guardarListaEnArchivoUsuarios(listaUsuarios);
+                        funcionesDeArchivos.guardarListaEnArchivoUsuarios(listaUsuarios);
                         System.out.println("usuario guardado...");
                         break;
 
@@ -183,7 +176,8 @@ public class Main {
                             System.out.println("1. LISTA AVIONES");
                             System.out.println("2. LISTA USUARIOS");
                             System.out.println("3. LISTA VUELOS");
-                            System.out.println("4. Salir");
+                            System.out.println("4. AGREGAR AVION");
+                            System.out.println("5. AGREGAR VUELO");
                             try {
                                 opcionAdmin = sn.nextInt();
                                 switch (opcionAdmin){
@@ -191,13 +185,23 @@ public class Main {
                                     case 1:
 
                                         // mostrar lista de avion desde archivos o array de empresa
-
+                                        /*
+                                        for(int i=0; i <sizeAvionesList ; i++){
+                                            System.out.println(listaAviones.get(i).toString());
+                                        }
+                                        sn.nextLine();
+                                        sn.nextLine();
+                                        */
                                         break;
 
                                     case 2:
 
                                         // mostrar lista usuarios desde archivos o array de empresa
-
+                                        for(int i=0; i <sizeUsuariosList ; i++){
+                                            System.out.println(listaUsuarios.get(i).toString());
+                                        }
+                                        sn.nextLine();
+                                        sn.nextLine();
                                         break;
 
                                     case 3:
@@ -207,6 +211,19 @@ public class Main {
                                         break;
 
                                     case 4:
+                                        // agregar aviones al array / archivo de aviones
+
+
+
+                                        break;
+
+
+                                    case 5:
+
+
+                                        break;
+
+                                    case 6:
                                         salirAdmin = true;
                                         break;
 

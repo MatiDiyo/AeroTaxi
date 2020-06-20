@@ -69,4 +69,15 @@ public class Usuario {
     public int hashCode() {
         return Objects.hash(nombre, apellido, dni, edad, dineroGastado);
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", dni='" + dni + '\'' +
+                ", edad=" + edad +
+                ", dineroGastado=" + dineroGastado +
+                '}';
+    }
 }
