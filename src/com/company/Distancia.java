@@ -10,7 +10,7 @@ public enum Distancia {
     Montevideo_Santiago("Montevideo - Santiago", 2100);
 
     private String recorrido; //primero lugar de salida y despues el destino, ej "Buenos Aires - Cordoba"
-    private int km;
+    private int km; //la distancia de recorrido
 
     private Distancia(String recorrido, int km){
         this.recorrido = recorrido;
