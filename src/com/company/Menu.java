@@ -1,5 +1,6 @@
 package com.company;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -18,7 +19,7 @@ public class Menu
      * Se le pregunta al usuario si quiere seguir con la ejecución del programa o no.
      * @return true = se continua con la ejecución del programa, false = se termina la ejecución del programa.
      */
-    private static void deseaVolverAlMenuPrincipal()
+    private static void deseaVolverAlMenuPrincipal(ArrayList<Usuario> listaUsuario)
     {
         char opcion = 's';
 
@@ -31,7 +32,7 @@ public class Menu
         if (opcion == 'S')
         {
             System.out.print(mostrarMenuPrincipial());
-            cargarMenuPrincipal(); // continua
+            cargarMenuPrincipal(listaUsuario); // continua
         }
         else
             exit(0); // se sale
@@ -135,26 +136,43 @@ public class Menu
     /**
      * Carga el menú principal del programa se podrá volver a este, en cualquier punto del programa.
      */
-    private static void cargarMenuPrincipal()
+    private static void cargarMenuPrincipal(ArrayList<Usuario> listaUsuario)
     {
         byte opcion = ingresarOpcion((byte)1, (byte)4);
 
         switch (opcion)
         {
             case 1:
+                boolean comprobarDni = false;
+                int indexUsuario=0;
+                sn.nextLine();
+                sn.nextLine();
+                while (!comprobarDni)
+                {
+                    String dniLogin = ingresarDNI();
+                    // comprobar con archivos si el dni esta registrado
+                    for (int i=0; i < listaUsuario.size() ; i++){
+                        if ( dniLogin.equals(listaUsuario.get(i).dni)) {
+                            comprobarDni=true;
+                            indexUsuario=i;
+                            System.out.println("Iniciando Sesion.");
+                            break;
+                        }
+                    }
+                }
                 System.out.println(mostrarMenuUsuario());
-                cargarMenuUsuario();
+                cargarMenuUsuario(listaUsuario , indexUsuario );
                 break;
 
             case 2:
                 System.out.print(mostrarMenuRegistracionUsuario());
-                cargarRegistracionUsuario();
-                deseaVolverAlMenuPrincipal();
+                cargarRegistracionUsuario(listaUsuario);
+                deseaVolverAlMenuPrincipal(listaUsuario);
                 break;
 
             case 3:
                 System.out.println(mostrarMenuAdmin());
-                cargarMenuAdmin();
+                cargarMenuAdmin(listaUsuario);
                 break;
 
             case 4:
@@ -196,7 +214,7 @@ public class Menu
     /**
      * Carga el menú del usuario del programa.
      */
-    private static void cargarMenuUsuario()
+    private static void cargarMenuUsuario(ArrayList<Usuario> listaUsuario , int indexDni)
     {
         byte opcion = ingresarOpcion((byte)1, (byte)5);
 
@@ -204,27 +222,28 @@ public class Menu
         {
             case 1:
                 System.out.println("\nMostrando los datos del usuario...");
-                deseaVolverAlMenuPrincipal();
+                System.out.println(listaUsuario.get(indexDni).toString());
+                deseaVolverAlMenuPrincipal(listaUsuario);
                 break;
 
             case 2:
                 System.out.println("\nIngresando nuevo vuelo...");
-                deseaVolverAlMenuPrincipal();
+                deseaVolverAlMenuPrincipal(listaUsuario);
                 break;
 
             case 3:
                 System.out.println("\nCancelando vuelo...");
-                deseaVolverAlMenuPrincipal();
+                deseaVolverAlMenuPrincipal(listaUsuario);
                 break;
 
             case 4:
                 System.out.println("\nMostrando todos los vuelos");
-                deseaVolverAlMenuPrincipal();
+                deseaVolverAlMenuPrincipal(listaUsuario);
                 break;
 
             case 5:
                 System.out.print(mostrarMenuPrincipial());
-                cargarMenuPrincipal();
+                cargarMenuPrincipal(listaUsuario);
                 break;
         }
     }
@@ -246,16 +265,8 @@ public class Menu
     /**
      * Carga un usuario por pantalla y lo guarda en un archivo JSON.
      */
-    private static void cargarRegistracionUsuario()
+    private static void cargarRegistracionUsuario(ArrayList<Usuario> listaUsuarios)
     {
-        Archivo archivoUsuarios = new Archivo();
-
-        //archivoUsuarios.createArchivoUsuarios();
-        ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
-
-        File fileUsuarios = new File("archivoUsuarios.json");
-        listaUsuarios = archivoUsuarios.archivoToArrayUsuario(fileUsuarios);
-        int sizeUsuariosList = listaUsuarios.size();
 
         Usuario nuevoUsuario = new Usuario();
         boolean flagDni = false;
@@ -264,7 +275,7 @@ public class Menu
             sn.nextLine();
 
             nuevoUsuario.dni = ingresarDNI();
-
+            int sizeUsuariosList = listaUsuarios.size();
             flagDni = false;
 
             // Comprobar con archivos si el dni esta registrado, si no lo esta seguir con el proceso
@@ -287,7 +298,10 @@ public class Menu
         listaUsuarios.add(nuevoUsuario);
 
         // Guardar  nuevoUsuario en  el archivo con json
+        Archivo archivoUsuarios = new Archivo();
         archivoUsuarios.guardarListaEnArchivoUsuarios(listaUsuarios);
+
+
         System.out.println("Usuario guardado...");
     }
 
@@ -314,8 +328,9 @@ public class Menu
 
     /**
      * Carga el menú de Admin o Empresa
+     * @param listaUsuario
      */
-    private static void cargarMenuAdmin()
+    private static void cargarMenuAdmin(ArrayList<Usuario> listaUsuario)
     {
         byte opcion = ingresarOpcion((byte)1, (byte)4);
 
@@ -323,22 +338,25 @@ public class Menu
         {
             case 1:
                 System.out.println("\nMostrando lista de aviones");
-                deseaVolverAlMenuPrincipal();
+                deseaVolverAlMenuPrincipal(listaUsuario);
                 break;
 
             case 2:
                 System.out.println("\nMostrando lista de usuarios");
-                deseaVolverAlMenuPrincipal();
+                for (int i = 0; i < listaUsuario.size() ; i++){
+                    System.out.println(listaUsuario.get(i).toString());
+                }
+                deseaVolverAlMenuPrincipal(listaUsuario);
                 break;
 
             case 3:
                 System.out.println("\nMostrando lista de vuelos");
-                deseaVolverAlMenuPrincipal();
+                deseaVolverAlMenuPrincipal(listaUsuario);
                 break;
 
             case 4:
                 System.out.println(mostrarMenuPrincipial());
-                cargarMenuPrincipal();
+                cargarMenuPrincipal(listaUsuario);
                 break;
 
         }
@@ -349,9 +367,9 @@ public class Menu
     /**
      * Método principal de la clase, es el único público, este método se llamará desde el main.
      */
-    public static void cargarSistema()
+    public static void cargarSistema(ArrayList<Usuario> listaUsuarios)
     {
         System.out.print(mostrarMenuPrincipial());
-        cargarMenuPrincipal();
+        cargarMenuPrincipal(listaUsuarios);
     }
 }
