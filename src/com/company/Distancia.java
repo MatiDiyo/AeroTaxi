@@ -1,6 +1,6 @@
 package com.company;
 
-public enum Distancia {
+public enum Distancia { //distancias prolijas
     //Ciudades - Distancias en Km
     BsAs_Cordoba("Buenos aires - Cordoba", 695),
     BsAs_Santiago("Buenos aires - Santiago", 1400),

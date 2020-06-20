@@ -1,6 +1,6 @@
 package com.company;
 
-public enum Ciudad {
+public enum Ciudad { //ciudades prolijas
     BUENOS_AIRES("Buenos Aires"),
     CORDOBA("Cordoba"),
     SANTIAGO("Santiago"),
