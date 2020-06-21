@@ -300,8 +300,8 @@ public class Sistema
         listaUsuarios.add(nuevoUsuario);
 
         // Guardar  nuevoUsuario en el archivo con json
-        Archivo archivoUsuarios = new Archivo();
-        archivoUsuarios.guardarListaEnArchivoUsuarios(listaUsuarios);
+        Archivo archivoUsuarios = new Archivo("archivoUsuarios.json");
+        archivoUsuarios.guardarListaEnArchivo(listaUsuarios);
 
         System.out.println("Usuario guardado...");
     }

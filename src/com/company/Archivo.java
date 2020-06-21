@@ -7,13 +7,40 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Archivo {
-// FUNCIONES DE USUARIOS  //////////////////////////////////////////////////////////////////
+public class Archivo
+{
+    private File archivo;
+    private String nombreArchivo;
+
+    public Archivo(String nombreArchivo)
+    {
+        this.nombreArchivo = nombreArchivo;
+        this.archivo = new File(nombreArchivo);
+    }
+
+    // FUNCIONES DE USUARIOS  //////////////////////////////////////////////////////////////////
 
     /**
-     * Agrega un nuevo usuario al JSON de usuarios
+     * Agrega un nuevo elemento a un archivo JSON
      */
-    public void createArchivoUsuarios(){
+
+    public <T> void agregarElemento(T elemento)
+    {
+        try
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            ArrayList<T> array = new ArrayList<T>();
+            array.add(elemento);
+            mapper.writeValue(archivo , array );
+
+        }catch (IOException e){
+            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+            e.printStackTrace();
+
+        }
+    }
+
+    /*public void createArchivoUsuarios(){
         Scanner sn = new Scanner(System.in);
         Usuario nuevoUsuario = new Usuario();
 
@@ -45,64 +72,20 @@ public class Archivo {
 
             arrayUsuarios.add(nuevoUsuario);
 
-
             mapper.writeValue(file , arrayUsuarios );
 
-
-
         }catch (IOException e){
             System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
             e.printStackTrace();
 
         }
-    }
-
-    /**
-     * @param archivo el archivo de usuario del JSON
-     * @return la lista de usuarios del JSON de usuarios
-     */
-
-    public ArrayList<Usuario> archivoToArrayUsuario( File archivo ) {
-        ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
-
-        try
-        {
-            ObjectMapper mapper = new ObjectMapper();
-            //Object to JSON in file
-            String jsonString ;
-
-            /// LECTURA JACKSON
-
-            ArrayList<Usuario> arrayLectura;
-
-            arrayLectura = mapper.readValue( archivo , ArrayList.class );
-
-            int size = arrayLectura.size();
-
-            Usuario pLectura = new Usuario();
-
-            jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pLectura);
-
-            for (int i = 0; i < size; i++) {
-                jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i));
-                pLectura = mapper.readValue( jsonString , Usuario.class );
-                listaUsuarios.add(pLectura);
-            }
-
-        }catch (IOException e){
-            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
-            e.printStackTrace();
-
-        }
-
-        return listaUsuarios;
-    }
+    }*/
 
     /**
      * @param usuarios la lista a guardar en el archivo
-     * Graba en el archivo JSON una lista de usuarios
+     * Abre y Graba en el archivo JSON una lista de usuarios
      */
-    public void guardarListaEnArchivoUsuarios( ArrayList<Usuario> usuarios)
+    /*public void guardarListaEnArchivoUsuarios( ArrayList<Usuario> usuarios)
     {
         try
         {
@@ -116,7 +99,27 @@ public class Archivo {
             System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
             e.printStackTrace();
         }
+    }*/
+
+    /**
+     *
+     * @param lista la lista a guardar en el archivo
+     * Abre y Graba en el archivo JSON una lista de usuarios
+     */
+    public <T> void guardarListaEnArchivo(ArrayList<T> lista)
+    {
+        try
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            //Object to JSON in file
+            mapper.writeValue(archivo , lista);
+
+        }catch (IOException e){
+            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+            e.printStackTrace();
+        }
     }
+
     //////////////////////////////////////////////////////////////////////////////////////////////////
 
     // FUNCIONES DE AVIONES //////////////////////////////////////////////////////////////////////////
@@ -125,7 +128,7 @@ public class Archivo {
     /**
      * Agrega un nuevo avion al JSON de aviones
      */
-    public void createArchivoAviones(){
+    /*public void createArchivoAviones(){
         Scanner sn = new Scanner(System.in);
         AvionBronze nuevoAvion = new AvionBronze();
 
@@ -186,9 +189,54 @@ public class Archivo {
             e.printStackTrace();
 
         }
+    }*/
+
+    /**
+     *
+     * @return la lista de usuarios del JSON de usuarios
+     */
+
+    public ArrayList<Usuario> archivoToArrayUsuario() {
+        ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+
+        try
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            //Object to JSON in file
+            String jsonString ;
+
+            /// LECTURA JACKSON
+
+            ArrayList<Usuario> arrayLectura;
+
+            arrayLectura = mapper.readValue( archivo , ArrayList.class );
+
+            int size = arrayLectura.size();
+
+            Usuario pLectura = new Usuario();
+
+            jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pLectura);
+
+            for (int i = 0; i < size; i++) {
+                jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i));
+                pLectura = mapper.readValue( jsonString , Usuario.class );
+                listaUsuarios.add(pLectura);
+            }
+
+        }catch (IOException e){
+            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+            e.printStackTrace();
+
+        }
+
+        return listaUsuarios;
     }
 
-    public ArrayList<Avion> archivoToArrayAvion( File archivo ) {
+    /**
+     *
+     * @return la lista de aviones del JSON de aviones
+     */
+    public ArrayList<Avion> archivoToArrayAvion() {
         ArrayList<Avion> listaAviones = new ArrayList<Avion>();
 
         try
@@ -228,7 +276,7 @@ public class Archivo {
      * @param aviones la lista a guardar en el archivo
      * Graba en el archivo JSON una lista de aviones
      */
-    public void guardarListaEnArchivoAviones( ArrayList<Avion> aviones)
+    /*public void guardarListaEnArchivoAviones( ArrayList<Avion> aviones)
     {
         try
         {
@@ -242,7 +290,7 @@ public class Archivo {
             System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
             e.printStackTrace();
         }
-    }
+    }*/
 
 
 }

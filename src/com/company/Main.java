@@ -13,8 +13,8 @@ public class Main
 {
     public static void main(String[] args)
     {
-        Archivo archivoUsuarios = new Archivo();
-        Archivo archivoFunciones = new Archivo();
+        Archivo archivoUsuarios = new Archivo("archivoUsuarios.json");
+        Archivo archivoAviones = new Archivo("archivoAviones.json");
 
         //archivoUsuarios.createArchivoUsuarios();
         //archivoFunciones.createArchivoAviones();
@@ -22,13 +22,8 @@ public class Main
         ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
         ArrayList<Avion> listaAviones = new ArrayList<Avion>();
 
-        File fileUsuarios = new File("archivoUsuarios.json");
-        listaUsuarios = archivoUsuarios.archivoToArrayUsuario(fileUsuarios);
-        int sizeUsuariosList = listaUsuarios.size();
-
-        listaUsuarios = archivoFunciones.archivoToArrayUsuario(fileUsuarios);
-        File fileAviones = new File("archivoAviones.json");
-        listaAviones = archivoFunciones.archivoToArrayAvion(fileAviones);
+        listaUsuarios = archivoUsuarios.archivoToArrayUsuario();
+        listaAviones = archivoAviones.archivoToArrayAvion();
 
         Sistema.cargarSistema(listaUsuarios , listaAviones );
     }
