@@ -1,5 +1,6 @@
 package com.company;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.omg.CORBA.ARG_IN;
 
 import java.awt.image.AreaAveragingScaleFilter;
@@ -323,7 +324,8 @@ public class Sistema
                 "1. MOSTRAR LISTA DE AVIONES\n" +
                 "2. MOSTRAR LISTA DE USUARIOS\n" +
                 "3. MOSTRAR LISTA DE VUELOS\n" +
-                "4. Volver al menú principal.\n" +
+                "4. MENU CARGAR DE AVIONES\n"  +
+                "5. Volver al menú principal.\n" +
                 "-------------------------------";
     }
 
@@ -333,7 +335,7 @@ public class Sistema
      */
     private static void cargarMenuAdmin(ArrayList<Usuario> listaUsuario , ArrayList<Avion> listaAviones)
     {
-        byte opcion = ingresarOpcion((byte)1, (byte)4);
+        byte opcion = ingresarOpcion((byte)1, (byte)5);
 
         switch (opcion)
         {
@@ -359,11 +361,73 @@ public class Sistema
                 break;
 
             case 4:
+                System.out.println("\nMostrando menu carga aviones");
+                menuCargaAviones(listaUsuario , listaAviones );
+                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones);
+
+            case 5:
                 System.out.println(mostrarMenuPrincipial());
                 cargarMenuPrincipal(listaUsuario, listaAviones);
                 break;
 
         }
+    }
+
+    private static void menuCargaAviones(ArrayList<Usuario> listaUsuario , ArrayList<Avion> listaAviones)
+    {
+
+        AvionBronze nuevoAvion = new AvionBronze();
+        try
+        {
+            File file = new File("archivoAviones.json");
+            ObjectMapper mapper = new ObjectMapper();
+            //Object to JSON in file
+            System.out.println("Registro Avion bronze");
+
+            sn.nextLine();
+            System.out.println("capacidad Combustible:");
+            nuevoAvion.setCapacidadCombustible(sn.nextInt());
+            sn.nextLine();
+            System.out.println("Cantidad maxima de pasajeros:");
+            nuevoAvion.setCapacidadMaximaPasajeros(sn.nextInt());
+            sn.nextLine();
+            System.out.println("Costo por km:");
+            nuevoAvion.setCostoPorKm(sn.nextDouble());
+            sn.nextLine();
+            System.out.println("Velocidad maxima:");
+            nuevoAvion.setVelocidadMaxima(500);
+
+            sn.nextLine();
+
+            System.out.println("Tipo de propulsion:");
+            int controlMotor=0;
+            System.out.println("1_Motor a reaccion.");
+            System.out.println("2_Motor a helice.");
+            System.out.println("3_Motor a pistones.");
+
+            controlMotor = sn.nextInt();
+            switch (controlMotor){
+                case 1:
+                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_REACCION);
+                    break;
+
+                case 2:
+                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_HELICE);
+                    break;
+                case 3:
+                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_PISTONES);
+                    break;
+            }
+
+            listaAviones.add(nuevoAvion);
+            mapper.writeValue(file , listaAviones );
+
+        }catch (IOException e){
+            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+            e.printStackTrace();
+
+        }
+
     }
 
     // ------------------------------------------------------------------- //
