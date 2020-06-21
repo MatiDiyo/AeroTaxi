@@ -10,6 +10,9 @@ import java.util.Scanner;
 public class Archivo {
 // FUNCIONES DE USUARIOS  //////////////////////////////////////////////////////////////////
 
+    /**
+     * Agrega un nuevo usuario al JSON de usuarios
+     */
     public void createArchivoUsuarios(){
         Scanner sn = new Scanner(System.in);
         Usuario nuevoUsuario = new Usuario();
@@ -54,6 +57,11 @@ public class Archivo {
         }
     }
 
+    /**
+     * @param archivo el archivo de usuario del JSON
+     * @return la lista de usuarios del JSON de usuarios
+     */
+
     public ArrayList<Usuario> archivoToArrayUsuario( File archivo ) {
         ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
@@ -90,6 +98,10 @@ public class Archivo {
         return listaUsuarios;
     }
 
+    /**
+     * @param usuarios la lista a guardar en el archivo
+     * Graba en el archivo JSON una lista de usuarios
+     */
     public void guardarListaEnArchivoUsuarios( ArrayList<Usuario> usuarios)
     {
         try
@@ -110,6 +122,9 @@ public class Archivo {
     // FUNCIONES DE AVIONES //////////////////////////////////////////////////////////////////////////
 
 
+    /**
+     * Agrega un nuevo avion al JSON de aviones
+     */
     public void createArchivoAviones(){
         Scanner sn = new Scanner(System.in);
         AvionBronze nuevoAvion = new AvionBronze();
@@ -209,6 +224,10 @@ public class Archivo {
         return listaAviones;
     }
 
+    /**
+     * @param aviones la lista a guardar en el archivo
+     * Graba en el archivo JSON una lista de aviones
+     */
     public void guardarListaEnArchivoAviones( ArrayList<Avion> aviones)
     {
         try

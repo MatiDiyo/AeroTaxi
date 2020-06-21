@@ -15,7 +15,7 @@ public class Main
     {
         Archivo archivoUsuarios = new Archivo();
         Archivo archivoFunciones = new Archivo();
-        
+
         //archivoUsuarios.createArchivoUsuarios();
         //archivoFunciones.createArchivoAviones();
 
@@ -25,6 +25,7 @@ public class Main
         File fileUsuarios = new File("archivoUsuarios.json");
         listaUsuarios = archivoUsuarios.archivoToArrayUsuario(fileUsuarios);
         int sizeUsuariosList = listaUsuarios.size();
+
         listaUsuarios = archivoFunciones.archivoToArrayUsuario(fileUsuarios);
         File fileAviones = new File("archivoAviones.json");
         listaAviones = archivoFunciones.archivoToArrayAvion(fileAviones);
