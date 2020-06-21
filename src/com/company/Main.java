@@ -13,16 +13,21 @@ public class Main
 {
     public static void main(String[] args)
     {
-        Archivo archivoUsuarios = new Archivo();
+        Archivo archivoFunciones = new Archivo();
+
 
         //archivoUsuarios.createArchivoUsuarios();
+        //archivoFunciones.createArchivoAviones();
+
         ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+        ArrayList<Avion> listaAviones = new ArrayList<Avion>();
 
         File fileUsuarios = new File("archivoUsuarios.json");
-        listaUsuarios = archivoUsuarios.archivoToArrayUsuario(fileUsuarios);
-        int sizeUsuariosList = listaUsuarios.size();
+        listaUsuarios = archivoFunciones.archivoToArrayUsuario(fileUsuarios);
+        File fileAviones = new File("archivoAviones.json");
+        listaAviones = archivoFunciones.archivoToArrayAvion(fileAviones);
 
-        Menu.cargarSistema(listaUsuarios);
+        Menu.cargarSistema(listaUsuarios , listaAviones );
 
     }
 }
