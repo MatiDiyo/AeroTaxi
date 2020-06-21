@@ -15,6 +15,7 @@ public class Main
     {
         Archivo archivoUsuarios = new Archivo("archivoUsuarios.json");
         Archivo archivoAviones = new Archivo("archivoAviones.json");
+        Archivo archivoVuelo = new Archivo("archivoVuelos.json");
 
         //archivoUsuarios.createArchivoUsuarios();
         //archivoFunciones.createArchivoAviones();

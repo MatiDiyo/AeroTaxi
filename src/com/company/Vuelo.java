@@ -1,11 +1,12 @@
 package com.company;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Vuelo {
+public class Vuelo{
 
     Scanner sn = new Scanner(System.in);
 
@@ -18,6 +19,17 @@ public class Vuelo {
     private double costoTotal;
 
     public Vuelo() {
+    }
+
+    public Vuelo(Ciudad origen, Ciudad destino, int distancia)
+    {
+        fecha = null;
+        this.origen = origen;
+        this.destino = destino;
+        cantidadAcompanantes = 0;
+        avion = null;
+        this.distancia = distancia;
+        costoTotal = 0;
     }
 
     //utilizar Distancia.getKm() para la distancia

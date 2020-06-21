@@ -203,7 +203,7 @@ public class Archivo
         {
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
-            String jsonString ;
+            String jsonString;
 
             /// LECTURA JACKSON
 
