@@ -11,7 +11,7 @@ import static java.lang.System.exit;
 /**
  * Clase estática, con un único método público: cargarSistema()
  */
-public class Menu
+public class Sistema
 {
     private static Scanner sn = new Scanner(System.in);
 

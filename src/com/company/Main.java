@@ -22,7 +22,7 @@ public class Main
         listaUsuarios = archivoUsuarios.archivoToArrayUsuario(fileUsuarios);
         int sizeUsuariosList = listaUsuarios.size();
 
-        Menu.cargarSistema(listaUsuarios);
+        Sistema.cargarSistema(listaUsuarios);
 
     }
 }
