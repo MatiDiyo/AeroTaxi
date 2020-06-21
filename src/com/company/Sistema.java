@@ -43,7 +43,7 @@ public class Sistema
      */
     private static String mostrarOpcionIngresada(byte opcion)
     {
-        return "Has seleccionado la opción "+ opcion;
+        return "Has seleccionado la opción "+ opcion + " ...";
     }
 
     // -------------------- MÉTODOS INGRESAR -------------------- //
@@ -297,10 +297,9 @@ public class Sistema
 
         listaUsuarios.add(nuevoUsuario);
 
-        // Guardar  nuevoUsuario en  el archivo con json
+        // Guardar  nuevoUsuario en el archivo con json
         Archivo archivoUsuarios = new Archivo();
         archivoUsuarios.guardarListaEnArchivoUsuarios(listaUsuarios);
-
 
         System.out.println("Usuario guardado...");
     }
