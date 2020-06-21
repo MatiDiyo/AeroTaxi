@@ -1,5 +1,7 @@
 package com.company;
 
+import org.omg.CORBA.ARG_IN;
+
 import java.awt.image.AreaAveragingScaleFilter;
 import java.io.*;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class Sistema
      * Se le pregunta al usuario si quiere seguir con la ejecución del programa o no.
      * @return true = se continua con la ejecución del programa, false = se termina la ejecución del programa.
      */
-    private static void deseaVolverAlMenuPrincipal(ArrayList<Usuario> listaUsuario)
+    private static void deseaVolverAlMenuPrincipal(ArrayList<Usuario> listaUsuario , ArrayList<Avion> listaAviones)
     {
         char opcion = 's';
 
@@ -32,7 +34,7 @@ public class Sistema
         if (opcion == 'S')
         {
             System.out.print(mostrarMenuPrincipial());
-            cargarMenuPrincipal(listaUsuario); // continua
+            cargarMenuPrincipal(listaUsuario,listaAviones); // continua
         }
         else
             exit(0); // se sale
@@ -136,7 +138,7 @@ public class Sistema
     /**
      * Carga el menú principal del programa se podrá volver a este, en cualquier punto del programa.
      */
-    private static void cargarMenuPrincipal(ArrayList<Usuario> listaUsuario)
+    private static void cargarMenuPrincipal(ArrayList<Usuario> listaUsuario , ArrayList<Avion> listaAviones)
     {
         byte opcion = ingresarOpcion((byte)1, (byte)4);
 
@@ -161,18 +163,18 @@ public class Sistema
                     }
                 }
                 System.out.println(mostrarMenuUsuario());
-                cargarMenuUsuario(listaUsuario , indexUsuario );
+                cargarMenuUsuario(listaUsuario , indexUsuario , listaAviones );
                 break;
 
             case 2:
                 System.out.print(mostrarMenuRegistracionUsuario());
                 cargarRegistracionUsuario(listaUsuario);
-                deseaVolverAlMenuPrincipal(listaUsuario);
+                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones);
                 break;
 
             case 3:
                 System.out.println(mostrarMenuAdmin());
-                cargarMenuAdmin(listaUsuario);
+                cargarMenuAdmin(listaUsuario , listaAviones);
                 break;
 
             case 4:
@@ -214,7 +216,7 @@ public class Sistema
     /**
      * Carga el menú del usuario del programa.
      */
-    private static void cargarMenuUsuario(ArrayList<Usuario> listaUsuario , int indexDni)
+    private static void cargarMenuUsuario(ArrayList<Usuario> listaUsuario , int indexDni , ArrayList<Avion> listaAviones)
     {
         byte opcion = ingresarOpcion((byte)1, (byte)5);
 
@@ -223,27 +225,27 @@ public class Sistema
             case 1:
                 System.out.println("\nMostrando los datos del usuario...");
                 System.out.println(listaUsuario.get(indexDni).toString());
-                deseaVolverAlMenuPrincipal(listaUsuario);
+                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones);
                 break;
 
             case 2:
                 System.out.println("\nIngresando nuevo vuelo...");
-                deseaVolverAlMenuPrincipal(listaUsuario);
+                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones);
                 break;
 
             case 3:
                 System.out.println("\nCancelando vuelo...");
-                deseaVolverAlMenuPrincipal(listaUsuario);
+                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones);
                 break;
 
             case 4:
                 System.out.println("\nMostrando todos los vuelos");
-                deseaVolverAlMenuPrincipal(listaUsuario);
+                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones);
                 break;
 
             case 5:
                 System.out.print(mostrarMenuPrincipial());
-                cargarMenuPrincipal(listaUsuario);
+                cargarMenuPrincipal(listaUsuario, listaAviones);
                 break;
         }
     }
@@ -329,7 +331,7 @@ public class Sistema
      * Carga el menú de Admin o Empresa
      * @param listaUsuario
      */
-    private static void cargarMenuAdmin(ArrayList<Usuario> listaUsuario)
+    private static void cargarMenuAdmin(ArrayList<Usuario> listaUsuario , ArrayList<Avion> listaAviones)
     {
         byte opcion = ingresarOpcion((byte)1, (byte)4);
 
@@ -337,7 +339,10 @@ public class Sistema
         {
             case 1:
                 System.out.println("\nMostrando lista de aviones");
-                deseaVolverAlMenuPrincipal(listaUsuario);
+                for( int i = 0; i < listaAviones.size() ; i++) {
+                    System.out.println(listaAviones.get(i).toString());
+                }
+                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones);
                 break;
 
             case 2:
@@ -345,17 +350,17 @@ public class Sistema
                 for (int i = 0; i < listaUsuario.size() ; i++){
                     System.out.println(listaUsuario.get(i).toString());
                 }
-                deseaVolverAlMenuPrincipal(listaUsuario);
+                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones);
                 break;
 
             case 3:
                 System.out.println("\nMostrando lista de vuelos");
-                deseaVolverAlMenuPrincipal(listaUsuario);
+                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones);
                 break;
 
             case 4:
                 System.out.println(mostrarMenuPrincipial());
-                cargarMenuPrincipal(listaUsuario);
+                cargarMenuPrincipal(listaUsuario, listaAviones);
                 break;
 
         }
@@ -366,9 +371,9 @@ public class Sistema
     /**
      * Método principal de la clase, es el único público, este método se llamará desde el main.
      */
-    public static void cargarSistema(ArrayList<Usuario> listaUsuarios)
+    public static void cargarSistema(ArrayList<Usuario> listaUsuarios , ArrayList<Avion> listaAviones)
     {
         System.out.print(mostrarMenuPrincipial());
-        cargarMenuPrincipal(listaUsuarios);
+        cargarMenuPrincipal(listaUsuarios,listaAviones);
     }
 }

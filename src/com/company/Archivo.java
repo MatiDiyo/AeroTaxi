@@ -20,7 +20,6 @@ public class Archivo {
 
             ObjectMapper mapper = new ObjectMapper();
             ArrayList<Usuario> arrayUsuarios = new ArrayList<Usuario>();
-            ArrayList<Usuario> arrayUsuarios2 = new ArrayList<Usuario>();
             //Object to JSON in file
             System.out.println("Registro");
 
@@ -110,10 +109,10 @@ public class Archivo {
 
     // FUNCIONES DE AVIONES //////////////////////////////////////////////////////////////////////////
 
-/*
+
     public void createArchivoAviones(){
         Scanner sn = new Scanner(System.in);
-        Avion nuevoAvion = new Avion();
+        AvionBronze nuevoAvion = new AvionBronze();
 
         try
         {
@@ -121,11 +120,44 @@ public class Archivo {
 
             ObjectMapper mapper = new ObjectMapper();
             ArrayList<Avion> arrayAvion = new ArrayList<Avion>();
-            ArrayList<Avion> arrayUsuarios2 = new ArrayList<Avion>();
+
             //Object to JSON in file
             System.out.println("Registro");
 
+            sn.nextLine();
+            System.out.println("capacidad Combustible:");
+            nuevoAvion.setCapacidadCombustible(sn.nextInt());
+            sn.nextLine();
+            System.out.println("Cantidad maxima de pasajeros:");
+            nuevoAvion.setCapacidadMaximaPasajeros(sn.nextInt());
+            sn.nextLine();
+            System.out.println("Costo por km:");
+            nuevoAvion.setCostoPorKm(sn.nextDouble());
+            sn.nextLine();
+            System.out.println("Velocidad maxima:");
+            nuevoAvion.setVelocidadMaxima(500);
 
+            sn.nextLine();
+
+                System.out.println("Tipo de propulsion:");
+                int controlMotor=0;
+                System.out.println("1_Motor a reaccion.");
+                System.out.println("2_Motor a helice.");
+                System.out.println("3_Motor a pistones.");
+
+                controlMotor = sn.nextInt();
+                switch (controlMotor){
+                    case 1:
+                        nuevoAvion.setPropulsion(Propulsion.MOTOR_A_REACCION);
+                        break;
+
+                    case 2:
+                        nuevoAvion.setPropulsion(Propulsion.MOTOR_A_HELICE);
+                        break;
+                    case 3:
+                        nuevoAvion.setPropulsion(Propulsion.MOTOR_A_PISTONES);
+                        break;
+                }
 
             arrayAvion.add(nuevoAvion);
 
@@ -158,13 +190,13 @@ public class Archivo {
 
             int size = arrayLectura.size();
 
-            Avion pLectura = new Avion();
+            AvionBronze pLectura = new AvionBronze();
 
             jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pLectura);
 
             for (int i = 0; i < size; i++) {
                 jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i));
-                pLectura = mapper.readValue( jsonString , Avion.class );
+                pLectura = mapper.readValue( jsonString , AvionBronze.class );
                 listaAviones.add(pLectura);
             }
 
@@ -193,5 +225,5 @@ public class Archivo {
         }
     }
 
- */
+
 }
