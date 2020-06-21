@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.ArrayList;
 
-public class Empresa {
+public class Admin {
     // AeroTaxi
     private String nombre;
     private final int tarifaFijaPorPasajero=3500;
