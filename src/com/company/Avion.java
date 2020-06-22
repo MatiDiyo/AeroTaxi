@@ -132,6 +132,7 @@ public class Avion {
                 ", velocidadMaxima=" + velocidadMaxima +
                 ", propulsion=" + propulsion.getTipo() +
                 ", tarifaFija=" + tarifaFija +
+                ", fechaUltimoVuelo=" +fechaUltimoVuelo+
                 '}';
     }
 }

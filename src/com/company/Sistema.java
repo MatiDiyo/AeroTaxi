@@ -520,7 +520,7 @@ public class Sistema
     private static void menuCargaAvionGold( ArrayList<Avion> listaAviones)
     {
         Calendar fechaAvion = Calendar.getInstance();
-        AvionGold nuevoAvion = new AvionGold(true);
+        AvionGold nuevoAvion = new AvionGold();
 
         fechaAvion.after(1);
         System.out.println( fechaAvion.getTime());

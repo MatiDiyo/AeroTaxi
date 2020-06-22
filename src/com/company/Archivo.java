@@ -242,14 +242,17 @@ public class Archivo {
 
             int size = arrayLectura.size();
 
-            AvionBronze pLectura = new AvionBronze();
+            AvionBronze pLecturaB = new AvionBronze();
+            AvionSilver pLecturaS = new AvionSilver();
+            AvionGold pLecturaG = new AvionGold();
 
-            jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pLectura);
+            jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pLecturaG);
 
             for (int i = 0; i < size; i++) {
                 jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i));
-                pLectura = mapper.readValue(jsonString, AvionBronze.class);
-                listaAviones.add(pLectura);
+                    pLecturaG = mapper.readValue(jsonString, AvionGold.class);
+                    listaAviones.add(pLecturaG);
+
             }
 
         } catch (IOException e) {
