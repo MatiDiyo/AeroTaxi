@@ -567,10 +567,22 @@ public class Sistema
             sn.nextLine();
             nuevoVuelo.setCantidadAcompanantes(0);
 
-            nuevoVuelo.setAvion(listaAviones.get(0));// agregar una lista de aviones y un selecionador
+            System.out.println("Seleccione un avion");
+            Byte opcionAvion;
+
+            for (int i=0; i < listaAviones.size() ; i++) {
+                System.out.print(i + 1);
+                System.out.println("_" + listaAviones.get(i).toString());
+                System.out.println("--------------------------------------------------------------");
+            }
+            opcionAvion = ingresarOpcion( (byte)1 , (byte)listaAviones.size() );
+
+            nuevoVuelo.setAvion(listaAviones.get(opcionAvion.intValue()-1) );// agregar una lista de aviones y un selecionador
+
 
             nuevoVuelo.setDistancia(  nuevoVuelo.calcularDistancia() );
             nuevoVuelo.setCostoTotal( nuevoVuelo.costoVuelo() );
+
             listaVuelos.add(nuevoVuelo);
             mapper.writeValue(file , listaVuelos );
 
