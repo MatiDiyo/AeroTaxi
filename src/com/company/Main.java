@@ -15,16 +15,20 @@ public class Main
     {
         Archivo archivoUsuarios = new Archivo("archivoUsuarios.json");
         Archivo archivoAviones = new Archivo("archivoAviones.json");
+        Archivo archivoVuelos = new Archivo("archivoVuelos.json");
 
         //archivoUsuarios.createArchivoUsuarios();
         //archivoFunciones.createArchivoAviones();
 
         ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
         ArrayList<Avion> listaAviones = new ArrayList<Avion>();
+        ArrayList<Vuelo> listaVuelos = new ArrayList<Vuelo>();
 
         listaUsuarios = archivoUsuarios.archivoToArrayUsuario();
         listaAviones = archivoAviones.archivoToArrayAvion();
+        listaVuelos = archivoVuelos.archivoToArrayVuelos();
 
-        Sistema.cargarSistema(listaUsuarios , listaAviones );
+
+        Sistema.cargarSistema(listaUsuarios , listaAviones , listaVuelos );
     }
 }

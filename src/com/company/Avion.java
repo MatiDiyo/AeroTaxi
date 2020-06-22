@@ -3,7 +3,7 @@ package com.company;
 import java.util.Objects;
 import java.util.UUID;
 
-public abstract class Avion {
+public class Avion {
 
     private UUID uuid;
     private int capacidadCombustible;

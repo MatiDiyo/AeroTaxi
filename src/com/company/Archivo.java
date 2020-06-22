@@ -7,13 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Archivo
-{
+public class Archivo {
     private File archivo;
     private String nombreArchivo;
 
-    public Archivo(String nombreArchivo)
-    {
+    public Archivo(String nombreArchivo) {
         this.nombreArchivo = nombreArchivo;
         this.archivo = new File(nombreArchivo);
     }
@@ -24,17 +22,15 @@ public class Archivo
      * Agrega un nuevo elemento a un archivo JSON
      */
 
-    public <T> void agregarElemento(T elemento)
-    {
-        try
-        {
+    public <T> void agregarElemento(T elemento) {
+        try {
             ObjectMapper mapper = new ObjectMapper();
             ArrayList<T> array = new ArrayList<T>();
             array.add(elemento);
-            mapper.writeValue(archivo , array );
+            mapper.writeValue(archivo, array);
 
-        }catch (IOException e){
-            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+        } catch (IOException e) {
+            System.out.println(" No se pudo leer/escribir el archivo: " + e.getMessage());
             e.printStackTrace();
 
         }
@@ -102,20 +98,17 @@ public class Archivo
     }*/
 
     /**
-     *
      * @param lista la lista a guardar en el archivo
-     * Abre y Graba en el archivo JSON una lista de usuarios
+     *              Abre y Graba en el archivo JSON una lista de usuarios
      */
-    public <T> void guardarListaEnArchivo(ArrayList<T> lista)
-    {
-        try
-        {
+    public <T> void guardarListaEnArchivo(ArrayList<T> lista) {
+        try {
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
-            mapper.writeValue(archivo , lista);
+            mapper.writeValue(archivo, lista);
 
-        }catch (IOException e){
-            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+        } catch (IOException e) {
+            System.out.println(" No se pudo leer/escribir el archivo: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -192,24 +185,22 @@ public class Archivo
     }*/
 
     /**
-     *
      * @return la lista de usuarios del JSON de usuarios
      */
 
     public ArrayList<Usuario> archivoToArrayUsuario() {
         ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
-        try
-        {
+        try {
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
-            String jsonString ;
+            String jsonString;
 
             /// LECTURA JACKSON
 
             ArrayList<Usuario> arrayLectura;
 
-            arrayLectura = mapper.readValue( archivo , ArrayList.class );
+            arrayLectura = mapper.readValue(archivo, ArrayList.class);
 
             int size = arrayLectura.size();
 
@@ -219,12 +210,12 @@ public class Archivo
 
             for (int i = 0; i < size; i++) {
                 jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i));
-                pLectura = mapper.readValue( jsonString , Usuario.class );
+                pLectura = mapper.readValue(jsonString, Usuario.class);
                 listaUsuarios.add(pLectura);
             }
 
-        }catch (IOException e){
-            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+        } catch (IOException e) {
+            System.out.println(" No se pudo leer/escribir el archivo: " + e.getMessage());
             e.printStackTrace();
 
         }
@@ -233,23 +224,21 @@ public class Archivo
     }
 
     /**
-     *
      * @return la lista de aviones del JSON de aviones
      */
     public ArrayList<Avion> archivoToArrayAvion() {
         ArrayList<Avion> listaAviones = new ArrayList<Avion>();
 
-        try
-        {
+        try {
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
-            String jsonString ;
+            String jsonString;
 
             /// LECTURA JACKSON
 
             ArrayList<Avion> arrayLectura;
 
-            arrayLectura = mapper.readValue( archivo , ArrayList.class );
+            arrayLectura = mapper.readValue(archivo, ArrayList.class);
 
             int size = arrayLectura.size();
 
@@ -259,12 +248,12 @@ public class Archivo
 
             for (int i = 0; i < size; i++) {
                 jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i));
-                pLectura = mapper.readValue( jsonString , AvionBronze.class );
+                pLectura = mapper.readValue(jsonString, AvionBronze.class);
                 listaAviones.add(pLectura);
             }
 
-        }catch (IOException e){
-            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+        } catch (IOException e) {
+            System.out.println(" No se pudo leer/escribir el archivo: " + e.getMessage());
             e.printStackTrace();
 
         }
@@ -273,8 +262,8 @@ public class Archivo
     }
 
     /**
-     * @param aviones la lista a guardar en el archivo
-     * Graba en el archivo JSON una lista de aviones
+     * @paramaviones la lista a guardar en el archivo
+     *                Graba en el archivo JSON una lista de aviones
      */
     /*public void guardarListaEnArchivoAviones( ArrayList<Avion> aviones)
     {
@@ -293,4 +282,41 @@ public class Archivo
     }*/
 
 
+/////////////////// VUELOS /////////////////////////////////////////////////////
+    public ArrayList<Vuelo> archivoToArrayVuelos() {
+        ArrayList<Vuelo> listaVuelos = new ArrayList<Vuelo>();
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            //Object to JSON in file
+            String jsonString;
+            String jsonString2;
+            /// LECTURA JACKSON
+
+            ArrayList<Vuelo> arrayLectura;
+
+            arrayLectura = mapper.readValue(archivo, ArrayList.class);
+
+            int size = arrayLectura.size();
+
+            Vuelo pLectura = new Vuelo();
+
+            jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pLectura);
+
+            for (int i = 0; i < size; i++) {
+                jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i));
+                pLectura = mapper.readValue(jsonString, Vuelo.class);
+                //jsonString2 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i).getAvion());
+                //pLectura.setAvion(mapper.readValue(jsonString2 , Avion.class ));
+                listaVuelos.add(pLectura);
+            }
+
+        } catch (IOException e) {
+            System.out.println(" No se pudo leer/escribir el archivo: " + e.getMessage());
+            e.printStackTrace();
+
+        }
+
+        return listaVuelos;
+    }
 }
