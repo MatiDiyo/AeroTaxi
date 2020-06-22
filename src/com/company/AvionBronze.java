@@ -3,20 +3,24 @@ package com.company;
 import java.util.Date;
 import java.util.UUID;
 
-public class AvionBronze extends Avion {
+public class AvionBronze extends Avion{
 
     //poner constante para la tarifa o setearla en cada constructor?
+
 
     public AvionBronze(){
         this.setUuid(UUID.randomUUID());
         this.setTarifaFija(3000);
+
     }
 
-    public AvionBronze(int capacidadCombustible, double costoPorKm, int capacidadMaximaPasajeros, int velocidadMaxima, Propulsion propulsion , Date fechaUltimoVuelo){
+    public AvionBronze(int capacidadCombustible, double costoPorKm, int capacidadMaximaPasajeros, int velocidadMaxima, Propulsion propulsion , Date fechaUltimoVuelo ){
         super(capacidadCombustible, costoPorKm, capacidadMaximaPasajeros, velocidadMaxima,propulsion , fechaUltimoVuelo);
         this.setUuid(UUID.randomUUID());
         this.setTarifaFija(3000);
     }
+
+
 
     @Override
     public boolean equals(Object o) {

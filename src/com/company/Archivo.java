@@ -237,21 +237,20 @@ public class Archivo {
             /// LECTURA JACKSON
 
             ArrayList<Avion> arrayLectura;
-
             arrayLectura = mapper.readValue(archivo, ArrayList.class);
+            AvionBronze avionBronze = new AvionBronze();
+            AvionSilver avionSilver = new AvionSilver();
+            AvionGold avionGold = new AvionGold();
 
-            int size = arrayLectura.size();
+            Avion lectura = new Avion();
 
-            AvionBronze pLecturaB = new AvionBronze();
-            AvionSilver pLecturaS = new AvionSilver();
-            AvionGold pLecturaG = new AvionGold();
+            jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(lectura);
 
-            jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pLecturaG);
-
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < arrayLectura.size() ; i++) {
                 jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i));
-                    pLecturaG = mapper.readValue(jsonString, AvionGold.class);
-                    listaAviones.add(pLecturaG);
+
+                avionBronze = mapper.readValue(jsonString , AvionBronze.class );
+                listaAviones.add(avionBronze);
 
             }
 
@@ -263,6 +262,7 @@ public class Archivo {
 
         return listaAviones;
     }
+
 
     /**
      * @paramaviones la lista a guardar en el archivo
