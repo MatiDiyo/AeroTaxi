@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -8,15 +9,15 @@ public class AvionGold extends Avion implements ServicioCatering {
     private boolean wifi;
     private boolean servicioCatering; //por defecto en true
 
-    public AvionGold(boolean wifi) {
+    public AvionGold() {
         this.setUuid(UUID.randomUUID());
         this.setTarifaFija(6000);
-        this.wifi = wifi;
+        this.wifi = true;
         this.servicioCatering = true;
     }
 
-    public AvionGold(int capacidadCombustible, double costoPorKm, int capacidadMaximaPasajeros, int velocidadMaxima, Propulsion propulsion, boolean wifi) {
-        super(capacidadCombustible, costoPorKm, capacidadMaximaPasajeros, velocidadMaxima, propulsion);
+    public AvionGold(int capacidadCombustible, double costoPorKm, int capacidadMaximaPasajeros, int velocidadMaxima, Propulsion propulsion, Date fechaUltimoVuelo , boolean wifi ) {
+        super(capacidadCombustible, costoPorKm, capacidadMaximaPasajeros, velocidadMaxima, propulsion , fechaUltimoVuelo);
         this.setUuid(UUID.randomUUID());
         this.setTarifaFija(6000);
         this.wifi = wifi;

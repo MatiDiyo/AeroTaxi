@@ -1,9 +1,10 @@
 package com.company;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
-public abstract class Avion {
+public class Avion {
 
     private UUID uuid;
     private int capacidadCombustible;
@@ -13,17 +14,19 @@ public abstract class Avion {
     private Propulsion propulsion;
     //private boolean servicioCatering; usaremos una interface para el catering
     private int tarifaFija;
+    private Date fechaUltimoVuelo;
 
     public Avion(){}
 
     //constructor con tarifa por defecto para las herencias
-    public Avion(int capacidadCombustible, double costoPorKm, int capacidadMaximaPasajeros, int velocidadMaxima, Propulsion propulsion) {
+    public Avion(int capacidadCombustible, double costoPorKm, int capacidadMaximaPasajeros, int velocidadMaxima, Propulsion propulsion , Date fechaUltimoVuelo) {
         this.uuid = UUID.randomUUID();
         this.capacidadCombustible = capacidadCombustible;
         this.costoPorKm = costoPorKm;
         this.capacidadMaximaPasajeros = capacidadMaximaPasajeros;
         this.velocidadMaxima = velocidadMaxima;
         this.propulsion = propulsion;
+        this.fechaUltimoVuelo = fechaUltimoVuelo;
     }
 
     //contructor con tarifa modificable
@@ -93,6 +96,14 @@ public abstract class Avion {
         this.tarifaFija = tarifaFija;
     }
 
+    public Date getFechaUltimoVuelo() {
+        return fechaUltimoVuelo;
+    }
+
+    public void setFechaUltimoVuelo(Date fechaUltimoVuelo) {
+        this.fechaUltimoVuelo = fechaUltimoVuelo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -121,6 +132,7 @@ public abstract class Avion {
                 ", velocidadMaxima=" + velocidadMaxima +
                 ", propulsion=" + propulsion.getTipo() +
                 ", tarifaFija=" + tarifaFija +
+                ", fechaUltimoVuelo=" +fechaUltimoVuelo+
                 '}';
     }
 }

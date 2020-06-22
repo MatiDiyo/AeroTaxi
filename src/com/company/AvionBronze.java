@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class AvionBronze extends Avion {
@@ -11,8 +12,8 @@ public class AvionBronze extends Avion {
         this.setTarifaFija(3000);
     }
 
-    public AvionBronze(int capacidadCombustible, double costoPorKm, int capacidadMaximaPasajeros, int velocidadMaxima, Propulsion propulsion){
-        super(capacidadCombustible, costoPorKm, capacidadMaximaPasajeros, velocidadMaxima,propulsion);
+    public AvionBronze(int capacidadCombustible, double costoPorKm, int capacidadMaximaPasajeros, int velocidadMaxima, Propulsion propulsion , Date fechaUltimoVuelo){
+        super(capacidadCombustible, costoPorKm, capacidadMaximaPasajeros, velocidadMaxima,propulsion , fechaUltimoVuelo);
         this.setUuid(UUID.randomUUID());
         this.setTarifaFija(3000);
     }
