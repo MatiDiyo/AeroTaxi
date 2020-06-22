@@ -41,12 +41,50 @@ public class Sistema
             exit(0); // se sale
     }
 
+    private static void deseaVolverAlMenuUsuario(ArrayList<Usuario> listaUsuario, int indexUsuario ,ArrayList<Avion> listaAviones, ArrayList<Vuelo> listaVuelos)
+    {
+        char opcion = 's';
+
+        do{
+            System.out.print("¿Desea volver al menu de usuario? (S/N): ");
+            opcion = sn.next().charAt(0);
+            opcion = Character.toUpperCase(opcion);
+        } while (opcion == 'S' && opcion == 'N');
+
+        if(opcion == 'S')
+        {
+            System.out.print(mostrarMenuUsuario());
+            cargarMenuUsuario(listaUsuario, indexUsuario ,listaAviones, listaVuelos);
+        }
+        else
+            exit(0);
+    }
+
+    private static void deseaVolverAlMenuAdmin(ArrayList<Usuario> listaUsuario, ArrayList<Avion> listaAviones, ArrayList<Vuelo> listaVuelos)
+    {
+        char opcion = 's';
+
+        do{
+            System.out.print("¿Desea volver al menu de admin? (S/N): ");
+            opcion = sn.next().charAt(0);
+            opcion = Character.toUpperCase(opcion);
+        } while (opcion == 'S' && opcion == 'N');
+
+        if (opcion == 'S')
+        {
+            System.out.print(mostrarMenuAdmin());
+            cargarMenuAdmin(listaUsuario, listaAviones, listaVuelos);
+        }
+        else
+            exit(0);
+    }
+
     /**
      * @return un mensaje con la opción ingresada.
      */
     private static String mostrarOpcionIngresada(byte opcion)
     {
-        return "Has seleccionado la opción "+ opcion + " ...";
+        return "Has seleccionado la opción "+ opcion + " ...\n";
     }
 
     // -------------------- MÉTODOS INGRESAR -------------------- //
@@ -97,7 +135,7 @@ public class Sistema
         byte opcion = 0;
 
         do {
-
+            System.out.print("\n");
             try
             {
                 System.out.print("Ingrese una opción entre " + n + " y "+ m + ": ");
@@ -133,7 +171,7 @@ public class Sistema
                 "2. REGISTRAR USUARIO\n" +
                 "3. INICIAR SESION DE ADMIN\n" +
                 "4. Salir.\n" +
-                "-------------------------------\n";
+                "-------------------------------";
     }
 
     /**
@@ -142,12 +180,12 @@ public class Sistema
     private static void cargarMenuPrincipal(ArrayList<Usuario> listaUsuario , ArrayList<Avion> listaAviones , ArrayList<Vuelo> listaVuelos)
     {
         byte opcion = ingresarOpcion((byte)1, (byte)4);
-
+        int indexUsuario=0;
         switch (opcion)
         {
             case 1:
                 boolean comprobarDni = false;
-                int indexUsuario=0;
+
                 sn.nextLine();
                 sn.nextLine();
                 while (!comprobarDni)
@@ -226,7 +264,7 @@ public class Sistema
             case 1:
                 System.out.println("\nMostrando los datos del usuario...");
                 System.out.println(listaUsuario.get(indexDni).toString());
-                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos );
+                deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
             case 2:
@@ -261,7 +299,7 @@ public class Sistema
     private static String mostrarMenuRegistracionUsuario()
     {
         return "\n\n-------------------------------\n" +
-                "     MENÚ DE REGISTRACION DE USUARIO\n" +
+                "MENÚ DE REGISTRACION DE USUARIO\n" +
                 "-------------------------------\n";
     }
 
@@ -340,38 +378,49 @@ public class Sistema
         switch (opcion)
         {
             case 1:
-                System.out.println("\nMostrando lista de aviones");
+                System.out.println("\n            < Mostrando lista de aviones >");
+                System.out.println("--------------------------------------------------------------");
                 for( int i = 0; i < listaAviones.size() ; i++) {
                     System.out.println(listaAviones.get(i).toString());
+                    System.out.println("--------------------------------------------------------------");
                 }
-                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones ,listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
                 break;
 
             case 2:
-                System.out.println("\nMostrando lista de usuarios");
+                System.out.println("\n           < Mostrando lista de usuarios >");
+                System.out.println("--------------------------------------------------------------");
                 for (int i = 0; i < listaUsuario.size() ; i++){
                     System.out.println(listaUsuario.get(i).toString());
+                    System.out.println("--------------------------------------------------------------");
                 }
-                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
                 break;
 
             case 3:
-                System.out.println("\nMostrando lista de vuelos");
+                System.out.println("\n            < Mostrando lista de vuelos >");
+                System.out.println("--------------------------------------------------------------");
                 for (int i = 0; i < listaVuelos.size() ; i++) {
                     System.out.println(listaVuelos.get(i).toString());
+                    System.out.println("--------------------------------------------------------------");
                 }
-                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones,listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
                 break;
 
             case 4:
-                System.out.println("\nMostrando menu carga aviones");
+                //System.out.println("\nMostrando menu carga aviones");
+                System.out.println("\n-------------------------------");
+                System.out.println("       CARGANDO DE AVION");
+                System.out.println("-------------------------------");
                 menuCargaAviones(listaUsuario , listaAviones );
-                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
 
             case 5:
-                System.out.println("\nMostrando menu nuevo vuelo.");
+                System.out.println("\n-------------------------------");
+                System.out.println("         NUEVO VUELO");
+                System.out.println("-------------------------------");
                 menuNuevoVuelo( listaAviones , listaVuelos);
-                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
 
             case 6:
                 System.out.println(mostrarMenuPrincipial());
@@ -393,25 +442,25 @@ public class Sistema
             System.out.println("Registro Avion bronze");
 
             sn.nextLine();
-            System.out.println("capacidad Combustible:");
+            System.out.print("capacidad Combustible:");
             nuevoAvion.setCapacidadCombustible(sn.nextInt());
             sn.nextLine();
-            System.out.println("Cantidad maxima de pasajeros:");
+            System.out.print("Cantidad maxima de pasajeros:");
             nuevoAvion.setCapacidadMaximaPasajeros(sn.nextInt());
             sn.nextLine();
-            System.out.println("Costo por km:");
+            System.out.print("Costo por km:");
             nuevoAvion.setCostoPorKm(sn.nextDouble());
             sn.nextLine();
-            System.out.println("Velocidad maxima:");
+            System.out.print("Velocidad maxima:");
             nuevoAvion.setVelocidadMaxima(500);
 
             sn.nextLine();
 
             System.out.println("Tipo de propulsion:");
             int controlMotor=0;
-            System.out.println("1_Motor a reaccion.");
-            System.out.println("2_Motor a helice.");
-            System.out.println("3_Motor a pistones.");
+            System.out.println("1. Motor a reaccion.");
+            System.out.println("2. Motor a helice.");
+            System.out.println("3. Motor a pistones.");
 
             controlMotor = sn.nextInt();
             switch (controlMotor){
@@ -449,32 +498,32 @@ public class Sistema
             File file = new File("archivoVuelos.json");
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
-            System.out.println("Registro nuevo vuelo.");
+            System.out.println("   < Registro nuevo vuelo >");
 
             sn.nextLine();
-            System.out.println("Ingrese la fecha del vuelo:");
-            System.out.println("Ingrese anio ej:2020");
+            System.out.println("Ingrese la fecha del vuelo: ");
+            System.out.print("Ingrese anio (ej:2020): ");
             fechateclado = sn.nextInt();
             fechaIngresada.set( Calendar.YEAR , fechateclado );
-            System.out.println("Ingrese mes en formado de 2 digitos:");
+            System.out.print("Ingrese mes en formato de 2 digitos: ");
             fechateclado = sn.nextInt();
             fechaIngresada.set( Calendar.MONTH , fechateclado - 1 );
-            System.out.println("Ingrese el dia del vuelo:");
+            System.out.print("Ingrese el dia del vuelo: ");
             fechateclado = sn.nextInt();
             fechaIngresada.set( Calendar.DATE , fechateclado );
-            System.out.println("Ingrese hora del vuelo formato 24h");
+            System.out.print("Ingrese hora del vuelo formato 24h: ");
             fechateclado = sn.nextInt();
             fechaIngresada.set( Calendar.HOUR , fechateclado - 12);
             fechaIngresada.set( Calendar.MINUTE , 00 );
             fechaIngresada.set( Calendar.SECOND , 00);
-            System.out.println("Fecha ingresada: "+fechaIngresada.getTime());
+            System.out.print("\nFecha ingresada: "+fechaIngresada.getTime() + "\n");
             nuevoVuelo.setFecha( fechaIngresada.getTime() );
             sn.nextLine();
-            System.out.println("Ciudad de origen:");
-            System.out.println("1_Buenos Aires.");
-            System.out.println("2_Cordoba");
-            System.out.println("3_Santiago");
-            System.out.println("4_Montevideo");
+            System.out.println("\nCiudad de origen:");
+            System.out.println("1. Buenos Aires.");
+            System.out.println("2. Cordoba.");
+            System.out.println("3. Santiago.");
+            System.out.println("4. Montevideo.");
             byte opcion = ingresarOpcion((byte)1, (byte)4);
             switch (opcion){
                 case 1:
@@ -491,14 +540,14 @@ public class Sistema
             }
 
             sn.nextLine();
-            System.out.println("Ciudad de destino:");
+            System.out.println("\nCiudad de destino:");
             byte opcionDestino;
 
             switch (opcion){
                 case 1:
-                    System.out.println("1_Cordoba");
-                    System.out.println("2_Santiago");
-                    System.out.println("3_Montevideo");
+                    System.out.println("1. Cordoba.");
+                    System.out.println("2. Santiago.");
+                    System.out.println("3. Montevideo.");
                     opcionDestino = ingresarOpcion((byte)1 , (byte)3);
                     switch (opcionDestino){
                         case 1:
@@ -513,9 +562,9 @@ public class Sistema
                     }
                     break;
                 case 2:
-                    System.out.println("1_Bueno Aires");
-                    System.out.println("2_Santiago");
-                    System.out.println("3_Montevideo");
+                    System.out.println("1. Bueno Aires.");
+                    System.out.println("2. Santiago.");
+                    System.out.println("3. Montevideo.");
                     opcionDestino = ingresarOpcion((byte)1 , (byte)3);
                     switch (opcionDestino){
                         case 1:
@@ -530,9 +579,9 @@ public class Sistema
                     }
                     break;
                 case 3:
-                    System.out.println("1_Bueno Aires");
-                    System.out.println("2_Cordoba");
-                    System.out.println("3_Montevideo");
+                    System.out.println("1. Bueno Aires.");
+                    System.out.println("2. Cordoba.");
+                    System.out.println("3. Montevideo.");
                     opcionDestino = ingresarOpcion((byte)1 , (byte)3);
                     switch (opcionDestino){
                         case 1:
@@ -547,9 +596,9 @@ public class Sistema
                     }
                     break;
                 case 4:
-                    System.out.println("1_Bueno Aires");
-                    System.out.println("2_Cordoba");
-                    System.out.println("3_Santiago");
+                    System.out.println("1. Bueno Aires.");
+                    System.out.println("2. Cordoba.");
+                    System.out.println("3. Santiago.");
                     opcionDestino = ingresarOpcion((byte)1 , (byte)3);
                     switch (opcionDestino){
                         case 1:
@@ -569,12 +618,12 @@ public class Sistema
             sn.nextLine();
             nuevoVuelo.setCantidadAcompanantes(0);
 
-            System.out.println("Seleccione un avion");
+            System.out.println("\nSeleccione un avion");
             Byte opcionAvion;
 
             for (int i=0; i < listaAviones.size() ; i++) {
                 System.out.print(i + 1);
-                System.out.println("_" + listaAviones.get(i).toString());
+                System.out.println(") " + listaAviones.get(i).toString());
                 System.out.println("--------------------------------------------------------------");
             }
             opcionAvion = ingresarOpcion( (byte)1 , (byte)listaAviones.size() );

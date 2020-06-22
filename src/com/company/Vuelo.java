@@ -1,13 +1,9 @@
 package com.company;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Vuelo {
-
-    Scanner sn = new Scanner(System.in);
 
     private Date fecha;
     private Ciudad origen;
@@ -29,87 +25,6 @@ public class Vuelo {
         this.avion = avion;
         this.distancia = distancia;
         this.costoTotal = costoTotal;
-    }
-
-    //retornar Vuelo? o en void?
-    public void contratarVuelo(){
-        //pedir fecha de vuelo
-        System.out.println("-Elija su origen.\n");
-        elegirOrigen();
-        System.out.println("\n-Elija su destino.\n");
-        elegirDestino();
-        this.distancia = calcularDistancia();
-        System.out.println("\n-Ingrese la cantidad de acompañantes: ");
-        this.cantidadAcompanantes = sn.nextInt() + 1; //mas uno pq hay que contar el que hace la compra
-        //seleccionar un avion (mostrar los aviones de ese dia)
-        System.out.println("\n-El costo del vuelo es de:" + distancia);
-        //confirmar para generar vuelo
-
-       // return Vuelo;
-    }
-
-    public void elegirOrigen(){
-        int i = 0;
-
-        System.out.println("1 - " + Ciudad.BUENOS_AIRES.getLugar());
-        System.out.println("2 - " + Ciudad.CORDOBA.getLugar());
-        System.out.println("3 - " + Ciudad.SANTIAGO.getLugar());
-        System.out.println("4 - " + Ciudad.MONTEVIDEO.getLugar());
-        System.out.println("");
-        System.out.println("-Ingrese un origen: ");
-        i = sn.nextInt();
-
-        if (i == 1){
-            origen = Ciudad.BUENOS_AIRES;
-        }else if(i == 2){
-            origen = Ciudad.CORDOBA;
-        }else if(i == 3){
-            origen = Ciudad.SANTIAGO;
-        }else if (i == 4){
-            origen = Ciudad.MONTEVIDEO;
-        }
-    }
-
-    public void elegirDestino(){
-        int i = 0;
-
-        System.out.println("1 - " + Ciudad.BUENOS_AIRES.getLugar());
-        System.out.println("2 - " + Ciudad.CORDOBA.getLugar());
-        System.out.println("3 - " + Ciudad.SANTIAGO.getLugar());
-        System.out.println("4 - " + Ciudad.MONTEVIDEO.getLugar());
-        System.out.println("");
-        System.out.println("-Ingrese un destino: ");
-        i = sn.nextInt();
-
-        if (i == 1){
-            if(Ciudad.BUENOS_AIRES.getLugar().equals(origen)){
-                System.out.println("    -No se puede elegir el mismo origen y destino.\n");
-                elegirDestino();
-            }else{
-                destino = Ciudad.BUENOS_AIRES;
-            }
-        }else if (i == 2){
-            if(Ciudad.CORDOBA.getLugar().equals(origen)){
-                System.out.println("    -No se puede elegir el mismo origen y destino.\n");
-                elegirDestino();
-            }else{
-                destino = Ciudad.CORDOBA;
-            }
-        }else if (i == 3){
-            if(Ciudad.SANTIAGO.getLugar().equals(origen)){
-                System.out.println("    -No se puede elegir el mismo origen y destino.\n");
-                elegirDestino();
-            }else{
-                destino = Ciudad.SANTIAGO;
-            }
-        }else if (i == 4){
-            if(Ciudad.MONTEVIDEO.getLugar().equals(origen)){
-                  System.out.println("    -No se puede elegir el mismo origen y destino.\n");
-                  elegirDestino();
-            }else{
-                    destino = Ciudad.MONTEVIDEO;
-            }
-        }
     }
 
     public int calcularDistancia(){
@@ -211,14 +126,12 @@ public class Vuelo {
 
     @Override
     public String toString() {
-        return "Vuelo{" +
-                "fecha=" + fecha +
-                ", origen=" + origen +
-                ", destino=" + destino +
-                ", cantidadAcompanantes=" + cantidadAcompanantes +
-                ", avion=" + avion +
-                ", distancia=" + distancia +
-                ", costoTotal=" + costoTotal +
-                '}';
+        return  "\t-Fecha: " + fecha + "." +
+                "\n\t-Origen: " + origen.getLugar() + "." +
+                "\n\t-Destino: " + destino.getLugar() + "." +
+                "\n\t-Cantidad de Acompanantes: " + cantidadAcompanantes + "." +
+                "\n\t-Avion: " + avion.getUuid() + "." +
+                "\n\t-Distancia: " + distancia + "." +
+                "\n\t-Costo total: $" + costoTotal + ".";
     }
 }

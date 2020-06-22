@@ -4,8 +4,6 @@ import java.util.UUID;
 
 public class AvionBronze extends Avion {
 
-    //poner constante para la tarifa o setearla en cada constructor?
-
     public AvionBronze(){
         this.setUuid(UUID.randomUUID());
         this.setTarifaFija(3000);
