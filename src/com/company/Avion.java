@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -13,18 +14,19 @@ public class Avion {
     private Propulsion propulsion;
     //private boolean servicioCatering; usaremos una interface para el catering
     private int tarifaFija;
-    // private boolean disponible; // variable utilizada para verificar si el avion viajo en el dia
+    private Date fechaUltimoVuelo;
 
     public Avion(){}
 
     //constructor con tarifa por defecto para las herencias
-    public Avion(int capacidadCombustible, double costoPorKm, int capacidadMaximaPasajeros, int velocidadMaxima, Propulsion propulsion) {
+    public Avion(int capacidadCombustible, double costoPorKm, int capacidadMaximaPasajeros, int velocidadMaxima, Propulsion propulsion , Date fechaUltimoVuelo) {
         this.uuid = UUID.randomUUID();
         this.capacidadCombustible = capacidadCombustible;
         this.costoPorKm = costoPorKm;
         this.capacidadMaximaPasajeros = capacidadMaximaPasajeros;
         this.velocidadMaxima = velocidadMaxima;
         this.propulsion = propulsion;
+        this.fechaUltimoVuelo = fechaUltimoVuelo;
     }
 
     //contructor con tarifa modificable
@@ -92,6 +94,14 @@ public class Avion {
 
     public void setTarifaFija(int tarifaFija) {
         this.tarifaFija = tarifaFija;
+    }
+
+    public Date getFechaUltimoVuelo() {
+        return fechaUltimoVuelo;
+    }
+
+    public void setFechaUltimoVuelo(Date fechaUltimoVuelo) {
+        this.fechaUltimoVuelo = fechaUltimoVuelo;
     }
 
     @Override
