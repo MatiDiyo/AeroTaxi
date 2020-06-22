@@ -5,11 +5,11 @@ import org.omg.CORBA.ARG_IN;
 
 import java.awt.image.AreaAveragingScaleFilter;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static java.lang.System.exit;
+import static java.lang.System.setOut;
 
 /**
  * Clase estática, con un único método público: cargarSistema()
@@ -325,7 +325,8 @@ public class Sistema
                 "2. MOSTRAR LISTA DE USUARIOS\n" +
                 "3. MOSTRAR LISTA DE VUELOS\n" +
                 "4. MENU CARGAR DE AVIONES\n"  +
-                "5. Volver al menú principal.\n" +
+                "5. MENU CARGAR DE VUELOS\n"  +
+                "6. Volver al menú principal.\n" +
                 "-------------------------------";
     }
 
@@ -335,8 +336,8 @@ public class Sistema
      */
     private static void cargarMenuAdmin(ArrayList<Usuario> listaUsuario , ArrayList<Avion> listaAviones)
     {
-        byte opcion = ingresarOpcion((byte)1, (byte)5);
-
+        byte opcion = ingresarOpcion((byte)1, (byte)6);
+        ArrayList<Vuelo> listaVuelos = new ArrayList<Vuelo>();
         switch (opcion)
         {
             case 1:
@@ -366,6 +367,11 @@ public class Sistema
                 deseaVolverAlMenuPrincipal(listaUsuario, listaAviones);
 
             case 5:
+                System.out.println("\nMostrando menu nuevo vuelo.");
+                menuNuevoVuelo( listaAviones , listaVuelos);
+                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones);
+
+            case 6:
                 System.out.println(mostrarMenuPrincipial());
                 cargarMenuPrincipal(listaUsuario, listaAviones);
                 break;
@@ -421,6 +427,152 @@ public class Sistema
 
             listaAviones.add(nuevoAvion);
             mapper.writeValue(file , listaAviones );
+
+        }catch (IOException e){
+            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+            e.printStackTrace();
+
+        }
+
+    }
+
+    private static void menuNuevoVuelo( ArrayList<Avion> listaAviones , ArrayList<Vuelo> listaVuelos){
+
+        Vuelo nuevoVuelo = new Vuelo();
+        Calendar fechaIngresada = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        int fechateclado;
+        try
+        {
+            File file = new File("archivoVuelos.json");
+            ObjectMapper mapper = new ObjectMapper();
+            //Object to JSON in file
+            System.out.println("Registro nuevo vuelo.");
+
+            sn.nextLine();
+            System.out.println("Ingrese la fecha del vuelo:");
+            System.out.println("Ingrese anio ej:2020");
+            fechateclado = sn.nextInt();
+            fechaIngresada.set( Calendar.YEAR , fechateclado );
+            System.out.println("Ingrese mes en formado de 2 digitos:");
+            fechateclado = sn.nextInt();
+            fechaIngresada.set( Calendar.MONTH , fechateclado - 1 );
+            System.out.println("Ingrese el dia del vuelo:");
+            fechateclado = sn.nextInt();
+            fechaIngresada.set( Calendar.DATE , fechateclado );
+            System.out.println("Ingrese hora del vuelo formato 24h");
+            fechateclado = sn.nextInt();
+            fechaIngresada.set( Calendar.HOUR , fechateclado - 12);
+            fechaIngresada.set( Calendar.MINUTE , 00 );
+            fechaIngresada.set( Calendar.SECOND , 00);
+            System.out.println("Fecha ingresada: "+fechaIngresada.getTime());
+            nuevoVuelo.setFecha( fechaIngresada.getTime() );
+            sn.nextLine();
+            System.out.println("Ciudad de origen:");
+            System.out.println("1_Buenos Aires.");
+            System.out.println("2_Cordoba");
+            System.out.println("3_Santiago");
+            System.out.println("4_Montevideo");
+            byte opcion = ingresarOpcion((byte)1, (byte)4);
+            switch (opcion){
+                case 1:
+                    nuevoVuelo.setOrigen( Ciudad.BUENOS_AIRES);
+                    break;
+                case 2:
+                    nuevoVuelo.setOrigen( Ciudad.CORDOBA);
+                    break;
+                case 3:
+                    nuevoVuelo.setOrigen( Ciudad.SANTIAGO );
+                    break;
+                case 4:
+                    nuevoVuelo.setOrigen( Ciudad.MONTEVIDEO);
+            }
+
+            sn.nextLine();
+            System.out.println("Ciudad de destino:");
+            byte opcionDestino;
+
+            switch (opcion){
+                case 1:
+                    System.out.println("1_Cordoba");
+                    System.out.println("2_Santiago");
+                    System.out.println("3_Montevideo");
+                    opcionDestino = ingresarOpcion((byte)1 , (byte)3);
+                    switch (opcionDestino){
+                        case 1:
+                            nuevoVuelo.setDestino( Ciudad.CORDOBA );
+                            break;
+                        case 2:
+                            nuevoVuelo.setDestino( Ciudad.SANTIAGO );
+                            break;
+                        case 3:
+                            nuevoVuelo.setDestino( Ciudad.MONTEVIDEO );
+                            break;
+                    }
+                    break;
+                case 2:
+                    System.out.println("1_Bueno Aires");
+                    System.out.println("2_Santiago");
+                    System.out.println("3_Montevideo");
+                    opcionDestino = ingresarOpcion((byte)1 , (byte)3);
+                    switch (opcionDestino){
+                        case 1:
+                            nuevoVuelo.setDestino( Ciudad.BUENOS_AIRES );
+                            break;
+                        case 2:
+                            nuevoVuelo.setDestino( Ciudad.SANTIAGO );
+                            break;
+                        case 3:
+                            nuevoVuelo.setDestino( Ciudad.MONTEVIDEO );
+                            break;
+                    }
+                    break;
+                case 3:
+                    System.out.println("1_Bueno Aires");
+                    System.out.println("2_Cordoba");
+                    System.out.println("3_Montevideo");
+                    opcionDestino = ingresarOpcion((byte)1 , (byte)3);
+                    switch (opcionDestino){
+                        case 1:
+                            nuevoVuelo.setDestino( Ciudad.BUENOS_AIRES );
+                            break;
+                        case 2:
+                            nuevoVuelo.setDestino( Ciudad.CORDOBA );
+                            break;
+                        case 3:
+                            nuevoVuelo.setDestino( Ciudad.MONTEVIDEO );
+                            break;
+                    }
+                    break;
+                case 4:
+                    System.out.println("1_Bueno Aires");
+                    System.out.println("2_Cordoba");
+                    System.out.println("3_Santiago");
+                    opcionDestino = ingresarOpcion((byte)1 , (byte)3);
+                    switch (opcionDestino){
+                        case 1:
+                            nuevoVuelo.setDestino( Ciudad.BUENOS_AIRES );
+                            break;
+                        case 2:
+                            nuevoVuelo.setDestino( Ciudad.CORDOBA );
+                            break;
+                        case 3:
+                            nuevoVuelo.setDestino( Ciudad.SANTIAGO );
+                            break;
+                    }
+                    break;
+
+            }
+
+            sn.nextLine();
+            nuevoVuelo.setCantidadAcompanantes(0);
+
+            nuevoVuelo.setAvion(listaAviones.get(0));// agregar una lista de aviones y un selecionador
+
+            nuevoVuelo.setDistancia(  nuevoVuelo.calcularDistancia() );
+            nuevoVuelo.setCostoTotal( nuevoVuelo.costoVuelo() );
+            listaVuelos.add(nuevoVuelo);
+            mapper.writeValue(file , listaVuelos );
 
         }catch (IOException e){
             System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());

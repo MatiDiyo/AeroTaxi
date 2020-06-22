@@ -13,6 +13,7 @@ public abstract class Avion {
     private Propulsion propulsion;
     //private boolean servicioCatering; usaremos una interface para el catering
     private int tarifaFija;
+    // private boolean disponible; // variable utilizada para verificar si el avion viajo en el dia
 
     public Avion(){}
 

@@ -162,7 +162,7 @@ public class Vuelo {
         return cantidadAcompanantes;
     }
 
-    public void setCantidadAcompanantes(short cantidadAcompanantes) {
+    public void setCantidadAcompanantes(int cantidadAcompanantes) {
         this.cantidadAcompanantes = cantidadAcompanantes;
     }
 

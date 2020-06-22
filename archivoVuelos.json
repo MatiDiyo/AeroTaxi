@@ -1,0 +1,1 @@
+[{"fecha":null,"origen":"BUENOS_AIRES","destino":"CORDOBA","cantidadAcompanantes":0,"avion":{"uuid":"8a21338a-9801-4dc4-a2ef-5678f4669c01","capacidadCombustible":500,"costoPorKm":100.0,"capacidadMaximaPasajeros":80,"velocidadMaxima":500,"propulsion":"MOTOR_A_HELICE","tarifaFija":3000},"distancia":0,"costoTotal":3000.0}]
