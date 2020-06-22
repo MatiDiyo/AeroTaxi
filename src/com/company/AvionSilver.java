@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -13,8 +14,8 @@ public class AvionSilver extends Avion implements ServicioCatering{
         this.servicioCatering = true;
     }
 
-    public AvionSilver(int capacidadCombustible, double costoPorKm, int capacidadMaximaPasajeros, int velocidadMaxima, Propulsion propulsion){
-        super(capacidadCombustible, costoPorKm, capacidadMaximaPasajeros, velocidadMaxima, propulsion);
+    public AvionSilver(int capacidadCombustible, double costoPorKm, int capacidadMaximaPasajeros, int velocidadMaxima, Propulsion propulsion , Date fechaUltimoVuelo){
+        super(capacidadCombustible, costoPorKm, capacidadMaximaPasajeros, velocidadMaxima, propulsion , fechaUltimoVuelo);
         this.setUuid(UUID.randomUUID());
         this.setTarifaFija(4000);
         this.servicioCatering = true;

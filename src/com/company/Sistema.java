@@ -365,7 +365,7 @@ public class Sistema
 
             case 4:
                 System.out.println("\nMostrando menu carga aviones");
-                menuCargaAviones(listaUsuario , listaAviones );
+                menuCargaAvionBronze(listaUsuario , listaAviones );
                 deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
 
             case 5:
@@ -381,10 +381,13 @@ public class Sistema
         }
     }
 
-    private static void menuCargaAviones(ArrayList<Usuario> listaUsuario , ArrayList<Avion> listaAviones)
+    private static void menuCargaAvionBronze(ArrayList<Usuario> listaUsuario , ArrayList<Avion> listaAviones)
     {
-
+        Calendar fechaAvion = Calendar.getInstance();
         AvionBronze nuevoAvion = new AvionBronze();
+
+        fechaAvion.after(1);
+        System.out.println( fechaAvion.getTime());
         try
         {
             File file = new File("archivoAviones.json");
@@ -427,6 +430,7 @@ public class Sistema
                     break;
             }
 
+            nuevoAvion.setFechaUltimoVuelo( fechaAvion.getTime() );
             listaAviones.add(nuevoAvion);
             mapper.writeValue(file , listaAviones );
 
@@ -435,8 +439,10 @@ public class Sistema
             e.printStackTrace();
 
         }
-
     }
+
+
+
 
     private static void menuNuevoVuelo( ArrayList<Avion> listaAviones , ArrayList<Vuelo> listaVuelos){
 
