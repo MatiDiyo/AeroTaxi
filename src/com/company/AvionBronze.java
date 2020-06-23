@@ -20,8 +20,6 @@ public class AvionBronze extends Avion{
         this.setTarifaFija(3000);
     }
 
-
-
     @Override
     public boolean equals(Object o) {
         return super.equals(o);

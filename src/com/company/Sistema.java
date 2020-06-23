@@ -1000,8 +1000,20 @@ public class Sistema
     /**
      * Método principal de la clase, es el único público, este método se llamará desde el main.
      */
-    public static void cargarSistema(ArrayList<Usuario> listaUsuarios , ArrayList<Avion> listaAviones , ArrayList<Vuelo> listaVuelos)
+    public static void cargarSistema()
     {
+        Archivo archivoUsuarios = new Archivo("archivoUsuarios.json");
+        Archivo archivoAviones = new Archivo("archivoAviones.json");
+        Archivo archivoVuelo = new Archivo("archivoVuelos.json");
+
+        ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+        ArrayList<Avion> listaAviones = new ArrayList<Avion>();
+        ArrayList<Vuelo> listaVuelos = new ArrayList<>();
+
+        listaUsuarios = archivoUsuarios.archivoToArrayUsuario();
+        listaAviones = archivoAviones.archivoToArrayAvion();
+        listaVuelos = archivoVuelo.archivoToArrayVuelos();
+
         System.out.print(mostrarMenuPrincipial());
         cargarMenuPrincipal(listaUsuarios,listaAviones,listaVuelos);
     }

@@ -268,29 +268,7 @@ public class Archivo {
 
         return listaAviones;
     }
-
-
-
-    /**
-     * @paramaviones la lista a guardar en el archivo
-     *                Graba en el archivo JSON una lista de aviones
-     */
-    /*public void guardarListaEnArchivoAviones( ArrayList<Avion> aviones)
-    {
-        try
-        {
-            File file = new File("archivoAvion.json");
-
-            ObjectMapper mapper = new ObjectMapper();
-            //Object to JSON in file
-            mapper.writeValue(file , aviones );
-
-        }catch (IOException e){
-            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
-            e.printStackTrace();
-        }
-    }*/
-
+    
 
 /////////////////// VUELOS /////////////////////////////////////////////////////
     public ArrayList<Vuelo> archivoToArrayVuelos() {
