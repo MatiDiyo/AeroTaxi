@@ -822,39 +822,11 @@ public class Sistema
             //Object to JSON in file
             System.out.println("     --Registro Avion Bronze--");
 
-            sn.nextLine();
-            System.out.print("-Capacidad combustible: ");
-            nuevoAvion.setCapacidadCombustible(sn.nextInt());
-            sn.nextLine();
-            System.out.print("-Cantidad maxima de pasajeros: ");
-            nuevoAvion.setCapacidadMaximaPasajeros(sn.nextInt());
-            sn.nextLine();
-            System.out.print("-Costo por km: ");
-            nuevoAvion.setCostoPorKm(sn.nextDouble());
-            sn.nextLine();
-            System.out.print("-Velocidad maxima: ");
-            nuevoAvion.setVelocidadMaxima(500);
-            sn.nextLine();
-
-            System.out.println(">Tipo de propulsion<");
-            int controlMotor=0;
-            System.out.println("1. Motor a reaccion.");
-            System.out.println("2. Motor a helice.");
-            System.out.println("3. Motor a pistones.");
-            controlMotor = sn.nextInt();
-            switch (controlMotor){
-                case 1:
-                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_REACCION);
-                    break;
-                case 2:
-                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_HELICE);
-                    break;
-                case 3:
-                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_PISTONES);
-                    break;
-            }
-
-
+            nuevoAvion.setCapacidadCombustible(ingresarCapacidadCombustible());
+            nuevoAvion.setCapacidadMaximaPasajeros(ingresarCantidadPasajeros());
+            nuevoAvion.setCostoPorKm(ingresarCostoKM());
+            nuevoAvion.setVelocidadMaxima(ingresarVelocidadMaxima());
+            nuevoAvion.setPropulsion(ingresarPropulsion());
 
             nuevoAvion.setFechaUltimoVuelo( fechaAvion.getTime() );
             listaAviones.add(nuevoAvion);
@@ -887,40 +859,11 @@ public class Sistema
             //Object to JSON in file
             System.out.println("     --Registro Avion Silver--");
 
-            sn.nextLine();
-            System.out.print("-Capacidad Combustible: ");
-            nuevoAvion.setCapacidadCombustible(sn.nextInt());
-            sn.nextLine();
-            System.out.print("-Cantidad maxima de pasajeros: ");
-            nuevoAvion.setCapacidadMaximaPasajeros(sn.nextInt());
-            sn.nextLine();
-            System.out.print("-Costo por km: ");
-            nuevoAvion.setCostoPorKm(sn.nextDouble());
-            sn.nextLine();
-            System.out.print("-Velocidad maxima: ");
-            nuevoAvion.setVelocidadMaxima(500);
-
-            sn.nextLine();
-
-            System.out.println(">Tipo de propulsion<");
-            int controlMotor=0;
-            System.out.println("1. Motor a reaccion.");
-            System.out.println("2. Motor a helice.");
-            System.out.println("3. Motor a pistones.");
-
-            controlMotor = sn.nextInt();
-            switch (controlMotor){
-                case 1:
-                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_REACCION);
-                    break;
-
-                case 2:
-                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_HELICE);
-                    break;
-                case 3:
-                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_PISTONES);
-                    break;
-            }
+            nuevoAvion.setCapacidadCombustible(ingresarCapacidadCombustible());
+            nuevoAvion.setCapacidadMaximaPasajeros(ingresarCantidadPasajeros());
+            nuevoAvion.setCostoPorKm(ingresarCostoKM());
+            nuevoAvion.setVelocidadMaxima(ingresarVelocidadMaxima());
+            nuevoAvion.setPropulsion(ingresarPropulsion());
 
             nuevoAvion.setFechaUltimoVuelo( fechaAvion.getTime() );
             listaAviones.add(nuevoAvion);
@@ -952,40 +895,11 @@ public class Sistema
             //Object to JSON in file
             System.out.println("     --Registro Avion Gold--");
 
-            sn.nextLine();
-            System.out.print("-Capacidad combustible: ");
-            nuevoAvion.setCapacidadCombustible(sn.nextInt());
-            sn.nextLine();
-            System.out.print("-Cantidad maxima de pasajeros: ");
-            nuevoAvion.setCapacidadMaximaPasajeros(sn.nextInt());
-            sn.nextLine();
-            System.out.print("-Costo por km: ");
-            nuevoAvion.setCostoPorKm(sn.nextDouble());
-            sn.nextLine();
-            System.out.print("-Velocidad maxima: ");
-            nuevoAvion.setVelocidadMaxima(500);
-
-            sn.nextLine();
-
-            System.out.println(">Tipo de propulsion<");
-            int controlMotor=0;
-            System.out.println("1. Motor a reaccion.");
-            System.out.println("2. Motor a helice.");
-            System.out.println("3. Motor a pistones.");
-
-            controlMotor = sn.nextInt();
-            switch (controlMotor){
-                case 1:
-                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_REACCION);
-                    break;
-
-                case 2:
-                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_HELICE);
-                    break;
-                case 3:
-                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_PISTONES);
-                    break;
-            }
+            nuevoAvion.setCapacidadCombustible(ingresarCapacidadCombustible());
+            nuevoAvion.setCapacidadMaximaPasajeros(ingresarCantidadPasajeros());
+            nuevoAvion.setCostoPorKm(ingresarCostoKM());
+            nuevoAvion.setVelocidadMaxima(ingresarVelocidadMaxima());
+            nuevoAvion.setPropulsion(ingresarPropulsion());
 
             nuevoAvion.setFechaUltimoVuelo( fechaAvion.getTime() );
             listaAviones.add(nuevoAvion);
