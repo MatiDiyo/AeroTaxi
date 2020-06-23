@@ -300,7 +300,6 @@ public class Archivo {
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
             String jsonString;
-            String jsonString2;
             /// LECTURA JACKSON
 
             ArrayList<Vuelo> arrayLectura;
@@ -316,8 +315,6 @@ public class Archivo {
             for (int i = 0; i < size; i++) {
                 jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i));
                 pLectura = mapper.readValue(jsonString, Vuelo.class);
-                //jsonString2 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i).getAvion());
-                //pLectura.setAvion(mapper.readValue(jsonString2 , Avion.class ));
                 listaVuelos.add(pLectura);
             }
 

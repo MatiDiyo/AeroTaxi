@@ -1,6 +1,8 @@
 package com.company;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.scene.shape.Arc;
+
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -261,7 +263,7 @@ public class Sistema
     private static void cargarMenuPrincipal(ArrayList<Usuario> listaUsuario , ArrayList<Avion> listaAviones , ArrayList<Vuelo> listaVuelos)
     {
         byte opcion = ingresarOpcion((byte)1, (byte)4);
-        int indexUsuario=0;
+        int indexUsuario = 0;
         switch (opcion)
         {
             case 1:
@@ -275,11 +277,17 @@ public class Sistema
                     // comprobar con archivos si el dni esta registrado
                     for (int i=0; i < listaUsuario.size() ; i++){
                         if ( dniLogin.equals(listaUsuario.get(i).dni)) {
-                            comprobarDni=true;
-                            indexUsuario=i;
+                            comprobarDni = true;
+                            indexUsuario = i;
                             System.out.println("Iniciando Sesion.");
                             break;
                         }
+                    }
+
+                    if (!comprobarDni)
+                    {
+                        System.out.println("EL DNI ingresado no existe.");
+                        deseaVolverAlMenuPrincipal(listaUsuario, listaAviones, listaVuelos);
                     }
                 }
                 System.out.println(mostrarMenuUsuario());
@@ -325,15 +333,6 @@ public class Sistema
     }
 
     /**
-     * @return muestra los datos de un usuario en particular.
-     */
-
-    private static void mostrarDatosUsuario()
-    {
-        // TODO: DEBE MOSTRAR LOS DATOS DE UN USUARIO, TIENE QUE BUSCARLO MEDIANTE DNI
-    }
-
-    /**
      * Carga el menú del usuario del programa.
      */
     private static void cargarMenuUsuario(ArrayList<Usuario> listaUsuario , int indexDni , ArrayList<Avion> listaAviones , ArrayList<Vuelo> listaVuelos)
@@ -365,7 +364,12 @@ public class Sistema
 
             case 4:
                 System.out.println("\nMostrando todos los vuelos");
-                cargarMenuMostrarVuelos( listaUsuario.get(indexDni) , listaVuelos );
+
+                Archivo archivo = new Archivo("archivoVuelos.json");
+
+                //listaVuelos
+
+                //cargarMenuMostrarVuelos( listaUsuario.get(indexDni) , listaVuelos );
                 deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
@@ -612,6 +616,7 @@ public class Sistema
                 listaVuelos.get(index).setCantidadAcompanantes( pasjer + acom );
             }
 
+
             mapper.writeValue(file , listaVuelos );
 
         }catch (IOException e){
@@ -692,8 +697,8 @@ public class Sistema
             boolean control = listaVuelos.get(i).getPasajerosXusuario().containsKey(keymap);
             if ( control ) {
                 cont= cont + 1;
-                out.println(cont+"_"+listaVuelos.get(i).toString());
-                out.println("------------------------------------------------------------");
+                System.out.println(cont+"_"+listaVuelos.get(i).toString());
+                System.out.println("------------------------------------------------------------");
             }
         }
     }

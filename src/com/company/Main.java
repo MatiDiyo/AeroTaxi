@@ -18,6 +18,9 @@ public class Main
         listaAviones = archivoAviones.archivoToArrayAvion();
         listaVuelos = archivoVuelo.archivoToArrayVuelos();
 
+        /*for (Vuelo v: listaVuelos)
+            System.out.println(v.toString());*/
+
         Sistema.cargarSistema(listaUsuarios , listaAviones , listaVuelos);
     }
 }
