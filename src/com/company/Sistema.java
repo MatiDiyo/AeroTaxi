@@ -634,22 +634,21 @@ public class Sistema
 
 
         for ( int i=0; i < listaVuelos.size(); i++ ){
-            if(listaVuelos.get(i).getPasajerosXusuario().isEmpty() ){
-                HashMap<String , Integer > mapIterador = new HashMap<String, Integer>();
-                mapIterador = listaVuelos.get(i).getPasajerosXusuario();
 
-               /* for(String key: mapIterador.keySet()){
-
-                    if(  ) {
-                        out.println("test");
-                        indexVuelos[cont] = i;
-                        cont= cont + 1;
-                        out.println(cont+"_"+listaVuelos.get(i).toString());
-                        out.println("------------------------------------------------------------");
-                    }
-                }*/
+            HashMap<String , Integer > mapIterador = new HashMap<String, Integer>();
+            out.println( listaVuelos.get(i).getPasajerosXusuario() );
+            String keymap = usuario.getDni();
+            out.println(keymap);
+            boolean control = listaVuelos.get(i).getPasajerosXusuario().containsKey(keymap);
+                if ( control ) {
+                    out.println("test");
+                    indexVuelos[cont] = i;
+                    cont= cont + 1;
+                    out.println(cont+"_"+listaVuelos.get(i).toString());
+                    out.println("------------------------------------------------------------");
+                }
                 //for ( String j: mapIterador.keySet()){}
-            }
+
         }
 
         Byte opcionAvi;
@@ -953,6 +952,7 @@ public class Sistema
             nuevoVuelo.setCostoTotal( nuevoVuelo.costoVuelo(0 , listaAviones) );
 
             HashMap<String , Integer > pasajerosXusuarios = new HashMap<String, Integer>();
+            pasajerosXusuarios.put( "1" , 1 );
             nuevoVuelo.setPasajerosXusuario(pasajerosXusuarios);
             listaVuelos.add(nuevoVuelo);
             mapper.writeValue(file , listaVuelos );
