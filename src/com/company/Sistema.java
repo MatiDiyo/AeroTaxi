@@ -722,7 +722,7 @@ public class Sistema
 
             nuevoVuelo.setAvion(listaAviones.get(opcionAvion.intValue()-1) );// agregar una lista de aviones y un selecionador
 
-
+            nuevoVuelo.getAvion().setFechaUltimoVuelo( nuevoVuelo.getFecha() );
             nuevoVuelo.setDistancia(  nuevoVuelo.calcularDistancia() );
             nuevoVuelo.setCostoTotal( nuevoVuelo.costoVuelo() );
 
