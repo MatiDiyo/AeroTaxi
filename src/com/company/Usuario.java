@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public class Usuario {
 
-    protected String nombre;
-    protected String apellido;
-    protected String dni;
-    protected Byte edad;
-    protected double dineroGastado;
+    private String nombre;
+    private String apellido;
+    private String dni;
+    private Byte edad;
+    private double dineroGastado;
 
     public Usuario() {}
 
@@ -20,9 +20,6 @@ public class Usuario {
         this.edad = edad;
         this.dineroGastado = dineroGastado;
     }
-
-    //void public cancelarVuelo()
-
 
     public String getNombre() {
         return nombre;

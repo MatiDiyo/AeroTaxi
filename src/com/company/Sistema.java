@@ -276,7 +276,7 @@ public class Sistema
                     String dniLogin = ingresarDNI();
                     // comprobar con archivos si el dni esta registrado
                     for (int i=0; i < listaUsuario.size() ; i++){
-                        if ( dniLogin.equals(listaUsuario.get(i).dni)) {
+                        if ( dniLogin.equals(listaUsuario.get(i).getDni())) {
                             comprobarDni = true;
                             indexUsuario = i;
                             System.out.println("Iniciando Sesion.");
@@ -406,26 +406,27 @@ public class Sistema
         do {
             sn.nextLine();
 
-            nuevoUsuario.dni = ingresarDNI();
+            nuevoUsuario.setDni(ingresarDNI());
             int sizeUsuariosList = listaUsuarios.size();
             flagDni = false;
 
             // Comprobar con archivos si el dni esta registrado, si no lo esta seguir con el proceso
 
             for (int i=0; i <sizeUsuariosList ; i++){
-                if ( nuevoUsuario.dni.equals(listaUsuarios.get(i).dni)) {
+                if ( nuevoUsuario.getDni().equals(listaUsuarios.get(i).getDni())) {
                     flagDni = true;
-                    System.out.println("EL DNI "+ nuevoUsuario.dni + " ya existe.");
+                    System.out.println("EL DNI "+ nuevoUsuario.getDni() + " ya existe.");
                     break;
                 }
             }
         } while (flagDni);
 
         // Ingresando los datos restantes del usuario
-        nuevoUsuario.nombre = ingresarNombre();
-        nuevoUsuario.apellido = ingresarApellido();
-        nuevoUsuario.edad = ingresarEdad();
-        nuevoUsuario.dineroGastado = 0;
+
+        nuevoUsuario.setNombre(ingresarNombre());
+        nuevoUsuario.setApellido(ingresarApellido());
+        nuevoUsuario.setEdad(ingresarEdad());
+        nuevoUsuario.setDineroGastado(0);
 
         listaUsuarios.add(nuevoUsuario);
 
@@ -598,9 +599,6 @@ public class Sistema
                             }
                         }
                     }
-                    /*for (String j : pasajeros.keySet()) {
-                        pasajerosCont = pasajeros.get(j) + pasajerosCont;
-                    }*/
                 }
             }
             Byte opcionAvi;
@@ -611,7 +609,7 @@ public class Sistema
 
                 System.out.println("-Costo del viaje: $"+listaVuelos.get(index).costoVuelo(nuevoVuelo.getCantidadAcompanantes() , listaAviones) );
 
-                listaVuelos.get(index).getPasajerosXusuario().put( usuario.dni , acom );
+                listaVuelos.get(index).getPasajerosXusuario().put( usuario.getDni() , acom );
                 pasjer = listaVuelos.get(index).getCantidadAcompanantes();
                 listaVuelos.get(index).setCantidadAcompanantes( pasjer + acom );
             }
@@ -652,8 +650,6 @@ public class Sistema
                     out.println(cont+"_"+listaVuelos.get(i).toString());
                     out.println("------------------------------------------------------------");
                 }
-                //for ( String j: mapIterador.keySet()){}
-
             }
 
             Byte opcionAvi;
