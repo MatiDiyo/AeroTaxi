@@ -40,6 +40,91 @@ public class Sistema
             exit(0); // se sale
     }
 
+    private static void deseaVolverAlMenuUsuario(ArrayList<Usuario> listaUsuario, int indexDni, ArrayList<Avion> listaAviones, ArrayList<Vuelo> listaVuelos)
+    {
+        char opcion = 's';
+
+        do {
+            System.out.print("¿Desea volver al menú usuario? (S/N): ");
+            opcion = sn.next().charAt(0);
+            opcion = Character.toUpperCase(opcion);
+        } while (opcion == 'S' && opcion == 'N');
+
+        if (opcion == 'S')
+        {
+            System.out.print(mostrarMenuUsuario());
+            cargarMenuUsuario(listaUsuario, indexDni,listaAviones , listaVuelos); // continua
+        }
+        else
+            exit(0); // se sale
+    }
+
+    private static void deseaVolverAlMenuAdmin(ArrayList<Usuario> listaUsuario , ArrayList<Avion> listaAviones, ArrayList<Vuelo> listaVuelos)
+    {
+        char opcion = 's';
+
+        do {
+            System.out.print("¿Desea volver al menú admin? (S/N): ");
+            opcion = sn.next().charAt(0);
+            opcion = Character.toUpperCase(opcion);
+        } while (opcion == 'S' && opcion == 'N');
+
+        if (opcion == 'S')
+        {
+            System.out.print(mostrarMenuAdmin());
+            cargarMenuAdmin(listaUsuario,listaAviones , listaVuelos); // continua
+        }
+        else
+            exit(0); // se sale
+    }
+
+    /**
+     * @return un mensaje con la opción ingresada.
+     */
+    private static String mostrarOpcionIngresada(byte opcion)
+    {
+        return "Has seleccionado la opción "+ opcion + " ...";
+    }
+
+    // -------------------- MÉTODOS INGRESAR -------------------- //
+
+    /**
+     * @return el nombre ingresado
+     */
+    private static String ingresarNombre()
+    {
+        System.out.print("Ingrese su nombre: ");
+        return sn.nextLine();
+    }
+
+    /**
+     * @return el apellido ingresado
+     */
+    private static String ingresarApellido()
+    {
+        System.out.print("Ingrese su apellido: ");
+        return sn.nextLine();
+    }
+
+    /**
+     * @return el dni ingresado
+     */
+    private static String ingresarDNI()
+    {
+        System.out.print("Ingrese su dni: ");
+        return sn.nextLine();
+    }
+
+    /**
+     * @return la edad ingresada
+     */
+    private static byte ingresarEdad()
+    {
+        System.out.print("Ingrese su edad: ");
+        return sn.nextByte();
+    }
+
+
     /**
      * El método no se cortará hasta no obtener un número entre el rango deseado.
      * @return una opción entre n y m
@@ -52,7 +137,7 @@ public class Sistema
 
             try
             {
-                System.out.print("Ingrese una opción entre " + n + " y "+ m + ": ");
+                System.out.print("\nIngrese una opción entre " + n + " y "+ m + ": ");
                 opcion = sn.nextByte();
             }
 
@@ -68,124 +153,6 @@ public class Sistema
 
         return opcion;
     }
-
-    /**
-     * @return un mensaje con la opción ingresada.
-     */
-    private static String mostrarOpcionIngresada(byte opcion)
-    {
-        return "Has seleccionado la opción "+ opcion + " ...";
-    }
-
-    // -------------------- MÉTODOS INGRESAR -------------------- //
-
-    /**
-     * @return el nombre ingresado de usuario
-     */
-    private static String ingresarNombre()
-    {
-        System.out.print("Ingrese su nombre: ");
-        return sn.nextLine();
-    }
-
-    /**
-     * @return el apellido ingresado de usuario
-     */
-    private static String ingresarApellido()
-    {
-        System.out.print("Ingrese su apelido: ");
-        return sn.nextLine();
-    }
-
-    /**
-     * @return el dni ingresado de usuario
-     */
-    private static String ingresarDNI()
-    {
-        System.out.print("Ingrese su dni: ");
-        return sn.nextLine();
-    }
-
-    /**
-     * @return la edad ingresada de usuario
-     */
-    private static byte ingresarEdad()
-    {
-        System.out.print("Ingrese su edad: ");
-        return sn.nextByte();
-    }
-
-    /**
-     * @return la capacidad de combustible ingresada de un avion
-     */
-
-    private static int ingresarCapacidadCombustible()
-    {
-        System.out.print("Ingrese la capacidad de combustible: ");
-        return sn.nextInt();
-    }
-
-    /**
-     * @return el costo por KM ingresado de un avion
-     */
-
-    private static int ingresarCostoKM()
-    {
-        int costoKM = 0;
-
-        do {
-            System.out.print("Ingrese el costo por KM ("+ Avion.getCostoMinimoPorKm() + "-" + Avion.getCostoMaximoPorKmPorKm() + "): " );
-            costoKM = sn.nextInt();
-            System.out.print("El costo por KM debe ser entre " + Avion.getCostoMinimoPorKm() + " y "+ Avion.getCostoMaximoPorKmPorKm());
-        } while (costoKM < Avion.getCostoMinimoPorKm() || costoKM > Avion.getCostoMaximoPorKmPorKm());
-
-        return costoKM;
-    }
-
-    /**
-     * @return la cantidad de pasajeros ingresado de avion
-     */
-
-    private static int ingresarCantidadPasajeros()
-    {
-        System.out.print("Ingrese la cantidad de pasajeros: ");
-        return sn.nextInt();
-    }
-
-    /**
-     * @return la velocidad máxima del avion
-     */
-
-    private static int ingresarVelocidadMaxima()
-    {
-        System.out.print("Ingrese la velocidad máxima: ");
-        return sn.nextInt();
-    }
-
-    /**
-     * @return el tipo de propulsión del avion
-     */
-
-    private static Propulsion ingresarPropulsion()
-    {
-        Propulsion propulsion = Propulsion.MOTOR_A_REACCION;
-
-        System.out.println("1. Motor a reaccion.");
-        System.out.println("2. Motor a helice.");
-        System.out.println("3. Motor a pistones.");
-        int opcion = ingresarOpcion((byte)1, (byte)3);
-
-        switch (opcion)
-        {
-            case 1: propulsion = Propulsion.MOTOR_A_REACCION; break;
-            case 2: propulsion = Propulsion.MOTOR_A_HELICE; break;
-            case 3: propulsion = Propulsion.MOTOR_A_PISTONES; break;
-        }
-
-        return propulsion;
-    }
-
-
 
     // ------------------------------------------------------------------- //
 
@@ -212,12 +179,12 @@ public class Sistema
     private static void cargarMenuPrincipal(ArrayList<Usuario> listaUsuario , ArrayList<Avion> listaAviones , ArrayList<Vuelo> listaVuelos)
     {
         byte opcion = ingresarOpcion((byte)1, (byte)4);
-
+        int indexUsuario=0;
         switch (opcion)
         {
             case 1:
                 boolean comprobarDni = false;
-                int indexUsuario=0;
+
                 sn.nextLine();
                 sn.nextLine();
                 while (!comprobarDni)
@@ -294,25 +261,31 @@ public class Sistema
         switch (opcion)
         {
             case 1:
-                System.out.println("\nMostrando los datos del usuario...");
+                System.out.println("\n-------------------------------");
+                System.out.println("       DATOS DEL USUARIO");
+                System.out.println("-------------------------------");
                 System.out.println(listaUsuario.get(indexDni).toString());
-                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos );
+                //deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos );
+                deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
             case 2:
                 System.out.println("\nIngresando nuevo vuelo...");
                 cargarMenuVueloUsuario( listaUsuario.get(indexDni) , listaAviones , listaVuelos );
-                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
             case 3:
                 System.out.println("\nCancelando vuelo...");
-                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
             case 4:
                 System.out.println("\nMostrando todos los vuelos");
-                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
             case 5:
@@ -387,38 +360,40 @@ public class Sistema
 
         System.out.println();
 
-
+        /*
         try
         {
             File file = new File("archivoVuelos.json");
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
-            System.out.println("Contratar nuevo vuelo.");
+            System.out.print("\n-------------------------------");
+            System.out.println("  Contratar nuevo vuelo.");
+            System.out.print("-------------------------------\n");
             sn.nextLine();
-            System.out.println("Ingrese la fecha del vuelo:");
-            System.out.println("Ingrese anio ej:2020");
+            System.out.print(">Ingrese la fecha del vuelo<");
+            System.out.print("Ingrese anio (ej 2020): ");
             fechateclado = sn.nextInt();
             fechaIngresada.set( Calendar.YEAR , fechateclado );
-            System.out.println("Ingrese mes en formado de 2 digitos:");
+            System.out.print("-Ingrese mes en formado de 2 digitos: ");
             fechateclado = sn.nextInt();
             fechaIngresada.set( Calendar.MONTH , fechateclado - 1 );
-            System.out.println("Ingrese el dia del vuelo:");
+            System.out.print("-Ingrese el dia del vuelo: ");
             fechateclado = sn.nextInt();
             fechaIngresada.set( Calendar.DATE , fechateclado );
-            System.out.println("Ingrese hora del vuelo formato 24h");
+            System.out.print("-Ingrese hora del vuelo formato 24h: ");
             fechateclado = sn.nextInt();
             fechaIngresada.set( Calendar.HOUR , fechateclado - 12);
             fechaIngresada.set( Calendar.MINUTE , 00 );
             fechaIngresada.set( Calendar.SECOND , 00);
             fechaIngresada.set( Calendar.MILLISECOND , 00);
-            System.out.println("Fecha ingresada: "+fechaIngresada.getTime());
+            System.out.print("\nFecha ingresada: "+fechaIngresada.getTime() + "\n");
             nuevoVuelo.setFecha( fechaIngresada.getTime() );
             sn.nextLine();
-            System.out.println("Ciudad de origen:");
-            System.out.println("1_Buenos Aires.");
-            System.out.println("2_Cordoba");
-            System.out.println("3_Santiago");
-            System.out.println("4_Montevideo");
+            System.out.print(">Ciudad de origen<");
+            System.out.print("1. Buenos Aires.");
+            System.out.print("2. Cordoba.");
+            System.out.print("3. Santiago.");
+            System.out.print("4. Montevideo.");
             byte opcion = ingresarOpcion((byte)1, (byte)4);
             switch (opcion){
                 case 1:
@@ -435,14 +410,14 @@ public class Sistema
             }
 
             sn.nextLine();
-            System.out.println("Ciudad de destino:");
+            System.out.println(">Ciudad de destino<");
             byte opcionDestino;
 
             switch (opcion){
                 case 1:
-                    System.out.println("1_Cordoba");
-                    System.out.println("2_Santiago");
-                    System.out.println("3_Montevideo");
+                    System.out.print("1. Cordoba.");
+                    System.out.print("2. Santiago.");
+                    System.out.print("3. Montevideo.");
                     opcionDestino = ingresarOpcion((byte)1 , (byte)3);
                     switch (opcionDestino){
                         case 1:
@@ -457,9 +432,9 @@ public class Sistema
                     }
                     break;
                 case 2:
-                    System.out.println("1_Bueno Aires");
-                    System.out.println("2_Santiago");
-                    System.out.println("3_Montevideo");
+                    System.out.print("1. Bueno Aires.");
+                    System.out.print("2. Santiago.");
+                    System.out.print("3. Montevideo.");
                     opcionDestino = ingresarOpcion((byte)1 , (byte)3);
                     switch (opcionDestino){
                         case 1:
@@ -474,9 +449,9 @@ public class Sistema
                     }
                     break;
                 case 3:
-                    System.out.println("1_Bueno Aires");
-                    System.out.println("2_Cordoba");
-                    System.out.println("3_Montevideo");
+                    System.out.print("1. Bueno Aires.");
+                    System.out.print("2. Cordoba.");
+                    System.out.print("3. Montevideo.");
                     opcionDestino = ingresarOpcion((byte)1 , (byte)3);
                     switch (opcionDestino){
                         case 1:
@@ -491,9 +466,9 @@ public class Sistema
                     }
                     break;
                 case 4:
-                    System.out.println("1_Bueno Aires");
-                    System.out.println("2_Cordoba");
-                    System.out.println("3_Santiago");
+                    System.out.print("1. Bueno Aires.");
+                    System.out.print("2. Cordoba.");
+                    System.out.print("3. Santiago.");
                     opcionDestino = ingresarOpcion((byte)1 , (byte)3);
                     switch (opcionDestino){
                         case 1:
@@ -511,7 +486,7 @@ public class Sistema
             }
 
             sn.nextLine();
-            System.out.println("Ingrese la cantidad de pasajes deseados:");
+            System.out.println("-Ingrese la cantidad de pasajes deseados:");
             int acom = sn.nextInt();
             nuevoVuelo.setCantidadAcompanantes(acom);
             int contAvionesDis=0;
@@ -545,7 +520,7 @@ public class Sistema
                 int index = indexAvionselec[opcionAvi.intValue()-1];
                 int pasjer;
 
-                System.out.println("costo del viaje:"+listaVuelos.get(index).costoVuelo(nuevoVuelo.getCantidadAcompanantes()) );
+                System.out.println("-Costo del viaje: $"+listaVuelos.get(index).costoVuelo(nuevoVuelo.getCantidadAcompanantes()) );
 
                 listaVuelos.get(index).getPasajerosXusuario().put( usuario.dni , acom );
                 pasjer = listaVuelos.get(index).getCantidadAcompanantes();
@@ -560,7 +535,7 @@ public class Sistema
             e.printStackTrace();
 
         }
-
+        */
     }
 
     // ------------------------------------------------------------------- //
@@ -596,34 +571,45 @@ public class Sistema
         switch (opcion)
         {
             case 1:
-                System.out.println("\nMostrando lista de aviones");
+                System.out.println("\n\n                 Mostrando lista de aviones");
+                System.out.println("--------------------------------------------------------------");
                 for( int i = 0; i < listaAviones.size() ; i++) {
                     System.out.println(listaAviones.get(i).toString());
+                    System.out.println("--------------------------------------------------------------");
                 }
-                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones ,listaVuelos);
+                //deseaVolverAlMenuPrincipal(listaUsuario , listaAviones ,listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
                 break;
 
             case 2:
-                System.out.println("\nMostrando lista de usuarios");
+                System.out.println("\n\n                 Mostrando lista de usuarios");
+                System.out.println("--------------------------------------------------------------");
                 for (int i = 0; i < listaUsuario.size() ; i++){
                     System.out.println(listaUsuario.get(i).toString());
+                    System.out.println("--------------------------------------------------------------");
                 }
-                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos);
+                //deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
                 break;
 
             case 3:
-                System.out.println("\nMostrando lista de vuelos");
+                System.out.println("\n\n                 Mostrando lista de vuelos");
+                System.out.println("--------------------------------------------------------------");
                 for (int i = 0; i < listaVuelos.size() ; i++) {
                     System.out.println(listaVuelos.get(i).toString());
+                    System.out.println("--------------------------------------------------------------");
                 }
-                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones,listaVuelos);
+                //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones,listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
                 break;
 
             case 4:
-                System.out.println("\nMostrando menu carga aviones");
-                System.out.println("1_Avion tipo bronze");
-                System.out.println("2_Avion tipo silver");
-                System.out.println("3_Avion tipo Gold");
+                System.out.print("-------------------------------");
+                System.out.println("\n       CARGAR AVION");
+                System.out.print("-------------------------------");
+                System.out.println("1. Avion tipo bronze.");
+                System.out.println("2. Avion tipo silver.");
+                System.out.println("3. Avion tipo Gold.");
                 byte opcion2 = ingresarOpcion((byte)1,(byte)3);
 
                 switch (opcion2){
@@ -637,12 +623,16 @@ public class Sistema
                         menuCargaAvionGold(listaAviones);
                         break;
                 }
-                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
 
             case 5:
-                System.out.println("\nMostrando menu nuevo vuelo.");
+                System.out.print("-------------------------------");
+                System.out.println("\n    CARGAR NUEVO VUELO");
+                System.out.print("-------------------------------");
                 menuNuevoVuelo( listaAviones , listaVuelos);
-                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos);
+               // deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
 
             case 6:
                 System.out.println(mostrarMenuPrincipial());
@@ -667,28 +657,28 @@ public class Sistema
             File fileBronze = new File("archivoAvionesBronze.json");
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
-            System.out.println("Registro Avion bronze");
+            System.out.println("     --Registro Avion Bronze--");
 
             sn.nextLine();
-            System.out.println("capacidad Combustible:");
+            System.out.print("-Capacidad combustible: ");
             nuevoAvion.setCapacidadCombustible(sn.nextInt());
             sn.nextLine();
-            System.out.println("Cantidad maxima de pasajeros:");
+            System.out.print("-Cantidad maxima de pasajeros: ");
             nuevoAvion.setCapacidadMaximaPasajeros(sn.nextInt());
             sn.nextLine();
-            System.out.println("Costo por km:");
+            System.out.print("-Costo por km: ");
             nuevoAvion.setCostoPorKm(sn.nextDouble());
             sn.nextLine();
-            System.out.println("Velocidad maxima:");
+            System.out.print("-Velocidad maxima: ");
             nuevoAvion.setVelocidadMaxima(500);
 
             sn.nextLine();
 
-            System.out.println("Tipo de propulsion:");
+            System.out.println(">Tipo de propulsion<");
             int controlMotor=0;
-            System.out.println("1_Motor a reaccion.");
-            System.out.println("2_Motor a helice.");
-            System.out.println("3_Motor a pistones.");
+            System.out.println("1. Motor a reaccion.");
+            System.out.println("2. Motor a helice.");
+            System.out.println("3. Motor a pistones.");
 
             controlMotor = sn.nextInt();
             switch (controlMotor){
@@ -719,7 +709,6 @@ public class Sistema
 
         }
     }
-
     private static void menuCargaAvionSilver( ArrayList<Avion> listaAviones)
     {
         Calendar fechaAvion = Calendar.getInstance();
@@ -733,28 +722,28 @@ public class Sistema
             File fileSilver = new File("archivoAvionesSilver.json");
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
-            System.out.println("Registro Avion bronze");
+            System.out.println("     --Registro Avion Silver--");
 
             sn.nextLine();
-            System.out.println("capacidad Combustible:");
+            System.out.print("-Capacidad Combustible: ");
             nuevoAvion.setCapacidadCombustible(sn.nextInt());
             sn.nextLine();
-            System.out.println("Cantidad maxima de pasajeros:");
+            System.out.print("-Cantidad maxima de pasajeros: ");
             nuevoAvion.setCapacidadMaximaPasajeros(sn.nextInt());
             sn.nextLine();
-            System.out.println("Costo por km:");
+            System.out.print("-Costo por km: ");
             nuevoAvion.setCostoPorKm(sn.nextDouble());
             sn.nextLine();
-            System.out.println("Velocidad maxima:");
+            System.out.print("-Velocidad maxima: ");
             nuevoAvion.setVelocidadMaxima(500);
 
             sn.nextLine();
 
-            System.out.println("Tipo de propulsion:");
+            System.out.println(">Tipo de propulsion<");
             int controlMotor=0;
-            System.out.println("1_Motor a reaccion.");
-            System.out.println("2_Motor a helice.");
-            System.out.println("3_Motor a pistones.");
+            System.out.println("1. Motor a reaccion.");
+            System.out.println("2. Motor a helice.");
+            System.out.println("3. Motor a pistones.");
 
             controlMotor = sn.nextInt();
             switch (controlMotor){
@@ -798,28 +787,28 @@ public class Sistema
             File fileGold = new File("archivoAvionesGold.json");
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
-            System.out.println("Registro Avion bronze");
+            System.out.println("     --Registro Avion Gold--");
 
             sn.nextLine();
-            System.out.println("capacidad Combustible:");
+            System.out.print("-Capacidad combustible: ");
             nuevoAvion.setCapacidadCombustible(sn.nextInt());
             sn.nextLine();
-            System.out.println("Cantidad maxima de pasajeros:");
+            System.out.print("-Cantidad maxima de pasajeros: ");
             nuevoAvion.setCapacidadMaximaPasajeros(sn.nextInt());
             sn.nextLine();
-            System.out.println("Costo por km:");
+            System.out.print("-Costo por km: ");
             nuevoAvion.setCostoPorKm(sn.nextDouble());
             sn.nextLine();
-            System.out.println("Velocidad maxima:");
+            System.out.print("-Velocidad maxima: ");
             nuevoAvion.setVelocidadMaxima(500);
 
             sn.nextLine();
 
-            System.out.println("Tipo de propulsion:");
+            System.out.println(">Tipo de propulsion<");
             int controlMotor=0;
-            System.out.println("1_Motor a reaccion.");
-            System.out.println("2_Motor a helice.");
-            System.out.println("3_Motor a pistones.");
+            System.out.println("1. Motor a reaccion.");
+            System.out.println("2. Motor a helice.");
+            System.out.println("3. Motor a pistones.");
 
             controlMotor = sn.nextInt();
             switch (controlMotor){
@@ -863,33 +852,33 @@ public class Sistema
             File file = new File("archivoVuelos.json");
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
-            System.out.println("Registro nuevo vuelo.");
+            System.out.println("     --Cargando Nuevo Vuelo--");
 
             sn.nextLine();
-            System.out.println("Ingrese la fecha del vuelo:");
-            System.out.println("Ingrese anio ej:2020");
+            System.out.println(">Ingrese la fecha del vuelo<\n");
+            System.out.print("-Ingrese anio (ej 2020):");
             fechateclado = sn.nextInt();
             fechaIngresada.set( Calendar.YEAR , fechateclado );
-            System.out.println("Ingrese mes en formado de 2 digitos:");
+            System.out.print("-Ingrese mes en formado de 2 digitos: ");
             fechateclado = sn.nextInt();
             fechaIngresada.set( Calendar.MONTH , fechateclado - 1 );
-            System.out.println("Ingrese el dia del vuelo:");
+            System.out.print("-Ingrese el dia del vuelo: ");
             fechateclado = sn.nextInt();
             fechaIngresada.set( Calendar.DATE , fechateclado );
-            System.out.println("Ingrese hora del vuelo formato 24h");
+            System.out.print("-Ingrese hora del vuelo formato 24h: ");
             fechateclado = sn.nextInt();
             fechaIngresada.set( Calendar.HOUR , fechateclado - 12);
             fechaIngresada.set( Calendar.MINUTE , 00 );
             fechaIngresada.set( Calendar.SECOND , 00);
             fechaIngresada.set( Calendar.MILLISECOND, 00);
-            System.out.println("Fecha ingresada: "+fechaIngresada.getTime());
+            System.out.println("\nFecha ingresada: "+fechaIngresada.getTime() + "\n");
             nuevoVuelo.setFecha( fechaIngresada.getTime() );
             sn.nextLine();
-            System.out.println("Ciudad de origen:");
-            System.out.println("1_Buenos Aires.");
-            System.out.println("2_Cordoba");
-            System.out.println("3_Santiago");
-            System.out.println("4_Montevideo");
+            System.out.println(">Ciudad de origen<");
+            System.out.println("1. Buenos Aires.");
+            System.out.println("2. Cordoba.");
+            System.out.println("3. Santiago.");
+            System.out.println("4. Montevideo.");
             byte opcion = ingresarOpcion((byte)1, (byte)4);
             switch (opcion){
                 case 1:
@@ -906,14 +895,14 @@ public class Sistema
             }
 
             sn.nextLine();
-            System.out.println("Ciudad de destino:");
+            System.out.println(">Ciudad de destino<");
             byte opcionDestino;
 
             switch (opcion){
                 case 1:
-                    System.out.println("1_Cordoba");
-                    System.out.println("2_Santiago");
-                    System.out.println("3_Montevideo");
+                    System.out.println("1. Cordoba.");
+                    System.out.println("2. Santiago.");
+                    System.out.println("3. Montevideo.");
                     opcionDestino = ingresarOpcion((byte)1 , (byte)3);
                     switch (opcionDestino){
                         case 1:
@@ -928,9 +917,9 @@ public class Sistema
                     }
                     break;
                 case 2:
-                    System.out.println("1_Bueno Aires");
-                    System.out.println("2_Santiago");
-                    System.out.println("3_Montevideo");
+                    System.out.println("1. Bueno Aires.");
+                    System.out.println("2. Santiago.");
+                    System.out.println("3. Montevideo.");
                     opcionDestino = ingresarOpcion((byte)1 , (byte)3);
                     switch (opcionDestino){
                         case 1:
@@ -945,9 +934,9 @@ public class Sistema
                     }
                     break;
                 case 3:
-                    System.out.println("1_Bueno Aires");
-                    System.out.println("2_Cordoba");
-                    System.out.println("3_Montevideo");
+                    System.out.println("1. Bueno Aires.");
+                    System.out.println("2. Cordoba.");
+                    System.out.println("3. Montevideo.");
                     opcionDestino = ingresarOpcion((byte)1 , (byte)3);
                     switch (opcionDestino){
                         case 1:
@@ -962,9 +951,9 @@ public class Sistema
                     }
                     break;
                 case 4:
-                    System.out.println("1_Bueno Aires");
-                    System.out.println("2_Cordoba");
-                    System.out.println("3_Santiago");
+                    System.out.println("1. Bueno Aires.");
+                    System.out.println("2. Cordoba.");
+                    System.out.println("3. Santiago.");
                     opcionDestino = ingresarOpcion((byte)1 , (byte)3);
                     switch (opcionDestino){
                         case 1:
@@ -984,21 +973,22 @@ public class Sistema
             sn.nextLine();
             nuevoVuelo.setCantidadAcompanantes(0);
 
-            System.out.println("Seleccione un avion");
+            System.out.println(">Seleccione un avion<");
+            System.out.println("--------------------------------------------------------------");
             Byte opcionAvion;
 
             for (int i=0; i < listaAviones.size() ; i++) {
                 System.out.print(i + 1);
-                System.out.println("_" + listaAviones.get(i).toString());
+                System.out.println(") " + listaAviones.get(i).toString());
                 System.out.println("--------------------------------------------------------------");
             }
             opcionAvion = ingresarOpcion( (byte)1 , (byte)listaAviones.size() );
 
-            nuevoVuelo.setAvion(listaAviones.get(opcionAvion.intValue()-1));// agregar una lista de aviones y un selecionador
+            nuevoVuelo.setAvion( listaAviones.get(opcionAvion.intValue()-1).getUuid() );// agregar una lista de aviones y un selecionador
+            listaAviones.get(opcionAvion.intValue()-1).setFechaUltimoVuelo( nuevoVuelo.getFecha() );
 
-            nuevoVuelo.getAvion().setFechaUltimoVuelo( nuevoVuelo.getFecha() );
             nuevoVuelo.setDistancia(  nuevoVuelo.calcularDistancia() );
-            nuevoVuelo.setCostoTotal( nuevoVuelo.costoVuelo(0) );
+            nuevoVuelo.setCostoTotal( nuevoVuelo.costoVuelo(0 , listaAviones) );
 
             HashMap<String , Integer > pasajerosXusuarios = new HashMap<String, Integer>();
             nuevoVuelo.setPasajerosXusuario(pasajerosXusuarios);
