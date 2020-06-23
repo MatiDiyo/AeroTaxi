@@ -22,10 +22,11 @@ public class Main
 
         ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
         ArrayList<Avion> listaAviones = new ArrayList<Avion>();
+        ArrayList<Vuelo> listaVuelos = new ArrayList<>();
 
         listaUsuarios = archivoUsuarios.archivoToArrayUsuario();
         listaAviones = archivoAviones.archivoToArrayAvion();
 
-        Sistema.cargarSistema(listaUsuarios , listaAviones );
+        Sistema.cargarSistema(listaUsuarios , listaAviones , listaVuelos);
     }
 }
