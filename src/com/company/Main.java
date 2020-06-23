@@ -26,6 +26,7 @@ public class Main
 
         listaUsuarios = archivoUsuarios.archivoToArrayUsuario();
         listaAviones = archivoAviones.archivoToArrayAvion();
+        listaVuelos = archivoVuelo.archivoToArrayVuelos();
 
         Sistema.cargarSistema(listaUsuarios , listaAviones , listaVuelos);
     }

@@ -228,6 +228,29 @@ public class Archivo {
      */
     public ArrayList<Avion> archivoToArrayAvion() {
         ArrayList<Avion> listaAviones = new ArrayList<Avion>();
+        ArrayList<AvionBronze> listaBronze = new ArrayList<AvionBronze>();
+        ArrayList<AvionSilver> listaSilver = new ArrayList<AvionSilver>();
+        ArrayList<AvionGold> listaGold = new ArrayList<AvionGold>();
+
+        listaBronze = ArchivoBronze();
+        listaSilver = ArchivoSilver();
+        listaGold = ArchivoGold();
+
+        for(int i=0 ; i < listaBronze.size(); i++){
+            listaAviones.add( listaBronze.get(i) );
+        }
+        for(int i=0 ; i < listaSilver.size(); i++){
+            listaAviones.add( listaSilver.get(i) );
+        }
+        for(int i=0 ; i < listaGold.size(); i++){
+            listaAviones.add( listaGold.get(i) );
+        }
+
+        return listaAviones;
+    }
+
+    public ArrayList<AvionBronze> ArchivoBronze() {
+        ArrayList<AvionBronze> listaAviones = new ArrayList<AvionBronze>();
 
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -235,14 +258,12 @@ public class Archivo {
             String jsonString;
 
             /// LECTURA JACKSON
-
+            File archivoBronze = new File("archivoAvionesBronze.json");
             ArrayList<Avion> arrayLectura;
-            arrayLectura = mapper.readValue(archivo, ArrayList.class);
+            arrayLectura = mapper.readValue( archivoBronze , ArrayList.class);
             AvionBronze avionBronze = new AvionBronze();
-            AvionSilver avionSilver = new AvionSilver();
-            AvionGold avionGold = new AvionGold();
 
-            Avion lectura = new Avion();
+            AvionBronze lectura = new AvionBronze();
 
             jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(lectura);
 
@@ -262,6 +283,77 @@ public class Archivo {
 
         return listaAviones;
     }
+
+    public ArrayList<AvionSilver> ArchivoSilver() {
+        ArrayList<AvionSilver> listaAviones = new ArrayList<AvionSilver>();
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            //Object to JSON in file
+            String jsonString;
+            File archivoSilver = new File("archivoAvionesSilver.json");
+            /// LECTURA JACKSON
+
+            ArrayList<Avion> arrayLectura;
+            arrayLectura = mapper.readValue( archivoSilver , ArrayList.class);
+            AvionSilver avionSilver = new AvionSilver();
+
+            AvionSilver lectura = new AvionSilver();
+
+            jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(lectura);
+
+            for (int i = 0; i < arrayLectura.size() ; i++) {
+                jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i));
+
+                avionSilver = mapper.readValue(jsonString , AvionSilver.class );
+                listaAviones.add(avionSilver);
+
+            }
+
+        } catch (IOException e) {
+            System.out.println(" No se pudo leer/escribir el archivo: " + e.getMessage());
+            e.printStackTrace();
+
+        }
+
+        return listaAviones;
+    }
+
+    public ArrayList<AvionGold> ArchivoGold() {
+        ArrayList<AvionGold> listaAviones = new ArrayList<AvionGold>();
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            //Object to JSON in file
+            String jsonString;
+            File archivoGold = new File("archivoAvionesGold.json");
+            /// LECTURA JACKSON
+
+            ArrayList<Avion> arrayLectura;
+            arrayLectura = mapper.readValue( archivoGold , ArrayList.class);
+            AvionGold avionGold = new AvionGold();
+
+            AvionGold lectura = new AvionGold();
+
+            jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(lectura);
+
+            for (int i = 0; i < arrayLectura.size() ; i++) {
+                jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i));
+
+                avionGold = mapper.readValue(jsonString , AvionGold.class );
+                listaAviones.add(avionGold);
+
+            }
+
+        } catch (IOException e) {
+            System.out.println(" No se pudo leer/escribir el archivo: " + e.getMessage());
+            e.printStackTrace();
+
+        }
+
+        return listaAviones;
+    }
+
 
 
     /**

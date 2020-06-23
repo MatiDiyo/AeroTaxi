@@ -407,7 +407,7 @@ public class Sistema
         System.out.println( fechaAvion.getTime());
         try
         {
-            File file = new File("archivoAviones.json");
+            File file = new File("archivoAvionesBronze.json");
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
             System.out.println("Registro Avion bronze");
@@ -467,7 +467,7 @@ public class Sistema
         System.out.println( fechaAvion.getTime());
         try
         {
-            File file = new File("archivoAviones.json");
+            File file = new File("archivoAvionesSilver.json");
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
             System.out.println("Registro Avion bronze");
@@ -526,7 +526,7 @@ public class Sistema
         System.out.println( fechaAvion.getTime());
         try
         {
-            File file = new File("archivoAviones.json");
+            File file = new File("archivoAvionesGold.json");
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
             System.out.println("Registro Avion bronze");
