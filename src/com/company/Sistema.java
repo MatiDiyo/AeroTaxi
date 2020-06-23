@@ -361,6 +361,8 @@ public class Sistema
 
             case 3:
                 System.out.println("\nCancelando vuelo...");
+                //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                cargarMenuCancelarVuelo( listaUsuario.get(indexDni) , listaVuelos );
                 deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
@@ -620,6 +622,53 @@ public class Sistema
 
         }
     }
+
+    private static void cargarMenuCancelarVuelo( Usuario usuario , ArrayList<Vuelo> listaVuelos ){
+
+        System.out.print("\n-------------------------------");
+        System.out.println("\nMenu Cancelar vuelo.");
+        System.out.print("-------------------------------\n");
+
+        int []indexVuelos = new int[listaVuelos.size()];
+        int cont=0;
+
+
+        for ( int i=0; i < listaVuelos.size(); i++ ){
+            if(listaVuelos.get(i).getPasajerosXusuario().isEmpty() ){
+                HashMap<String , Integer > mapIterador = new HashMap<String, Integer>();
+                mapIterador = listaVuelos.get(i).getPasajerosXusuario();
+
+               /* for(String key: mapIterador.keySet()){
+
+                    if(  ) {
+                        out.println("test");
+                        indexVuelos[cont] = i;
+                        cont= cont + 1;
+                        out.println(cont+"_"+listaVuelos.get(i).toString());
+                        out.println("------------------------------------------------------------");
+                    }
+                }*/
+                //for ( String j: mapIterador.keySet()){}
+            }
+        }
+
+        Byte opcionAvi;
+        if( cont != 0 ){
+            opcionAvi = ingresarOpcion( (byte)1 , (byte)cont );
+            int index = indexVuelos[opcionAvi.intValue()-1];
+            int totalpasa;
+            int acomp = listaVuelos.get(index).getCantidadAcompanantes();
+
+            totalpasa = (int) listaVuelos.get(index).getPasajerosXusuario().get( usuario.getDni() );
+
+            listaVuelos.get(index).setCantidadAcompanantes( acomp - totalpasa  );
+
+            listaVuelos.get(index).getPasajerosXusuario().remove( usuario.getDni() );
+
+            out.println("Vuelo eliminado");
+        }
+    }
+
 
     // ------------------------------------------------------------------- //
 
