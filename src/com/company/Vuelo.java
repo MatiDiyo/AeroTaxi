@@ -228,14 +228,12 @@ public class Vuelo{
 
     @Override
     public String toString() {
-        return "Vuelo{" +
-                "fecha=" + fecha +
-                ", origen=" + origen +
-                ", destino=" + destino +
-                ", cantidadAcompanantes=" + cantidadAcompanantes +
-                ", avion=" + avion +
-                ", distancia=" + distancia +
-                ", costoTotal=" + costoTotal +
-                '}';
+        return  "\t-Fecha: " + fecha + "." +
+                "\n\t-Origen:" + origen + "." +
+                "\n\t-Destino: " + destino + "." +
+                "\n\t-Cantidad de acompanantes: " + cantidadAcompanantes +
+                "\n\t-Avion: " + avion.getUuid() + "." +
+                "\n\t-Distancia:" + distancia + "." +
+                "\n\t-CostoTotal: $" + costoTotal + ".";
     }
 }
