@@ -41,53 +41,6 @@ public class Sistema
     }
 
     /**
-     * @return un mensaje con la opción ingresada.
-     */
-    private static String mostrarOpcionIngresada(byte opcion)
-    {
-        return "Has seleccionado la opción "+ opcion + " ...";
-    }
-
-    // -------------------- MÉTODOS INGRESAR -------------------- //
-
-    /**
-     * @return el nombre ingresado
-     */
-    private static String ingresarNombre()
-    {
-        System.out.print("Ingrese su nombre: ");
-        return sn.nextLine();
-    }
-
-    /**
-     * @return el apellido ingresado
-     */
-    private static String ingresarApellido()
-    {
-        System.out.print("Ingrese su apelido: ");
-        return sn.nextLine();
-    }
-
-    /**
-     * @return el dni ingresado
-     */
-    private static String ingresarDNI()
-    {
-        System.out.print("Ingrese su dni: ");
-        return sn.nextLine();
-    }
-
-    /**
-     * @return la edad ingresada
-     */
-    private static byte ingresarEdad()
-    {
-        System.out.print("Ingrese su edad: ");
-        return sn.nextByte();
-    }
-
-
-    /**
      * El método no se cortará hasta no obtener un número entre el rango deseado.
      * @return una opción entre n y m
      */
@@ -115,6 +68,124 @@ public class Sistema
 
         return opcion;
     }
+
+    /**
+     * @return un mensaje con la opción ingresada.
+     */
+    private static String mostrarOpcionIngresada(byte opcion)
+    {
+        return "Has seleccionado la opción "+ opcion + " ...";
+    }
+
+    // -------------------- MÉTODOS INGRESAR -------------------- //
+
+    /**
+     * @return el nombre ingresado de usuario
+     */
+    private static String ingresarNombre()
+    {
+        System.out.print("Ingrese su nombre: ");
+        return sn.nextLine();
+    }
+
+    /**
+     * @return el apellido ingresado de usuario
+     */
+    private static String ingresarApellido()
+    {
+        System.out.print("Ingrese su apelido: ");
+        return sn.nextLine();
+    }
+
+    /**
+     * @return el dni ingresado de usuario
+     */
+    private static String ingresarDNI()
+    {
+        System.out.print("Ingrese su dni: ");
+        return sn.nextLine();
+    }
+
+    /**
+     * @return la edad ingresada de usuario
+     */
+    private static byte ingresarEdad()
+    {
+        System.out.print("Ingrese su edad: ");
+        return sn.nextByte();
+    }
+
+    /**
+     * @return la capacidad de combustible ingresada de un avion
+     */
+
+    private static int ingresarCapacidadCombustible()
+    {
+        System.out.print("Ingrese la capacidad de combustible: ");
+        return sn.nextInt();
+    }
+
+    /**
+     * @return el costo por KM ingresado de un avion
+     */
+
+    private static int ingresarCostoKM()
+    {
+        int costoKM = 0;
+
+        do {
+            System.out.print("Ingrese el costo por KM ("+ Avion.getCostoMinimoPorKm() + "-" + Avion.getCostoMaximoPorKmPorKm() + "): " );
+            costoKM = sn.nextInt();
+            System.out.print("El costo por KM debe ser entre " + Avion.getCostoMinimoPorKm() + " y "+ Avion.getCostoMaximoPorKmPorKm());
+        } while (costoKM < Avion.getCostoMinimoPorKm() || costoKM > Avion.getCostoMaximoPorKmPorKm());
+
+        return costoKM;
+    }
+
+    /**
+     * @return la cantidad de pasajeros ingresado de avion
+     */
+
+    private static int ingresarCantidadPasajeros()
+    {
+        System.out.print("Ingrese la cantidad de pasajeros: ");
+        return sn.nextInt();
+    }
+
+    /**
+     * @return la velocidad máxima del avion
+     */
+
+    private static int ingresarVelocidadMaxima()
+    {
+        System.out.print("Ingrese la velocidad máxima: ");
+        return sn.nextInt();
+    }
+
+    /**
+     * @return el tipo de propulsión del avion
+     */
+
+    private static Propulsion ingresarPropulsion()
+    {
+        Propulsion propulsion = Propulsion.MOTOR_A_REACCION;
+
+        System.out.println("1. Motor a reaccion.");
+        System.out.println("2. Motor a helice.");
+        System.out.println("3. Motor a pistones.");
+        int opcion = ingresarOpcion((byte)1, (byte)3);
+
+        switch (opcion)
+        {
+            case 1: propulsion = Propulsion.MOTOR_A_REACCION; break;
+            case 2: propulsion = Propulsion.MOTOR_A_HELICE; break;
+            case 3: propulsion = Propulsion.MOTOR_A_PISTONES; break;
+        }
+
+        return propulsion;
+    }
+
+
 
     // ------------------------------------------------------------------- //
 

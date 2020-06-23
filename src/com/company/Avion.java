@@ -16,6 +16,9 @@ public class Avion {
     private int tarifaFija;
     private Date fechaUltimoVuelo;
 
+    private static final int COSTO_MINIMO_POR_KM = 150;
+    private static final int COSTO_MAXIMO_POR_KM = 300;
+
     public Avion(){}
 
     //constructor con tarifa por defecto para las herencias
@@ -103,6 +106,10 @@ public class Avion {
     public void setFechaUltimoVuelo(Date fechaUltimoVuelo) {
         this.fechaUltimoVuelo = fechaUltimoVuelo;
     }
+
+    public static int getCostoMinimoPorKm() { return COSTO_MINIMO_POR_KM; }
+
+    public static int getCostoMaximoPorKmPorKm() { return COSTO_MAXIMO_POR_KM; }
 
     @Override
     public boolean equals(Object o) {
