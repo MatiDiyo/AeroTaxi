@@ -40,6 +40,44 @@ public class Sistema
             exit(0); // se sale
     }
 
+    private static void deseaVolverAlMenuUsuario(ArrayList<Usuario> listaUsuario, int indexDni, ArrayList<Avion> listaAviones, ArrayList<Vuelo> listaVuelos)
+    {
+        char opcion = 's';
+
+        do {
+            System.out.print("¿Desea volver al menú usuario? (S/N): ");
+            opcion = sn.next().charAt(0);
+            opcion = Character.toUpperCase(opcion);
+        } while (opcion == 'S' && opcion == 'N');
+
+        if (opcion == 'S')
+        {
+            System.out.print(mostrarMenuUsuario());
+            cargarMenuUsuario(listaUsuario, indexDni,listaAviones , listaVuelos); // continua
+        }
+        else
+            exit(0); // se sale
+    }
+
+    private static void deseaVolverAlMenuAdmin(ArrayList<Usuario> listaUsuario , ArrayList<Avion> listaAviones, ArrayList<Vuelo> listaVuelos)
+    {
+        char opcion = 's';
+
+        do {
+            System.out.print("¿Desea volver al menú admin? (S/N): ");
+            opcion = sn.next().charAt(0);
+            opcion = Character.toUpperCase(opcion);
+        } while (opcion == 'S' && opcion == 'N');
+
+        if (opcion == 'S')
+        {
+            System.out.print(mostrarMenuAdmin());
+            cargarMenuAdmin(listaUsuario,listaAviones , listaVuelos); // continua
+        }
+        else
+            exit(0); // se sale
+    }
+
     /**
      * @return un mensaje con la opción ingresada.
      */
@@ -99,7 +137,7 @@ public class Sistema
 
             try
             {
-                System.out.print("Ingrese una opción entre " + n + " y "+ m + ": ");
+                System.out.print("\nIngrese una opción entre " + n + " y "+ m + ": ");
                 opcion = sn.nextByte();
             }
 
@@ -225,25 +263,29 @@ public class Sistema
             case 1:
                 System.out.println("\n-------------------------------");
                 System.out.println("       DATOS DEL USUARIO");
-                System.out.println("-------------------------------\n");
+                System.out.println("-------------------------------");
                 System.out.println(listaUsuario.get(indexDni).toString());
-                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos );
+                //deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos );
+                deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
             case 2:
                 System.out.println("\nIngresando nuevo vuelo...");
                 cargarMenuVueloUsuario( listaUsuario.get(indexDni) , listaAviones , listaVuelos );
-                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
             case 3:
                 System.out.println("\nCancelando vuelo...");
-                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
             case 4:
                 System.out.println("\nMostrando todos los vuelos");
-                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
             case 5:
@@ -535,7 +577,8 @@ public class Sistema
                     System.out.println(listaAviones.get(i).toString());
                     System.out.println("--------------------------------------------------------------");
                 }
-                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones ,listaVuelos);
+                //deseaVolverAlMenuPrincipal(listaUsuario , listaAviones ,listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
                 break;
 
             case 2:
@@ -545,7 +588,8 @@ public class Sistema
                     System.out.println(listaUsuario.get(i).toString());
                     System.out.println("--------------------------------------------------------------");
                 }
-                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos);
+                //deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
                 break;
 
             case 3:
@@ -555,7 +599,8 @@ public class Sistema
                     System.out.println(listaVuelos.get(i).toString());
                     System.out.println("--------------------------------------------------------------");
                 }
-                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones,listaVuelos);
+                //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones,listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
                 break;
 
             case 4:
@@ -578,14 +623,16 @@ public class Sistema
                         menuCargaAvionGold(listaAviones);
                         break;
                 }
-                deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
 
             case 5:
                 System.out.print("-------------------------------");
                 System.out.println("\n    CARGAR NUEVO VUELO");
                 System.out.print("-------------------------------");
                 menuNuevoVuelo( listaAviones , listaVuelos);
-                deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos);
+               // deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos);
+                deseaVolverAlMenuAdmin(listaUsuario, listaAviones, listaVuelos);
 
             case 6:
                 System.out.println(mostrarMenuPrincipial());
