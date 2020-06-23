@@ -19,7 +19,7 @@ public class Archivo {
     // MÉTODOS GÉNERICOS  //////////////////////////////////////////////////////////////////
 
     /**
-     * Agrega un nuevo elemento a un archivo JSON (NO ESTA REVISADO ESTE MÉTODO, NOSE SI FUNCIONA)
+     * Agrega un nuevo elemento a un archivo JSON
      * @param elemento el elemento génerico a agregar
      * @param clase la clase del elemento a agregar
      */

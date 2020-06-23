@@ -10,6 +10,17 @@ public class Usuario {
     protected Byte edad;
     protected double dineroGastado;
 
+    public Usuario() {}
+
+    public Usuario(String nombre, String apellido, String dni, Byte edad, double dineroGastado)
+    {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.edad = edad;
+        this.dineroGastado = dineroGastado;
+    }
+
     //void public cancelarVuelo()
 
 

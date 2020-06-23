@@ -16,8 +16,8 @@ public class Avion {
     private int tarifaFija;
     private Date fechaUltimoVuelo;
 
-    private static final int COSTO_MINIMO_POR_KM = 150;
-    private static final int COSTO_MAXIMO_POR_KM = 300;
+    private static final double COSTO_MINIMO_POR_KM = 150;
+    private static final double COSTO_MAXIMO_POR_KM = 300;
 
     public Avion(){}
 
@@ -107,9 +107,9 @@ public class Avion {
         this.fechaUltimoVuelo = fechaUltimoVuelo;
     }
 
-    public static int getCostoMinimoPorKm() { return COSTO_MINIMO_POR_KM; }
+    public static double getCostoMinimoPorKm() { return COSTO_MINIMO_POR_KM; }
 
-    public static int getCostoMaximoPorKmPorKm() { return COSTO_MAXIMO_POR_KM; }
+    public static double getCostoMaximoPorKmPorKm() { return COSTO_MAXIMO_POR_KM; }
 
     @Override
     public boolean equals(Object o) {

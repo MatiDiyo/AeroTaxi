@@ -167,14 +167,17 @@ public class Sistema
      * @return el costo por KM ingresado de un avion
      */
 
-    private static int ingresarCostoKM()
+    private static double ingresarCostoKM()
     {
-        int costoKM = 0;
+        double costoKM = 0;
 
         do {
             System.out.print("Ingrese el costo por KM ("+ Avion.getCostoMinimoPorKm() + "-" + Avion.getCostoMaximoPorKmPorKm() + "): " );
             costoKM = sn.nextInt();
-            System.out.print("El costo por KM debe ser entre " + Avion.getCostoMinimoPorKm() + " y "+ Avion.getCostoMaximoPorKmPorKm());
+
+            if (costoKM < Avion.getCostoMinimoPorKm() || costoKM > Avion.getCostoMaximoPorKmPorKm())
+                System.out.println("El costo por KM debe ser entre " + Avion.getCostoMinimoPorKm() + " y "+ Avion.getCostoMaximoPorKmPorKm());
+
         } while (costoKM < Avion.getCostoMinimoPorKm() || costoKM > Avion.getCostoMaximoPorKmPorKm());
 
         return costoKM;
@@ -223,7 +226,18 @@ public class Sistema
         return propulsion;
     }
 
+    private static boolean ingresarWIFI()
+    {
+        char respuesta = 's';
 
+        do {
+            System.out.print("Ingrese WIFI (S/N): ");
+            respuesta = sn.next().charAt(0);
+            respuesta = Character.toUpperCase(respuesta);
+        } while (respuesta == 'S' && respuesta == 'N');
+
+        return respuesta == 'S' ? true : false;
+    }
 
     // ------------------------------------------------------------------- //
 
@@ -336,26 +350,22 @@ public class Sistema
                 System.out.println("       DATOS DEL USUARIO");
                 System.out.println("-------------------------------");
                 System.out.println(listaUsuario.get(indexDni).toString());
-                //deseaVolverAlMenuPrincipal(listaUsuario , listaAviones , listaVuelos );
                 deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
             case 2:
                 System.out.println("\nIngresando nuevo vuelo...");
                 cargarMenuVueloUsuario( listaUsuario.get(indexDni) , listaAviones , listaVuelos );
-                //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
                 deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
             case 3:
                 System.out.println("\nCancelando vuelo...");
-                //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
                 deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
             case 4:
                 System.out.println("\nMostrando todos los vuelos");
-                //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
                 deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
@@ -613,8 +623,6 @@ public class Sistema
 
     // -------------------- MÉTODOS DE ADMIN O EMPRESA -------------------- //
 
-    // TODO: CREAR LOS MÉTODOS DE LISTAR AVIONES, USUARIO, VUELOS (ES RESPONSABILIDAD DE EL ADMIN O EMPRESA)
-
     /**
      * @return el menú de Admin o Empresa a imprimir.
      */
@@ -629,6 +637,18 @@ public class Sistema
                 "4. MENU CARGAR DE AVIONES\n"  +
                 "5. MENU CARGAR DE VUELOS\n"  +
                 "6. Volver al menú principal.\n" +
+                "-------------------------------";
+    }
+
+    private static String mostrarMenuCargarAvion()
+    {
+        return "\n\n-------------------------------\n" +
+                "        MENÚ CARGA DE AVIÓN\n" +
+                "-------------------------------\n" +
+                "1. CARGAR AVIÓN BRONZE\n" +
+                "2. CARGAR AVIÓN SILVER\n" +
+                "3. CARGAR AVION GOLD\n" +
+                //"4. Volver al menú principal.\n" +
                 "-------------------------------";
     }
 
@@ -675,23 +695,19 @@ public class Sistema
                 break;
 
             case 4:
-                System.out.print("-------------------------------");
-                System.out.println("\n       CARGAR AVION");
-                System.out.print("-------------------------------");
-                System.out.println("1. Avion tipo bronze.");
-                System.out.println("2. Avion tipo silver.");
-                System.out.println("3. Avion tipo Gold.");
+                System.out.println(mostrarMenuCargarAvion());
                 byte opcion2 = ingresarOpcion((byte)1,(byte)3);
+                Calendar fechaAvion = Calendar.getInstance();
 
                 switch (opcion2){
                     case 1:
-                        menuCargaAvionBronze(listaUsuario , listaAviones );
+                        menuCargarAvion(new Archivo("archivoAvionesBronze.json"), new AvionBronze());
                         break;
                     case 2:
-                        menuCargaAvionSilver(listaAviones);
+                        menuCargarAvion(new Archivo("archivoAvionesSilver.json"), new AvionSilver());
                         break;
                     case 3:
-                        menuCargaAvionGold(listaAviones);
+                        menuCargarAvion(new Archivo("archivoAvionesGold.json"), new AvionGold());
                         break;
                 }
                 //deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
@@ -713,9 +729,73 @@ public class Sistema
         }
     }
 
+    /**
+     * Carga un avión y lo guarda en un archivo
+     * @param archivo la lista a guardar
+     * @param nuevoAvion el avion a cargar y agregar
+     */
+    private static void menuCargarAvion(Archivo archivo, Avion nuevoAvion)
+    {
+        Calendar fechaAvion = Calendar.getInstance();
+
+        nuevoAvion.setCapacidadCombustible(ingresarCapacidadCombustible());
+        nuevoAvion.setCapacidadMaximaPasajeros(ingresarCantidadPasajeros());
+        nuevoAvion.setCostoPorKm(ingresarCostoKM());
+        nuevoAvion.setVelocidadMaxima(ingresarVelocidadMaxima());
+        nuevoAvion.setPropulsion(ingresarPropulsion());
+        nuevoAvion.setFechaUltimoVuelo(fechaAvion.getTime());
+
+        if (nuevoAvion instanceof AvionGold)
+        {
+            AvionGold ag = (AvionGold)nuevoAvion;
+            ag.setWifi(ingresarWIFI());
+            archivo.agregarElemento(ag, AvionGold.class);
+        }
+        else
+            archivo.agregarElemento(nuevoAvion, Avion.class);
+
+        /*Calendar fechaAvion = Calendar.getInstance();
+        ArrayList<Avion> listaAviones = archivo.archivoToArray(Avion.class);*/
+
+        /*Calendar fechaAvion = Calendar.getInstance();
+        AvionBronze nuevoAvion = new AvionBronze();
+        ArrayList<Avion> arraybronze = new ArrayList<Avion>();
+
+        fechaAvion.add( Calendar.DATE , -1 );
+        System.out.println( fechaAvion.getTime());
+        try
+        {
+            File fileBronze = new File("archivoAvionesBronze.json");
+            ObjectMapper mapper = new ObjectMapper();
+            //Object to JSON in file
+            System.out.println("     --Registro Avion Bronze--");
+
+            // Ingresando datos del avion
+            nuevoAvion.setCapacidadCombustible(ingresarCapacidadCombustible());
+            nuevoAvion.setCapacidadMaximaPasajeros(ingresarCantidadPasajeros());
+            nuevoAvion.setCostoPorKm(ingresarCostoKM());
+            nuevoAvion.setVelocidadMaxima(500);
+            nuevoAvion.setPropulsion(ingresarPropulsion());
+
+            nuevoAvion.setFechaUltimoVuelo( fechaAvion.getTime() );
+            listaAviones.add(nuevoAvion);
+
+            for (int i=0; i < listaAviones.size() ; i ++) {
+                if( listaAviones.get(i).getClass().getName() == nuevoAvion.getClass().getName()){
+                    arraybronze.add( listaAviones.get(i));
+                }
+            }
+            mapper.writeValue(fileBronze , arraybronze );
+        }catch (IOException e){
+            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+            e.printStackTrace();
+
+        }*/
+    }
 
 
-    private static void menuCargaAvionBronze(ArrayList<Usuario> listaUsuario , ArrayList<Avion> listaAviones)
+
+    private static void menuCargaAvionBronze(ArrayList<Avion> listaAviones)
     {
         Calendar fechaAvion = Calendar.getInstance();
         AvionBronze nuevoAvion = new AvionBronze();
@@ -730,7 +810,14 @@ public class Sistema
             //Object to JSON in file
             System.out.println("     --Registro Avion Bronze--");
 
-            sn.nextLine();
+            // Ingresando datos del avion
+            nuevoAvion.setCapacidadCombustible(ingresarCapacidadCombustible());
+            nuevoAvion.setCapacidadMaximaPasajeros(ingresarCantidadPasajeros());
+            nuevoAvion.setCostoPorKm(ingresarCostoKM());
+            nuevoAvion.setVelocidadMaxima(500);
+            nuevoAvion.setPropulsion(ingresarPropulsion());
+
+            /*sn.nextLine();
             System.out.print("-Capacidad combustible: ");
             nuevoAvion.setCapacidadCombustible(sn.nextInt());
             sn.nextLine();
@@ -743,9 +830,9 @@ public class Sistema
             System.out.print("-Velocidad maxima: ");
             nuevoAvion.setVelocidadMaxima(500);
 
-            sn.nextLine();
+            sn.nextLine();*/
 
-            System.out.println(">Tipo de propulsion<");
+            /*System.out.println(">Tipo de propulsion<");
             int controlMotor=0;
             System.out.println("1. Motor a reaccion.");
             System.out.println("2. Motor a helice.");
@@ -763,7 +850,9 @@ public class Sistema
                 case 3:
                     nuevoAvion.setPropulsion(Propulsion.MOTOR_A_PISTONES);
                     break;
-            }
+            }*/
+
+
 
             nuevoAvion.setFechaUltimoVuelo( fechaAvion.getTime() );
             listaAviones.add(nuevoAvion);
@@ -780,6 +869,7 @@ public class Sistema
 
         }
     }
+
     private static void menuCargaAvionSilver( ArrayList<Avion> listaAviones)
     {
         Calendar fechaAvion = Calendar.getInstance();
