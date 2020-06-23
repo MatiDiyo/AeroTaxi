@@ -1,1 +1,1 @@
-[{"uuid":"50eedbdb-6c7f-44f9-8de9-5ddcd6729d5c","capacidadCombustible":1400,"costoPorKm":270.0,"capacidadMaximaPasajeros":200,"velocidadMaxima":500,"propulsion":"MOTOR_A_REACCION","tarifaFija":4000,"fechaUltimoVuelo":1592871623728,"servicioCatering":true}]
+[{"uuid":"62f52b7a-4ec8-4252-94fc-58a537495ba6","capacidadCombustible":1600,"costoPorKm":180.0,"capacidadMaximaPasajeros":170,"velocidadMaxima":500,"propulsion":"MOTOR_A_HELICE","tarifaFija":4000,"fechaUltimoVuelo":1592791302886,"servicioCatering":true}]

@@ -402,12 +402,13 @@ public class Sistema
     {
         Calendar fechaAvion = Calendar.getInstance();
         AvionBronze nuevoAvion = new AvionBronze();
+        ArrayList<Avion> arraybronze = new ArrayList<Avion>();
 
-        fechaAvion.after(1);
+        fechaAvion.add( Calendar.DATE , -1 );
         System.out.println( fechaAvion.getTime());
         try
         {
-            File file = new File("archivoAvionesBronze.json");
+            File fileBronze = new File("archivoAvionesBronze.json");
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
             System.out.println("Registro Avion bronze");
@@ -449,8 +450,13 @@ public class Sistema
 
             nuevoAvion.setFechaUltimoVuelo( fechaAvion.getTime() );
             listaAviones.add(nuevoAvion);
-            mapper.writeValue(file , listaAviones );
 
+            for (int i=0; i < listaAviones.size() ; i ++) {
+                if( listaAviones.get(i).getClass().getName() == nuevoAvion.getClass().getName()){
+                    arraybronze.add( listaAviones.get(i));
+                }
+            }
+            mapper.writeValue(fileBronze , arraybronze );
         }catch (IOException e){
             System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
             e.printStackTrace();
@@ -462,12 +468,13 @@ public class Sistema
     {
         Calendar fechaAvion = Calendar.getInstance();
         AvionSilver nuevoAvion = new AvionSilver();
+        ArrayList<Avion> arraysilver = new ArrayList<Avion>();
 
-        fechaAvion.after(1);
+        fechaAvion.add( Calendar.DATE , -1 );
         System.out.println( fechaAvion.getTime());
         try
         {
-            File file = new File("archivoAvionesSilver.json");
+            File fileSilver = new File("archivoAvionesSilver.json");
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
             System.out.println("Registro Avion bronze");
@@ -509,7 +516,12 @@ public class Sistema
 
             nuevoAvion.setFechaUltimoVuelo( fechaAvion.getTime() );
             listaAviones.add(nuevoAvion);
-            mapper.writeValue(file , listaAviones );
+            for (int i=0; i < listaAviones.size() ; i ++) {
+                if( listaAviones.get(i).getClass().getName() == nuevoAvion.getClass().getName()){
+                    arraysilver.add( listaAviones.get(i));
+                }
+            }
+            mapper.writeValue(fileSilver , arraysilver );
 
         }catch (IOException e){
             System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
@@ -521,12 +533,13 @@ public class Sistema
     {
         Calendar fechaAvion = Calendar.getInstance();
         AvionGold nuevoAvion = new AvionGold();
+        ArrayList<Avion> arraygold = new ArrayList<Avion>();
 
-        fechaAvion.after(1);
+        fechaAvion.add( Calendar.DATE , -1 );
         System.out.println( fechaAvion.getTime());
         try
         {
-            File file = new File("archivoAvionesGold.json");
+            File fileGold = new File("archivoAvionesGold.json");
             ObjectMapper mapper = new ObjectMapper();
             //Object to JSON in file
             System.out.println("Registro Avion bronze");
@@ -568,8 +581,12 @@ public class Sistema
 
             nuevoAvion.setFechaUltimoVuelo( fechaAvion.getTime() );
             listaAviones.add(nuevoAvion);
-            mapper.writeValue(file , listaAviones );
-
+            for (int i=0; i < listaAviones.size() ; i ++) {
+                if( listaAviones.get(i).getClass().getName() == nuevoAvion.getClass().getName()){
+                    arraygold.add( listaAviones.get(i));
+                }
+            }
+            mapper.writeValue(fileGold , arraygold );
         }catch (IOException e){
             System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
             e.printStackTrace();
