@@ -8,8 +8,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static java.lang.System.exit;
-import static java.lang.System.setOut;
+import static java.lang.System.*;
 
 /**
  * Clase estática, con un único método público: cargarSistema()
@@ -231,6 +230,7 @@ public class Sistema
 
             case 2:
                 System.out.println("\nIngresando nuevo vuelo...");
+                cargarMenuVueloUsuario( listaUsuario.get(indexDni) , listaAviones , listaVuelos );
                 deseaVolverAlMenuPrincipal(listaUsuario, listaAviones , listaVuelos);
                 break;
 
@@ -305,6 +305,191 @@ public class Sistema
         archivoUsuarios.guardarListaEnArchivo(listaUsuarios);
 
         System.out.println("Usuario guardado...");
+    }
+
+    private static  void cargarMenuVueloUsuario(Usuario usuario , ArrayList<Avion> listaAviones , ArrayList<Vuelo> listaVuelos){
+        Vuelo nuevoVuelo = new Vuelo();
+        Calendar fechaIngresada = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        int fechateclado;
+
+
+        System.out.println();
+
+
+        try
+        {
+            File file = new File("archivoVuelos.json");
+            ObjectMapper mapper = new ObjectMapper();
+            //Object to JSON in file
+            System.out.println("Contratar nuevo vuelo.");
+            sn.nextLine();
+            System.out.println("Ingrese la fecha del vuelo:");
+            System.out.println("Ingrese anio ej:2020");
+            fechateclado = sn.nextInt();
+            fechaIngresada.set( Calendar.YEAR , fechateclado );
+            System.out.println("Ingrese mes en formado de 2 digitos:");
+            fechateclado = sn.nextInt();
+            fechaIngresada.set( Calendar.MONTH , fechateclado - 1 );
+            System.out.println("Ingrese el dia del vuelo:");
+            fechateclado = sn.nextInt();
+            fechaIngresada.set( Calendar.DATE , fechateclado );
+            System.out.println("Ingrese hora del vuelo formato 24h");
+            fechateclado = sn.nextInt();
+            fechaIngresada.set( Calendar.HOUR , fechateclado - 12);
+            fechaIngresada.set( Calendar.MINUTE , 00 );
+            fechaIngresada.set( Calendar.SECOND , 00);
+            fechaIngresada.set( Calendar.MILLISECOND , 00);
+            System.out.println("Fecha ingresada: "+fechaIngresada.getTime());
+            nuevoVuelo.setFecha( fechaIngresada.getTime() );
+            sn.nextLine();
+            System.out.println("Ciudad de origen:");
+            System.out.println("1_Buenos Aires.");
+            System.out.println("2_Cordoba");
+            System.out.println("3_Santiago");
+            System.out.println("4_Montevideo");
+            byte opcion = ingresarOpcion((byte)1, (byte)4);
+            switch (opcion){
+                case 1:
+                    nuevoVuelo.setOrigen( Ciudad.BUENOS_AIRES);
+                    break;
+                case 2:
+                    nuevoVuelo.setOrigen( Ciudad.CORDOBA);
+                    break;
+                case 3:
+                    nuevoVuelo.setOrigen( Ciudad.SANTIAGO );
+                    break;
+                case 4:
+                    nuevoVuelo.setOrigen( Ciudad.MONTEVIDEO);
+            }
+
+            sn.nextLine();
+            System.out.println("Ciudad de destino:");
+            byte opcionDestino;
+
+            switch (opcion){
+                case 1:
+                    System.out.println("1_Cordoba");
+                    System.out.println("2_Santiago");
+                    System.out.println("3_Montevideo");
+                    opcionDestino = ingresarOpcion((byte)1 , (byte)3);
+                    switch (opcionDestino){
+                        case 1:
+                            nuevoVuelo.setDestino( Ciudad.CORDOBA );
+                            break;
+                        case 2:
+                            nuevoVuelo.setDestino( Ciudad.SANTIAGO );
+                            break;
+                        case 3:
+                            nuevoVuelo.setDestino( Ciudad.MONTEVIDEO );
+                            break;
+                    }
+                    break;
+                case 2:
+                    System.out.println("1_Bueno Aires");
+                    System.out.println("2_Santiago");
+                    System.out.println("3_Montevideo");
+                    opcionDestino = ingresarOpcion((byte)1 , (byte)3);
+                    switch (opcionDestino){
+                        case 1:
+                            nuevoVuelo.setDestino( Ciudad.BUENOS_AIRES );
+                            break;
+                        case 2:
+                            nuevoVuelo.setDestino( Ciudad.SANTIAGO );
+                            break;
+                        case 3:
+                            nuevoVuelo.setDestino( Ciudad.MONTEVIDEO );
+                            break;
+                    }
+                    break;
+                case 3:
+                    System.out.println("1_Bueno Aires");
+                    System.out.println("2_Cordoba");
+                    System.out.println("3_Montevideo");
+                    opcionDestino = ingresarOpcion((byte)1 , (byte)3);
+                    switch (opcionDestino){
+                        case 1:
+                            nuevoVuelo.setDestino( Ciudad.BUENOS_AIRES );
+                            break;
+                        case 2:
+                            nuevoVuelo.setDestino( Ciudad.CORDOBA );
+                            break;
+                        case 3:
+                            nuevoVuelo.setDestino( Ciudad.MONTEVIDEO );
+                            break;
+                    }
+                    break;
+                case 4:
+                    System.out.println("1_Bueno Aires");
+                    System.out.println("2_Cordoba");
+                    System.out.println("3_Santiago");
+                    opcionDestino = ingresarOpcion((byte)1 , (byte)3);
+                    switch (opcionDestino){
+                        case 1:
+                            nuevoVuelo.setDestino( Ciudad.BUENOS_AIRES );
+                            break;
+                        case 2:
+                            nuevoVuelo.setDestino( Ciudad.CORDOBA );
+                            break;
+                        case 3:
+                            nuevoVuelo.setDestino( Ciudad.SANTIAGO );
+                            break;
+                    }
+                    break;
+
+            }
+
+            sn.nextLine();
+            System.out.println("Ingrese la cantidad de pasajes deseados:");
+            int acom = sn.nextInt();
+            nuevoVuelo.setCantidadAcompanantes(acom);
+            int contAvionesDis=0;
+            int seleccont=0;
+            int []indexAvionselec = new int[ listaVuelos.size()];
+
+            for (int i=0; i < listaVuelos.size(); i++ )
+            {
+
+                if( listaAviones.get(i).equals(nuevoVuelo) )
+                {
+                    System.out.println("------------------------------------------------------------------");
+                    int pasajerosCont=0;
+                    HashMap <String , Integer> pasajeros = new HashMap<String, Integer>();
+                    pasajeros = listaVuelos.get(i).getPasajerosXusuario();
+                    for (String j : pasajeros.keySet()) {
+                        pasajerosCont = pasajeros.get(j) + pasajerosCont;
+                    }
+                    if( pasajerosCont < listaVuelos.get(i).getCantidadAcompanantes() ) {
+                        System.out.println("--------------------------------------------------------------");
+                        seleccont = contAvionesDis +1;
+                        System.out.println(seleccont +"_"+listaVuelos.get(i).toString());
+                        indexAvionselec[contAvionesDis] = i;
+                        contAvionesDis = contAvionesDis+1;
+                    }
+                }
+            }
+            Byte opcionAvi;
+            if( contAvionesDis != 0 ){
+                opcionAvi = ingresarOpcion( (byte)1 , (byte)contAvionesDis );
+                int index = indexAvionselec[opcionAvi.intValue()-1];
+                int pasjer;
+
+                System.out.println("costo del viaje:"+listaVuelos.get(index).costoVuelo(nuevoVuelo.getCantidadAcompanantes()) );
+
+                listaVuelos.get(index).getPasajerosXusuario().put( usuario.dni , acom );
+                pasjer = listaVuelos.get(index).getCantidadAcompanantes();
+                listaVuelos.get(index).setCantidadAcompanantes( pasjer + acom );
+            }
+
+
+            mapper.writeValue(file , listaVuelos );
+
+        }catch (IOException e){
+            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+            e.printStackTrace();
+
+        }
+
     }
 
     // ------------------------------------------------------------------- //
@@ -625,6 +810,7 @@ public class Sistema
             fechaIngresada.set( Calendar.HOUR , fechateclado - 12);
             fechaIngresada.set( Calendar.MINUTE , 00 );
             fechaIngresada.set( Calendar.SECOND , 00);
+            fechaIngresada.set( Calendar.MILLISECOND, 00);
             System.out.println("Fecha ingresada: "+fechaIngresada.getTime());
             nuevoVuelo.setFecha( fechaIngresada.getTime() );
             sn.nextLine();
@@ -737,12 +923,14 @@ public class Sistema
             }
             opcionAvion = ingresarOpcion( (byte)1 , (byte)listaAviones.size() );
 
-            nuevoVuelo.setAvion(listaAviones.get(opcionAvion.intValue()-1) );// agregar una lista de aviones y un selecionador
+            nuevoVuelo.setAvion(listaAviones.get(opcionAvion.intValue()-1));// agregar una lista de aviones y un selecionador
 
             nuevoVuelo.getAvion().setFechaUltimoVuelo( nuevoVuelo.getFecha() );
             nuevoVuelo.setDistancia(  nuevoVuelo.calcularDistancia() );
-            nuevoVuelo.setCostoTotal( nuevoVuelo.costoVuelo() );
+            nuevoVuelo.setCostoTotal( nuevoVuelo.costoVuelo(0) );
 
+            HashMap<String , Integer > pasajerosXusuarios = new HashMap<String, Integer>();
+            nuevoVuelo.setPasajerosXusuario(pasajerosXusuarios);
             listaVuelos.add(nuevoVuelo);
             mapper.writeValue(file , listaVuelos );
 

@@ -1,10 +1,9 @@
 package com.company;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class Vuelo{
 
@@ -17,6 +16,7 @@ public class Vuelo{
     private Avion avion;
     private int distancia;
     private double costoTotal;
+    private HashMap pasajerosXusuario;
 
     public Vuelo() {
     }
@@ -33,7 +33,7 @@ public class Vuelo{
     }
 
     //utilizar Distancia.getKm() para la distancia
-    public Vuelo(Date fecha, Ciudad origen, Ciudad destino, int cantidadAcompanantes, Avion avion, int distancia, double costoTotal) {
+    public Vuelo(Date fecha, Ciudad origen, Ciudad destino, int cantidadAcompanantes, Avion avion, int distancia, double costoTotal , HashMap pasajerosXusuario) {
         this.fecha = fecha;
         this.origen = origen;
         this.destino = destino;
@@ -41,6 +41,7 @@ public class Vuelo{
         this.avion = avion;
         this.distancia = distancia;
         this.costoTotal = costoTotal;
+        this.pasajerosXusuario = pasajerosXusuario;
     }
 
     //retornar Vuelo? o en void?
@@ -142,7 +143,7 @@ public class Vuelo{
         return distancia;
     }
 
-    public double costoVuelo(){
+    public double costoVuelo( int cantidadAcompanantes ){
         return (distancia * avion.getCostoPorKm()) + (cantidadAcompanantes * 3500) + (avion.getTarifaFija());
     }
 
@@ -202,23 +203,27 @@ public class Vuelo{
         this.costoTotal = costoTotal;
     }
 
+    public HashMap getPasajerosXusuario() {
+        return pasajerosXusuario;
+    }
+
+    public void setPasajerosXusuario(HashMap pasajerosXusuario) {
+        this.pasajerosXusuario = pasajerosXusuario;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vuelo vuelo = (Vuelo) o;
-        return cantidadAcompanantes == vuelo.cantidadAcompanantes &&
-                distancia == vuelo.distancia &&
-                Double.compare(vuelo.costoTotal, costoTotal) == 0 &&
-                Objects.equals(fecha, vuelo.fecha) &&
+        return Objects.equals(fecha, vuelo.fecha) &&
                 origen == vuelo.origen &&
-                destino == vuelo.destino &&
-                Objects.equals(avion, vuelo.avion);
+                destino == vuelo.destino;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fecha, origen, destino, cantidadAcompanantes, avion, distancia, costoTotal);
+        return Objects.hash(fecha, origen, destino);
     }
 
     @Override
