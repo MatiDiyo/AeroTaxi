@@ -1,1 +1,1 @@
-[{"uuid":"16412a77-56a6-42d6-883e-c8cc7755bd06","capacidadCombustible":1500,"costoPorKm":160.0,"capacidadMaximaPasajeros":150,"velocidadMaxima":500,"propulsion":"MOTOR_A_PISTONES","tarifaFija":3000,"fechaUltimoVuelo":1592871820443}]
+[{"uuid":"2441fc59-3a16-4a07-9bab-02e3e0fb34ce","capacidadCombustible":1500,"costoPorKm":160.0,"capacidadMaximaPasajeros":150,"velocidadMaxima":500,"propulsion":"MOTOR_A_REACCION","tarifaFija":3000,"fechaUltimoVuelo":1592791286481}]
