@@ -13,7 +13,7 @@ public class Vuelo{
     private Ciudad origen;
     private Ciudad destino;
     private int cantidadAcompanantes;
-    private Avion avion;
+    private UUID avion;
     private int distancia;
     private double costoTotal;
     private HashMap pasajerosXusuario;
@@ -33,7 +33,7 @@ public class Vuelo{
     }
 
     //utilizar Distancia.getKm() para la distancia
-    public Vuelo(Date fecha, Ciudad origen, Ciudad destino, int cantidadAcompanantes, Avion avion, int distancia, double costoTotal , HashMap pasajerosXusuario) {
+    public Vuelo(Date fecha, Ciudad origen, Ciudad destino, int cantidadAcompanantes, UUID avion, int distancia, double costoTotal , HashMap pasajerosXusuario) {
         this.fecha = fecha;
         this.origen = origen;
         this.destino = destino;
@@ -143,8 +143,16 @@ public class Vuelo{
         return distancia;
     }
 
-    public double costoVuelo( int cantidadAcompanantes ){
-        return (distancia * avion.getCostoPorKm()) + (cantidadAcompanantes * 3500) + (avion.getTarifaFija());
+     public double costoVuelo( int cantidadAcompanantes , ArrayList<Avion> listaAviones ){
+        double costoVueloUsuario=0;
+
+        for (int i=0; i<listaAviones.size(); i++)
+        {
+            if ( avion == listaAviones.get(i).getUuid() ) {
+               costoVueloUsuario =  (distancia * listaAviones.get(i).getCostoPorKm()) + (cantidadAcompanantes * 3500) + (listaAviones.get(i).getTarifaFija());
+            }
+        }
+        return costoVueloUsuario;
     }
 
     public Date getFecha() {
@@ -179,11 +187,11 @@ public class Vuelo{
         this.cantidadAcompanantes = cantidadAcompanantes;
     }
 
-    public Avion getAvion() {
+    public UUID getAvion() {
         return avion;
     }
 
-    public void setAvion(Avion avion) {
+    public void setAvion(UUID avion) {
         this.avion = avion;
     }
 
@@ -232,7 +240,7 @@ public class Vuelo{
                 "\n\t-Origen:" + origen + "." +
                 "\n\t-Destino: " + destino + "." +
                 "\n\t-Cantidad de acompanantes: " + cantidadAcompanantes +
-                "\n\t-Avion: " + avion.getUuid() + "." +
+                "\n\t-Avion: " + avion + "." +
                 "\n\t-Distancia:" + distancia + "." +
                 "\n\t-CostoTotal: $" + costoTotal + ".";
     }

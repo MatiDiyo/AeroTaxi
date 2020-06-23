@@ -360,7 +360,7 @@ public class Sistema
 
         System.out.println();
 
-
+        /*
         try
         {
             File file = new File("archivoVuelos.json");
@@ -535,7 +535,7 @@ public class Sistema
             e.printStackTrace();
 
         }
-
+        */
     }
 
     // ------------------------------------------------------------------- //
@@ -984,11 +984,11 @@ public class Sistema
             }
             opcionAvion = ingresarOpcion( (byte)1 , (byte)listaAviones.size() );
 
-            nuevoVuelo.setAvion(listaAviones.get(opcionAvion.intValue()-1));// agregar una lista de aviones y un selecionador
+            nuevoVuelo.setAvion( listaAviones.get(opcionAvion.intValue()-1).getUuid() );// agregar una lista de aviones y un selecionador
+            listaAviones.get(opcionAvion.intValue()-1).setFechaUltimoVuelo( nuevoVuelo.getFecha() );
 
-            nuevoVuelo.getAvion().setFechaUltimoVuelo( nuevoVuelo.getFecha() );
             nuevoVuelo.setDistancia(  nuevoVuelo.calcularDistancia() );
-            nuevoVuelo.setCostoTotal( nuevoVuelo.costoVuelo(0) );
+            nuevoVuelo.setCostoTotal( nuevoVuelo.costoVuelo(0 , listaAviones) );
 
             HashMap<String , Integer > pasajerosXusuarios = new HashMap<String, Integer>();
             nuevoVuelo.setPasajerosXusuario(pasajerosXusuarios);
