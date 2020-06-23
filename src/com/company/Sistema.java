@@ -781,13 +781,13 @@ public class Sistema
 
                 switch (opcion2){
                     case 1:
-                        menuCargarAvion(new Archivo("archivoAvionesBronze.json"), new AvionBronze());
+                        menuCargaAvionBronze(listaAviones);
                         break;
                     case 2:
-                        menuCargarAvion(new Archivo("archivoAvionesSilver.json"), new AvionSilver());
+                        menuCargaAvionSilver(listaAviones);
                         break;
                     case 3:
-                        menuCargarAvion(new Archivo("archivoAvionesGold.json"), new AvionGold());
+                        menuCargaAvionGold(listaAviones);
                         break;
                 }
 
@@ -807,30 +807,199 @@ public class Sistema
         }
     }
 
-    /**
-     * Carga un avión y lo guarda en un archivo
-     * @param archivo la lista a guardar
-     * @param nuevoAvion el avion a cargar y agregar
-     */
-    private static void menuCargarAvion(Archivo archivo, Avion nuevoAvion)
+    private static void menuCargaAvionBronze(ArrayList<Avion> listaAviones)
     {
         Calendar fechaAvion = Calendar.getInstance();
+        AvionBronze nuevoAvion = new AvionBronze();
+        ArrayList<Avion> arraybronze = new ArrayList<Avion>();
 
-        nuevoAvion.setCapacidadCombustible(ingresarCapacidadCombustible());
-        nuevoAvion.setCapacidadMaximaPasajeros(ingresarCantidadPasajeros());
-        nuevoAvion.setCostoPorKm(ingresarCostoKM());
-        nuevoAvion.setVelocidadMaxima(ingresarVelocidadMaxima());
-        nuevoAvion.setPropulsion(ingresarPropulsion());
-        nuevoAvion.setFechaUltimoVuelo(fechaAvion.getTime());
-
-        if (nuevoAvion instanceof AvionGold)
+        fechaAvion.add( Calendar.DATE , -1 );
+        System.out.println( fechaAvion.getTime());
+        try
         {
-            AvionGold ag = (AvionGold)nuevoAvion;
-            ag.setWifi(ingresarWIFI());
-            archivo.agregarElemento(ag, AvionGold.class);
+            File fileBronze = new File("archivoAvionesBronze.json");
+            ObjectMapper mapper = new ObjectMapper();
+            //Object to JSON in file
+            System.out.println("     --Registro Avion Bronze--");
+
+            sn.nextLine();
+            System.out.print("-Capacidad combustible: ");
+            nuevoAvion.setCapacidadCombustible(sn.nextInt());
+            sn.nextLine();
+            System.out.print("-Cantidad maxima de pasajeros: ");
+            nuevoAvion.setCapacidadMaximaPasajeros(sn.nextInt());
+            sn.nextLine();
+            System.out.print("-Costo por km: ");
+            nuevoAvion.setCostoPorKm(sn.nextDouble());
+            sn.nextLine();
+            System.out.print("-Velocidad maxima: ");
+            nuevoAvion.setVelocidadMaxima(500);
+            sn.nextLine();
+
+            System.out.println(">Tipo de propulsion<");
+            int controlMotor=0;
+            System.out.println("1. Motor a reaccion.");
+            System.out.println("2. Motor a helice.");
+            System.out.println("3. Motor a pistones.");
+            controlMotor = sn.nextInt();
+            switch (controlMotor){
+                case 1:
+                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_REACCION);
+                    break;
+                case 2:
+                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_HELICE);
+                    break;
+                case 3:
+                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_PISTONES);
+                    break;
+            }
+
+
+
+            nuevoAvion.setFechaUltimoVuelo( fechaAvion.getTime() );
+            listaAviones.add(nuevoAvion);
+
+            for (int i=0; i < listaAviones.size() ; i ++) {
+                if( listaAviones.get(i).getClass().getName() == nuevoAvion.getClass().getName()){
+                    arraybronze.add( listaAviones.get(i));
+                }
+            }
+            mapper.writeValue(fileBronze , arraybronze );
+        }catch (IOException e){
+            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+            e.printStackTrace();
+
         }
-        else
-            archivo.agregarElemento(nuevoAvion, Avion.class);
+    }
+
+    private static void menuCargaAvionSilver( ArrayList<Avion> listaAviones)
+    {
+        Calendar fechaAvion = Calendar.getInstance();
+        AvionSilver nuevoAvion = new AvionSilver();
+        ArrayList<Avion> arraysilver = new ArrayList<Avion>();
+
+        fechaAvion.add( Calendar.DATE , -1 );
+        System.out.println( fechaAvion.getTime());
+        try
+        {
+            File fileSilver = new File("archivoAvionesSilver.json");
+            ObjectMapper mapper = new ObjectMapper();
+            //Object to JSON in file
+            System.out.println("     --Registro Avion Silver--");
+
+            sn.nextLine();
+            System.out.print("-Capacidad Combustible: ");
+            nuevoAvion.setCapacidadCombustible(sn.nextInt());
+            sn.nextLine();
+            System.out.print("-Cantidad maxima de pasajeros: ");
+            nuevoAvion.setCapacidadMaximaPasajeros(sn.nextInt());
+            sn.nextLine();
+            System.out.print("-Costo por km: ");
+            nuevoAvion.setCostoPorKm(sn.nextDouble());
+            sn.nextLine();
+            System.out.print("-Velocidad maxima: ");
+            nuevoAvion.setVelocidadMaxima(500);
+
+            sn.nextLine();
+
+            System.out.println(">Tipo de propulsion<");
+            int controlMotor=0;
+            System.out.println("1. Motor a reaccion.");
+            System.out.println("2. Motor a helice.");
+            System.out.println("3. Motor a pistones.");
+
+            controlMotor = sn.nextInt();
+            switch (controlMotor){
+                case 1:
+                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_REACCION);
+                    break;
+
+                case 2:
+                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_HELICE);
+                    break;
+                case 3:
+                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_PISTONES);
+                    break;
+            }
+
+            nuevoAvion.setFechaUltimoVuelo( fechaAvion.getTime() );
+            listaAviones.add(nuevoAvion);
+            for (int i=0; i < listaAviones.size() ; i ++) {
+                if( listaAviones.get(i).getClass().getName() == nuevoAvion.getClass().getName()){
+                    arraysilver.add( listaAviones.get(i));
+                }
+            }
+            mapper.writeValue(fileSilver , arraysilver );
+
+        }catch (IOException e){
+            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+            e.printStackTrace();
+
+        }
+    }
+    private static void menuCargaAvionGold( ArrayList<Avion> listaAviones)
+    {
+        Calendar fechaAvion = Calendar.getInstance();
+        AvionGold nuevoAvion = new AvionGold();
+        ArrayList<Avion> arraygold = new ArrayList<Avion>();
+
+        fechaAvion.add( Calendar.DATE , -1 );
+        System.out.println( fechaAvion.getTime());
+        try
+        {
+            File fileGold = new File("archivoAvionesGold.json");
+            ObjectMapper mapper = new ObjectMapper();
+            //Object to JSON in file
+            System.out.println("     --Registro Avion Gold--");
+
+            sn.nextLine();
+            System.out.print("-Capacidad combustible: ");
+            nuevoAvion.setCapacidadCombustible(sn.nextInt());
+            sn.nextLine();
+            System.out.print("-Cantidad maxima de pasajeros: ");
+            nuevoAvion.setCapacidadMaximaPasajeros(sn.nextInt());
+            sn.nextLine();
+            System.out.print("-Costo por km: ");
+            nuevoAvion.setCostoPorKm(sn.nextDouble());
+            sn.nextLine();
+            System.out.print("-Velocidad maxima: ");
+            nuevoAvion.setVelocidadMaxima(500);
+
+            sn.nextLine();
+
+            System.out.println(">Tipo de propulsion<");
+            int controlMotor=0;
+            System.out.println("1. Motor a reaccion.");
+            System.out.println("2. Motor a helice.");
+            System.out.println("3. Motor a pistones.");
+
+            controlMotor = sn.nextInt();
+            switch (controlMotor){
+                case 1:
+                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_REACCION);
+                    break;
+
+                case 2:
+                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_HELICE);
+                    break;
+                case 3:
+                    nuevoAvion.setPropulsion(Propulsion.MOTOR_A_PISTONES);
+                    break;
+            }
+
+            nuevoAvion.setFechaUltimoVuelo( fechaAvion.getTime() );
+            listaAviones.add(nuevoAvion);
+            for (int i=0; i < listaAviones.size() ; i ++) {
+                if( listaAviones.get(i).getClass().getName() == nuevoAvion.getClass().getName()){
+                    arraygold.add( listaAviones.get(i));
+                }
+            }
+            mapper.writeValue(fileGold , arraygold );
+        }catch (IOException e){
+            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+            e.printStackTrace();
+
+        }
     }
 
     private static void menuNuevoVuelo( ArrayList<Avion> listaAviones , ArrayList<Vuelo> listaVuelos){
