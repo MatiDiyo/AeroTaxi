@@ -16,16 +16,19 @@ public class Archivo {
         this.archivo = new File(nombreArchivo);
     }
 
-    // FUNCIONES DE USUARIOS  //////////////////////////////////////////////////////////////////
+    // MÉTODOS GÉNERICOS  //////////////////////////////////////////////////////////////////
 
     /**
-     * Agrega un nuevo elemento a un archivo JSON
+     * Agrega un nuevo elemento a un archivo JSON (NO ESTA REVISADO ESTE MÉTODO, NOSE SI FUNCIONA)
+     * @param elemento el elemento génerico a agregar
+     * @param clase la clase del elemento a agregar
      */
 
-    public <T> void agregarElemento(T elemento) {
+    public <T> void agregarElemento(T elemento, Class<T> clase) {
+
         try {
             ObjectMapper mapper = new ObjectMapper();
-            ArrayList<T> array = new ArrayList<T>();
+            ArrayList<T> array = archivoToArray(clase);
             array.add(elemento);
             mapper.writeValue(archivo, array);
 
@@ -35,6 +38,50 @@ public class Archivo {
 
         }
     }
+
+    /**
+     *
+     * @return una lista del tipo de clase enviado por parametros
+     * @param clase el tipo de clase de la lista a retornar
+     */
+
+    public <T> ArrayList<T> archivoToArray(Class<T> clase) {
+        ArrayList<T> lista = new ArrayList<T>();
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            //Object to JSON in file
+            String jsonString;
+
+            /// LECTURA JACKSON
+
+            ArrayList<Usuario> arrayLectura;
+
+            arrayLectura = mapper.readValue(archivo, ArrayList.class);
+
+            int size = arrayLectura.size();
+
+            T pLectura;
+
+            jsonString = mapper.toString();
+
+            for (int i = 0; i < size; i++) {
+                jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i));
+                pLectura = mapper.readValue(jsonString, clase);
+
+                lista.add(pLectura);
+            }
+
+        } catch (IOException e) {
+            System.out.println(" No se pudo leer/escribir el archivo: " + e.getMessage());
+            e.printStackTrace();
+
+        }
+
+        return lista;
+    }
+
+    // FUNCIONES DE USUARIOS  //////////////////////////////////////////////////////////////////
 
     /*public void createArchivoUsuarios(){
         Scanner sn = new Scanner(System.in);
@@ -211,6 +258,7 @@ public class Archivo {
             for (int i = 0; i < size; i++) {
                 jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayLectura.get(i));
                 pLectura = mapper.readValue(jsonString, Usuario.class);
+
                 listaUsuarios.add(pLectura);
             }
 
@@ -222,6 +270,8 @@ public class Archivo {
 
         return listaUsuarios;
     }
+
+
 
     /**
      * @return la lista de aviones del JSON de aviones
