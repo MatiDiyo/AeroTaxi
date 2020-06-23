@@ -441,7 +441,6 @@ public class Sistema
 
         System.out.println();
 
-        /*
         try
         {
             File file = new File("archivoVuelos.json");
@@ -577,22 +576,27 @@ public class Sistema
             for (int i=0; i < listaVuelos.size(); i++ )
             {
 
-                if( listaAviones.get(i).equals(nuevoVuelo) )
+                if( listaVuelos.get(i).equals(nuevoVuelo) )
                 {
                     System.out.println("------------------------------------------------------------------");
-                    int pasajerosCont=0;
-                    HashMap <String , Integer> pasajeros = new HashMap<String, Integer>();
-                    pasajeros = listaVuelos.get(i).getPasajerosXusuario();
-                    for (String j : pasajeros.keySet()) {
+                    for( int j=0; j< listaAviones.size(); j++   ) {
+
+                        if(  0 == listaVuelos.get(i).getAvion().compareTo(listaAviones.get(j).getUuid()) ){
+                            if( acom + listaVuelos.get(i).getCantidadAcompanantes() < listaAviones.get(j).getCapacidadMaximaPasajeros() ){
+                                seleccont = seleccont +1;
+                                System.out.println(seleccont +"_"+listaVuelos.get(i).toString());
+                                out.println( listaAviones.get(j).toString() );
+                                indexAvionselec[contAvionesDis] = i;
+                                contAvionesDis = contAvionesDis+1;
+
+
+                                System.out.println("--------------------------------------------------------------");
+                            }
+                        }
+                    }
+                    /*for (String j : pasajeros.keySet()) {
                         pasajerosCont = pasajeros.get(j) + pasajerosCont;
-                    }
-                    if( pasajerosCont < listaVuelos.get(i).getCantidadAcompanantes() ) {
-                        System.out.println("--------------------------------------------------------------");
-                        seleccont = contAvionesDis +1;
-                        System.out.println(seleccont +"_"+listaVuelos.get(i).toString());
-                        indexAvionselec[contAvionesDis] = i;
-                        contAvionesDis = contAvionesDis+1;
-                    }
+                    }*/
                 }
             }
             Byte opcionAvi;
@@ -601,13 +605,12 @@ public class Sistema
                 int index = indexAvionselec[opcionAvi.intValue()-1];
                 int pasjer;
 
-                System.out.println("-Costo del viaje: $"+listaVuelos.get(index).costoVuelo(nuevoVuelo.getCantidadAcompanantes()) );
+                System.out.println("-Costo del viaje: $"+listaVuelos.get(index).costoVuelo(nuevoVuelo.getCantidadAcompanantes() , listaAviones) );
 
                 listaVuelos.get(index).getPasajerosXusuario().put( usuario.dni , acom );
                 pasjer = listaVuelos.get(index).getCantidadAcompanantes();
                 listaVuelos.get(index).setCantidadAcompanantes( pasjer + acom );
             }
-
 
             mapper.writeValue(file , listaVuelos );
 
@@ -616,7 +619,7 @@ public class Sistema
             e.printStackTrace();
 
         }
-        */
+
     }
 
     // ------------------------------------------------------------------- //
