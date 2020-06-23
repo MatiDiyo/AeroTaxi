@@ -368,6 +368,7 @@ public class Sistema
 
             case 4:
                 System.out.println("\nMostrando todos los vuelos");
+                cargarMenuMostrarVuelos( listaUsuario.get(indexDni) , listaVuelos );
                 deseaVolverAlMenuUsuario(listaUsuario, indexDni, listaAviones, listaVuelos);
                 break;
 
@@ -625,23 +626,25 @@ public class Sistema
 
     private static void cargarMenuCancelarVuelo( Usuario usuario , ArrayList<Vuelo> listaVuelos ){
 
-        System.out.print("\n-------------------------------");
-        System.out.println("\nMenu Cancelar vuelo.");
-        System.out.print("-------------------------------\n");
+        try{
+            File file = new File("archivoVuelos.json");
+            ObjectMapper mapper = new ObjectMapper();
 
-        int []indexVuelos = new int[listaVuelos.size()];
-        int cont=0;
+            System.out.print("\n-------------------------------");
+            System.out.println("\nMenu Cancelar vuelo.");
+            System.out.print("-------------------------------\n");
+
+            int []indexVuelos = new int[listaVuelos.size()];
+            int cont=0;
 
 
-        for ( int i=0; i < listaVuelos.size(); i++ ){
+            for ( int i=0; i < listaVuelos.size(); i++ ){
 
-            HashMap<String , Integer > mapIterador = new HashMap<String, Integer>();
-            out.println( listaVuelos.get(i).getPasajerosXusuario() );
-            String keymap = usuario.getDni();
-            out.println(keymap);
-            boolean control = listaVuelos.get(i).getPasajerosXusuario().containsKey(keymap);
+                String keymap = usuario.getDni();
+                boolean control = listaVuelos.get(i).getPasajerosXusuario().containsKey(keymap);
+
                 if ( control ) {
-                    out.println("test");
+
                     indexVuelos[cont] = i;
                     cont= cont + 1;
                     out.println(cont+"_"+listaVuelos.get(i).toString());
@@ -649,22 +652,52 @@ public class Sistema
                 }
                 //for ( String j: mapIterador.keySet()){}
 
+            }
+
+            Byte opcionAvi;
+            if( cont != 0 ){
+                opcionAvi = ingresarOpcion( (byte)1 , (byte)cont );
+                int index = indexVuelos[opcionAvi.intValue()-1];
+                int totalpasa;
+                int acomp = listaVuelos.get(index).getCantidadAcompanantes();
+
+                totalpasa = (int) listaVuelos.get(index).getPasajerosXusuario().get( usuario.getDni() );
+
+                listaVuelos.get(index).setCantidadAcompanantes( acomp - totalpasa  );
+
+                listaVuelos.get(index).getPasajerosXusuario().remove( usuario.getDni() );
+
+                out.println("Vuelo eliminado");
+            }
+
+            mapper.writeValue(file , listaVuelos );
         }
+        catch (IOException e){
+            System.out.println(" No se pudo leer/escribir el archivo: " +e.getMessage());
+            e.printStackTrace();
 
-        Byte opcionAvi;
-        if( cont != 0 ){
-            opcionAvi = ingresarOpcion( (byte)1 , (byte)cont );
-            int index = indexVuelos[opcionAvi.intValue()-1];
-            int totalpasa;
-            int acomp = listaVuelos.get(index).getCantidadAcompanantes();
+        }
+    }
 
-            totalpasa = (int) listaVuelos.get(index).getPasajerosXusuario().get( usuario.getDni() );
+    private static void cargarMenuMostrarVuelos( Usuario usuario , ArrayList<Vuelo> listaVuelos ){
 
-            listaVuelos.get(index).setCantidadAcompanantes( acomp - totalpasa  );
+        System.out.print("\n-------------------------------");
+        System.out.println("\nMenu Mostrar vuelos.");
+        System.out.print("-------------------------------\n");
 
-            listaVuelos.get(index).getPasajerosXusuario().remove( usuario.getDni() );
+        int cont=0;
 
-            out.println("Vuelo eliminado");
+
+        for ( int i=0; i < listaVuelos.size(); i++ ){
+
+            String keymap = usuario.getDni();
+
+            boolean control = listaVuelos.get(i).getPasajerosXusuario().containsKey(keymap);
+            if ( control ) {
+                cont= cont + 1;
+                out.println(cont+"_"+listaVuelos.get(i).toString());
+                out.println("------------------------------------------------------------");
+            }
         }
     }
 
